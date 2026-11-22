@@ -1,0 +1,22 @@
+{
+  "navy": {
+    "name": "Agrijuune Navy",
+    "hex": "#0B2D5B"
+  },
+  "red": {
+    "name": "Agrijuune Red",
+    "hex": "#E30613"
+  },
+  "blue": {
+    "name": "Agrijuune Blue",
+    "hex": "#00AEEF"
+  },
+  "cloudWhite": {
+    "name": "Cloud White",
+    "hex": "#F8FAFC"
+  },
+  "ink": {
+    "name": "Deep Ink",
+    "hex": "#071B33"
+  }
+}
