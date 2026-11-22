@@ -135,6 +135,7 @@ The first milestone is validated demand, not a large customer count.
 ## Documentation
 
 - [Agrijuune Business Concept](docs/Agrijuune_Business_Concept.pdf)
+- [Stitch Design Project](https://stitch.google.com/projects/6282007789333470748)
 - `[PLACEHOLDER - product requirements document]`
 - `[PLACEHOLDER - implementation plan]`
 - `[PLACEHOLDER - operating manuals and templates]`
