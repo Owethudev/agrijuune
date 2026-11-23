@@ -1,0 +1,132 @@
+.info-page.page-content {
+  width: min(100%, 56rem);
+  text-align: left;
+}
+
+.info-page .page-description {
+  margin-inline: 0;
+}
+
+.info-page h2 {
+  margin: 0;
+  color: var(--agrijuune-navy);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-heading);
+}
+
+.about-page__section {
+  margin-top: var(--space-5);
+}
+
+.about-page__section > p {
+  max-width: var(--layout-copy-width);
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+}
+
+.about-division-grid {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.about-division-card {
+  padding: var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  border-top: 4px solid var(--agrijuune-navy);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+}
+
+.about-division-card:last-child {
+  border-top-color: var(--agrijuune-red);
+}
+
+.about-division-card__status {
+  margin: 0 0 var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.about-division-card h3,
+.about-contact__email h3 {
+  margin: 0;
+  color: var(--agrijuune-navy);
+  font-size: var(--font-size-base);
+}
+
+.about-division-card > p:last-child,
+.about-contact__email p,
+.about-contact__placeholder {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+}
+
+.about-contact__email {
+  margin-top: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-hover);
+}
+
+.about-contact__placeholder {
+  padding: var(--space-2);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+}
+
+.about-page__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1-5);
+  margin-top: var(--space-3);
+}
+
+.about-page__links .button {
+  max-width: 100%;
+}
+
+.faq-page {
+  align-self: start;
+}
+
+.faq-list {
+  margin-top: var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.faq-item {
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.faq-item summary {
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--radius-sm);
+  color: var(--agrijuune-navy);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  cursor: pointer;
+}
+
+.faq-item summary:focus-visible {
+  outline: var(--focus-ring-width) solid var(--agrijuune-red);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.faq-item__answer {
+  padding: 0 var(--space-2) var(--space-2);
+}
+
+.faq-item__answer p {
+  max-width: var(--layout-copy-width);
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 48rem) {
+  .about-division-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -106,12 +106,57 @@ export type ServicesPageCopy = {
   };
 };
 
+export type AboutPageCopy = {
+  hero: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  purpose: {
+    title: string;
+    description: string;
+  };
+  vision: {
+    title: string;
+    description: string;
+  };
+  divisions: {
+    title: string;
+    description: string;
+  };
+  location: {
+    title: string;
+    description: string;
+  };
+  contact: {
+    title: string;
+    description: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    enquiryPlaceholder: string;
+    servicesLinkLabel: string;
+    faqLinkLabel: string;
+  };
+};
+
+export type FaqPageCopy = {
+  eyebrow: string;
+  description: string;
+  questionsLabel: string;
+  questions: {
+    question: string;
+    answer: string;
+  }[];
+};
+
 type LanguageContent = {
   htmlLang: string;
   metaDescription: string;
   shared: SharedCopy;
   home: HomePageCopy;
   services: ServicesPageCopy;
+  about: AboutPageCopy;
+  faq: FaqPageCopy;
   routes: Partial<Record<RoutePath, RouteCopy>>;
   notFound: Omit<RouteCopy, 'label'>;
 };
@@ -133,13 +178,13 @@ const englishRoutes: Record<RoutePath, RouteCopy> = {
     label: 'About / Contact',
     title: 'About & Contact',
     description:
-      'Company and contact information will be added after content approval.',
+      'Agrijuune’s purpose, two divisions and confirmed contact information.',
   },
   '/faq': {
     label: 'FAQ',
     title: 'Frequently asked questions',
     description:
-      'Answers to common questions will be added after content approval.',
+      'Answers about Agrijuune’s services, scope, demo and enquiry route.',
   },
 };
 
@@ -287,6 +332,99 @@ export const translations: Record<Language, LanguageContent> = {
         placeholder:
           'Placeholder: no form is available and this page does not collect personal information.',
       },
+    },
+    about: {
+      hero: {
+        eyebrow: 'Purpose and vision',
+        title: 'About Agrijuune',
+        description:
+          'Agrijuune is an agricultural services business focused on crop and vegetable farms in Gauteng, developing two complementary divisions: Farm Management Technology and Agricultural Machinery Detailing.',
+      },
+      purpose: {
+        title: 'Our purpose',
+        description:
+          'We aim to support farms with digital tools that can help organise machinery and operational information, alongside planned on-site cleaning and detailing for tractors and agricultural machinery.',
+      },
+      vision: {
+        title: 'Our vision',
+        description:
+          'Our vision is to bring agricultural innovation and hands-on equipment care together in a practical, approachable offer shaped around each farm’s requirements.',
+      },
+      divisions: {
+        title: 'Two complementary divisions',
+        description:
+          'Technology capabilities are potential, while detailing is a planned service. Scope and availability are discussed individually.',
+      },
+      location: {
+        title: 'Gauteng, South Africa',
+        description:
+          'Gauteng is the initial customer focus. The exact travel radius and service availability are not confirmed and will be discussed individually. No private street address is published.',
+      },
+      contact: {
+        title: 'Contact Agrijuune',
+        description:
+          'Email is the intended direct-contact channel for v1, but the business email address is not available yet.',
+        emailLabel: 'Email',
+        emailPlaceholder:
+          'Placeholder: an approved business email address will be added when confirmed.',
+        enquiryPlaceholder:
+          'No online enquiry form is available, and this website does not collect personal information.',
+        servicesLinkLabel: 'Explore services',
+        faqLinkLabel: 'Read the FAQs',
+      },
+    },
+    faq: {
+      eyebrow: 'Common questions',
+      description:
+        'What Agrijuune is developing, how service scope is determined, and what is currently available.',
+      questionsLabel: 'Questions and answers',
+      questions: [
+        {
+          question: 'What is Agrijuune developing?',
+          answer:
+            'Agrijuune is an agricultural services business in Gauteng with two divisions: potential Farm Management Technology capabilities and planned Agricultural Machinery Detailing.',
+        },
+        {
+          question: 'What could Farm Management Technology include?',
+          answer:
+            'Potential areas include machinery and asset records, maintenance schedules and history, tools and equipment inventory, detailing records, dashboards and reports, and possible document storage after consultation. These capabilities are not all built or included by default.',
+        },
+        {
+          question: 'What does Agricultural Machinery Detailing include?',
+          answer:
+            'The planned service is on-site cleaning and detailing for tractors and agricultural machinery, tailored to the machine and customer requirements. It is not mechanical repair, fault diagnosis, formal technical inspection or food-safe sanitation.',
+        },
+        {
+          question: 'Where are services available?',
+          answer:
+            'Gauteng, South Africa is the initial customer focus. The exact travel radius and service availability have not been confirmed.',
+        },
+        {
+          question: 'How are scope and pricing decided?',
+          answer:
+            'Scope, package combinations, pricing, configuration and operating arrangements are discussed with each customer. Fixed packages, prices and guaranteed outcomes are not published.',
+        },
+        {
+          question: 'Can I book machinery detailing online?',
+          answer:
+            'No. Online booking is not available. The contact details and enquiry route are still being prepared.',
+        },
+        {
+          question: 'Can I view a demonstration?',
+          answer:
+            'A guided demonstration is planned using fictional or sample farm and machinery information. It will not be a live customer system and will not require registration or farm details.',
+        },
+        {
+          question: 'How can I express interest?',
+          answer:
+            'The enquiry route is not available yet, and the business email address is pending. No form is available on this website, and it does not collect personal information.',
+        },
+        {
+          question: 'What happens after I submit an enquiry?',
+          answer:
+            'No enquiry can currently be submitted through this website. Once an approved enquiry route is available, Agrijuune intends to follow up manually to understand requirements before discussing a proposal or customer-specific arrangement. No response time is promised.',
+        },
+      ],
     },
     routes: englishRoutes,
     notFound: {
@@ -456,14 +594,108 @@ export const translations: Record<Language, LanguageContent> = {
         label: 'Oor ons / Kontak',
         title: 'Oor ons en kontak',
         description:
-          'Maatskappy- en kontakinligting sal bygevoeg word ná goedkeuring van die inhoud.',
+          'Agrijuune se doel, twee afdelings en bevestigde kontakinligting.',
       },
       '/faq': {
         label: 'Gereelde vrae',
         title: 'Gereelde vrae',
         description:
-          'Antwoorde op algemene vrae sal bygevoeg word ná goedkeuring van die inhoud.',
+          'Antwoorde oor Agrijuune se dienste, omvang, demonstrasie en navraagroete.',
       },
+    },
+    about: {
+      hero: {
+        eyebrow: 'Doel en visie',
+        title: 'Oor Agrijuune',
+        description:
+          'Agrijuune is ’n landboudiensonderneming vir gewas- en groenteplase in Gauteng wat twee aanvullende afdelings ontwikkel: Plaasbestuurstegnologie en skoonmaak en versorging van landboumasjinerie.',
+      },
+      purpose: {
+        title: 'Ons doel',
+        description:
+          'Ons wil plase ondersteun met digitale hulpmiddels wat kan help om masjinerie- en bedryfsinligting te organiseer, saam met beplande skoonmaak en versorging op die perseel vir trekkers en landboumasjinerie.',
+      },
+      vision: {
+        title: 'Ons visie',
+        description:
+          'Ons visie is om landbou-innovasie en praktiese toerustingversorging saam te bring in ’n toeganklike aanbod wat volgens elke plaas se vereistes gevorm kan word.',
+      },
+      divisions: {
+        title: 'Twee aanvullende afdelings',
+        description:
+          'Tegnologievermoëns is moontlik, terwyl masjienversorging ’n beplande diens is. Omvang en beskikbaarheid word individueel bespreek.',
+      },
+      location: {
+        title: 'Gauteng, Suid-Afrika',
+        description:
+          'Gauteng is die aanvanklike kliëntfokus. Die presiese reisafstand en diensbeskikbaarheid is nie bevestig nie en sal individueel bespreek word. Geen privaat straatadres word gepubliseer nie.',
+      },
+      contact: {
+        title: 'Kontak Agrijuune',
+        description:
+          'E-pos is die beoogde regstreekse kontakmetode vir die eerste weergawe, maar die besigheids-e-posadres is nog nie beskikbaar nie.',
+        emailLabel: 'E-pos',
+        emailPlaceholder:
+          'Plekhouer: ’n goedgekeurde besigheids-e-posadres sal bygevoeg word wanneer dit bevestig is.',
+        enquiryPlaceholder:
+          'Geen aanlyn navraagvorm is beskikbaar nie, en hierdie webwerf versamel nie persoonlike inligting nie.',
+        servicesLinkLabel: 'Verken dienste',
+        faqLinkLabel: 'Lees die algemene vrae',
+      },
+    },
+    faq: {
+      eyebrow: 'Algemene vrae',
+      description:
+        'Wat Agrijuune ontwikkel, hoe diensomvang bepaal word en wat tans beskikbaar is.',
+      questionsLabel: 'Vrae en antwoorde',
+      questions: [
+        {
+          question: 'Wat ontwikkel Agrijuune?',
+          answer:
+            'Agrijuune is ’n landboudiensonderneming in Gauteng met twee afdelings: moontlike plaasbestuurstegnologievermoëns en beplande skoonmaak en versorging van landboumasjinerie.',
+        },
+        {
+          question: 'Wat kan plaasbestuurstegnologie insluit?',
+          answer:
+            'Moontlike areas sluit masjien- en baterekords, instandhoudingskedules en -geskiedenis, voorraad van gereedskap en toerusting, detaileringsrekords, dashboards en verslae, en moontlike dokumentberging ná konsultasie in. Hierdie vermoëns is nie almal reeds gebou of by verstek ingesluit nie.',
+        },
+        {
+          question:
+            'Wat sluit skoonmaak en versorging van landboumasjinerie in?',
+          answer:
+            'Die beplande diens is skoonmaak en versorging op die perseel vir trekkers en landboumasjinerie, aangepas volgens die masjien en klantvereistes. Dit is nie meganiese herstelwerk, foutdiagnose, formele tegniese inspeksie of voedselveilige sanitasie nie.',
+        },
+        {
+          question: 'Waar is dienste beskikbaar?',
+          answer:
+            'Gauteng, Suid-Afrika is die aanvanklike kliëntfokus. Die presiese reisafstand en diensbeskikbaarheid is nog nie bevestig nie.',
+        },
+        {
+          question: 'Hoe word omvang en pryse bepaal?',
+          answer:
+            'Omvang, kombinasies van pakkette, pryse, opstelling en bedryfsreëlings word met elke klant bespreek. Geen vaste pakkette, pryse of gewaarborgde uitkomste word gepubliseer nie.',
+        },
+        {
+          question: 'Kan ek masjienversorging aanlyn bespreek?',
+          answer:
+            'Nee. Aanlyn bespreking is nie beskikbaar nie. Kontakbesonderhede en ’n navraagroete word nog voorberei.',
+        },
+        {
+          question: 'Kan ek ’n demonstrasie sien?',
+          answer:
+            '’n Begeleide demonstrasie met fiktiewe of voorbeeldinligting oor plase en masjinerie word beplan. Dit sal nie ’n regstreekse klantstelsel wees nie en sal nie registrasie of plaasbesonderhede vereis nie.',
+        },
+        {
+          question: 'Hoe kan ek belangstelling toon?',
+          answer:
+            'Die navraagroete is nog nie beskikbaar nie, en die besigheids-e-posadres is nog nie bevestig nie. Geen vorm is op hierdie webwerf beskikbaar nie, en dit versamel nie persoonlike inligting nie.',
+        },
+        {
+          question: 'Wat gebeur nadat ek ’n navraag indien?',
+          answer:
+            'Geen navraag kan tans deur hierdie webwerf ingedien word nie. Sodra ’n goedgekeurde navraagroete beskikbaar is, beoog Agrijuune om die klant met die hand op te volg om vereistes te verstaan voordat ’n voorstel of klantspesifieke reëling bespreek word. Geen reaksietyd word belowe nie.',
+        },
+      ],
     },
     notFound: {
       title: 'Bladsy nie gevind nie',

@@ -25,12 +25,12 @@ const publicPages = [
   },
   {
     path: '/about',
-    heading: 'About & Contact',
+    heading: 'About Agrijuune',
     documentTitle: 'About & Contact | Agrijuune',
   },
   {
     path: '/contact',
-    heading: 'About & Contact',
+    heading: 'About Agrijuune',
     documentTitle: 'About & Contact | Agrijuune',
   },
   {
@@ -137,6 +137,69 @@ describe('public application shell', () => {
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
 
+  it('shows only confirmed About details and leaves contact as a placeholder', () => {
+    window.history.replaceState(null, '', '/about');
+    render(<App />);
+
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'About Agrijuune' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Gauteng, South Africa',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/business email address is not available yet/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/does not collect personal information/i),
+    ).toBeInTheDocument();
+    expect(
+      document.querySelector('a[href^="mailto:"]'),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('form')).not.toBeInTheDocument();
+  });
+
+  it('uses native details and summaries for accurate FAQ answers', () => {
+    window.history.replaceState(null, '', '/faq');
+    render(<App />);
+
+    const firstQuestion = screen.getByText('What is Agrijuune developing?');
+
+    expect(firstQuestion.closest('summary')).toBeInTheDocument();
+    expect(document.querySelectorAll('.faq-page details')).toHaveLength(9);
+    expect(
+      screen.getByText(/not mechanical repair, fault diagnosis/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/No enquiry can currently be submitted/i),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('form')).not.toBeInTheDocument();
+  });
+
+  it('localizes FAQ questions and answers into Afrikaans', () => {
+    window.history.replaceState(null, '', '/faq');
+    render(<App />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Language' }), {
+      target: { value: 'af' },
+    });
+
+    expect(document.documentElement).toHaveAttribute('lang', 'af-ZA');
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Gereelde vrae' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Wat ontwikkel Agrijuune?').closest('summary'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Geen navraag kan tans deur hierdie webwerf ingedien word nie/i,
+      ),
+    ).toBeInTheDocument();
+  });
+
   it('provides working Home and About / Contact links on the Services page', () => {
     window.history.replaceState(null, '', '/services');
     render(<App />);
@@ -171,7 +234,7 @@ describe('public application shell', () => {
 
     expect(window.location.pathname).toBe('/about');
     expect(
-      screen.getByRole('heading', { level: 1, name: 'About & Contact' }),
+      screen.getByRole('heading', { level: 1, name: 'About Agrijuune' }),
     ).toHaveFocus();
   });
 
