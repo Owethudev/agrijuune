@@ -10,11 +10,14 @@ set, confirmed responsibility for enquiry data and stated that enquiries
 should come directly to them. The product owner supplied acknowledgement
 wording and set a one-week retention period. The lawful basis, complete
 Privacy Notice, public responsible-party contact details and
-deletion/backup process remain pending. The email provider, sender and
-exact recipient address are also not approved, so email notifications
-remain disabled. Do not collect personal information until the remaining
-privacy and deletion decisions are reviewed and approved. No
-non-essential analytics is approved at launch.
+deletion/backup process and Brevo data-location review remain pending.
+Brevo is selected, and the product owner reports that `BREVO_API_KEY`,
+`EMAIL_FROM` and `BUSINESS_EMAIL` are configured in the deployed backend.
+The adapter has not been implemented or tested, and sender/recipient
+verification remains pending, so email notifications remain disabled.
+Do not collect personal information until the remaining privacy and
+deletion decisions are reviewed and approved. No non-essential analytics
+is approved at launch.
 
 ## 1. Security objectives
 
@@ -50,22 +53,21 @@ require review.
 -   Validate required server environment variables on startup.
 -   Rotate any credential that is accidentally committed or exposed.
 
-Potential backend configuration names (confirm exact names during
-implementation):
+Backend configuration names:
 
 ``` env
 NODE_ENV=
 PORT=
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
-EMAIL_PROVIDER_API_KEY=
+BREVO_API_KEY=
 EMAIL_FROM=
-ENQUIRY_NOTIFICATION_TO=
+BUSINESS_EMAIL=
 FRONTEND_ORIGIN=
 ```
 
-These are names/examples only. Do not populate them with invented
-values.
+These are names/examples only; do not record real values in source
+control or documentation. Keep `BREVO_API_KEY` server-side.
 
 GitHub secret scanning and push protection are enabled for the
 repository. Dependabot dependency graph, alerts and security updates are

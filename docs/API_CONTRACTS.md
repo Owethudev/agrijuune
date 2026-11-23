@@ -149,9 +149,11 @@ acknowledgement wording and set a one-week retention period; see the
 The lawful basis, complete Privacy Notice, public responsible-party
 contact details and deletion/backup process remain pending. Do not
 enable the form or endpoint until these are approved and actionable.
-The email provider, sender and exact recipient address are also pending;
-email notifications remain disabled. No non-essential analytics is
-approved at launch.
+Brevo is selected, and the product owner reports that the deployed
+backend uses `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. The
+adapter is not implemented or tested, sender/recipient verification and
+provider data-location review remain pending, and email notifications
+remain disabled. No non-essential analytics is approved at launch.
 
 ### Success response
 
@@ -200,8 +202,10 @@ Do not return `201` if persistence failed.
 The enquiry must be persisted before notification is attempted.
 
 -   Do not attempt email while a provider, sender and exact authorized
-    recipient address are unapproved or unconfigured. Until then, record
-    notification status as `not_configured`.
+    recipient address are unapproved or unconfigured, or while the
+    privacy gate or adapter implementation remains incomplete. Brevo is
+    selected, but no email has been sent; until delivery is approved and
+    implemented, record notification status as `not_configured`.
 -   If persistence succeeds and email succeeds, return `201`.
 -   If persistence succeeds but email fails, the enquiry is still
     received; return `201` and record the notification failure for

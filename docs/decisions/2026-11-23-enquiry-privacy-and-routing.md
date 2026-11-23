@@ -32,17 +32,19 @@ confirmed that they are responsible for the enquiry data. The public
 responsible-party identity and contact details for privacy requests have
 not been supplied.
 
-The email provider has not been selected. Keep these values as
-placeholders until routing is approved:
+The product owner selected Brevo and reports that the deployed backend
+uses these environment variable names:
 
-- **Provider:** `PENDING`
-- **Sender:** `PENDING`
-- **Authorised recipient:** `PENDING`
+- **Provider:** Brevo
+- **API key:** `BREVO_API_KEY` (server-side secret)
+- **Sender:** `EMAIL_FROM`
+- **Recipient routing:** `BUSINESS_EMAIL`
 
-Email notifications must remain disabled until these details are
-approved and configured. Configure provider credentials as deployment
-secrets after selection; never put credentials in chat, documentation
-or source control.
+No values are recorded here or in source control. The email adapter has
+not been implemented or tested, and no email has been sent. Verify the
+sender and authorised recipient before enabling delivery. Keep
+credentials in server-side environment configuration; never put them
+in chat, documentation or source control.
 
 ## Privacy and analytics gate
 
@@ -64,9 +66,10 @@ product owner set a one-week retention period; the starting point,
 deletion process and handling of backups remain to be confirmed.
 
 The complete Privacy Notice, lawful basis, public responsible-party
-contact details, and deletion/backup process are prerequisites to
-collecting personal information; the approved form fields and
-acknowledgement do not authorize collection. Do not enable an enquiry
+contact details, deletion/backup process, and disclosure of Brevo data
+locations/cross-border handling are prerequisites to collecting
+personal information; the approved form fields, acknowledgement and
+provider selection do not authorize collection. Do not enable an enquiry
 form or accepting endpoint, apply a production enquiry migration, or
 submit real enquiries until these are approved.
 
@@ -77,7 +80,7 @@ provider or consent approach requires separate approval.
 
 Issue #3 remains open until the privacy and retention decisions are
 completed, including the lawful basis, complete Privacy Notice,
-responsible-party contact details, deletion/backup handling and email
-route. This record captures owner-provided decisions and blockers; it
-is not legal approval or authorization to begin collecting personal
-data.
+responsible-party contact details, deletion/backup handling, provider
+data-location review and sender/recipient verification. This record
+captures owner-provided decisions and blockers; it is not legal approval
+or authorization to begin collecting personal data.
