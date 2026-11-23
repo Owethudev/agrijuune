@@ -663,7 +663,7 @@ Brevo is the selected email delivery provider. The product owner reports that th
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the lawful basis, complete Privacy Notice, seven-day deletion implementation and backup/provider-copy handling are approved. The responsible-party name is Agrijuune, and public privacy contact details are recorded in the enquiry decision record. The owner specified deletion of all form-submitted information seven days after submission and wants the purge implemented in code. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the lawful basis, complete Privacy Notice, seven-day database deletion implementation and database-backup expiry are approved. The responsible-party name is Agrijuune, and public privacy contact details are recorded in the enquiry decision record. The owner specified deletion of database records containing submitted information seven days after submission and wants the purge implemented in code. Each party will retain their email copies as communication records, and the database purge will not remove mailbox copies; database-backup expiry and Brevo message/log retention remain unspecified. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
@@ -835,7 +835,7 @@ Privacy requirements:
 
 1. Is a database needed, or is a secure form/email service sufficient?
 
-1. What specific lawful basis and complete Privacy Notice are approved? The owner specified deleting all form-submitted information seven days after submission; the purge, backup and provider-copy handling remain to be implemented or documented.
+1. What specific lawful basis and complete Privacy Notice are approved? The owner specified deleting submitted database records seven days after submission, while each party retains their email copies. The purge and database-backup expiry remain to be implemented or decided; Brevo message/log retention is unspecified.
 
 1. How will enquiries be tracked after delivery? The product owner is the intended follow-up recipient; no CRM/dashboard has been selected.
 
@@ -895,7 +895,7 @@ This is a later-stage workflow, not authorisation to code before open questions 
 
 - Technology stack, hosting and integrations — pending.
 
-- Specific lawful basis, complete Privacy Notice, exact provider location/transfer disclosures, seven-day purge implementation and backup/provider-copy handling — pending. The owner named Agrijuune as responsible party, supplied public privacy contacts, specified deletion of all form-submitted information seven days after submission and approved sender/recipient routing; see the enquiry decision record.
+- Specific lawful basis, complete Privacy Notice, exact provider location/transfer disclosures, seven-day database purge implementation and database-backup expiry — pending. The owner named Agrijuune as responsible party, supplied public privacy contacts, specified a seven-day database retention period, said each party will retain their email copies, and approved sender/recipient routing; see the enquiry decision record.
 
 - Open questions empty — not complete; see Section 13.3.
 

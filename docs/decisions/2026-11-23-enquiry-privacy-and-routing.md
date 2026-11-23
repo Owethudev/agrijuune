@@ -64,21 +64,32 @@ The product owner supplied this privacy acknowledgement wording:
 
 The complete Privacy Notice and specific lawful basis have not been
 supplied or approved. The acknowledgement is not a substitute for
-either. The product owner set a one-week retention period starting when
-the enquiry is submitted and specified that all information submitted
-through the form should be deleted. They want the seven-day deletion
-implemented in application code. The purge is not implemented yet, and
-handling of backups and provider copies remains to be confirmed.
+either. The product owner set one-week retention for database records,
+starting when the enquiry is submitted, and specified that all
+form-submitted information should be deleted from the database. They
+want the seven-day deletion implemented in application code. The purge
+is not implemented yet, and
+the product owner says each party will retain their email copies as
+communication records. The application purge will not remove
+mailbox-held copies; no fixed mailbox retention period is set by
+Agrijuune.
+Database-backup expiry and Brevo's own message/log retention remain to
+be confirmed.
 
 The product owner says the Brevo data-location and cross-border review
 is okay; the exact location and transfer details to disclose in the
-Privacy Notice have not been supplied. The complete Privacy Notice,
-specific lawful basis, implemented deletion process, backup/provider-copy
-handling and provider disclosure are prerequisites to collecting
-personal information. The approved form fields, acknowledgement and
-provider selection do not authorize collection. Do not enable an enquiry
-form or accepting endpoint, apply a production enquiry migration, or
-submit real enquiries until these are approved.
+Privacy Notice have not been supplied. Keep these owner-input
+placeholders until provided:
+
+- **Lawful basis:** `[PENDING — owner to supply]`
+- **Complete Privacy Notice:** `[PENDING — owner to supply]`
+- **Brevo locations and transfers:** `[PENDING — owner to supply]`
+
+Implementation of the database deletion process and database-backup
+expiry are also outstanding. The approved form fields, acknowledgement
+and provider selection do not authorize collection. Do not enable an
+enquiry form or accepting endpoint, apply a production enquiry migration,
+or submit real enquiries until these are approved.
 
 No non-essential analytics is approved at launch. Any later analytics
 provider or consent approach requires separate approval.
@@ -90,7 +101,9 @@ completed, including the specific lawful basis, complete Privacy Notice,
 seven-day deletion implementation, backup/provider-copy handling and
 provider location/transfer disclosures. The responsible-party name,
 public privacy contacts, retention period and deletion scope have been
-provided. The owner has approved sender/recipient routing and says the
-Brevo location review is okay. This record captures owner-provided
-decisions and blockers; it is not legal approval or authorization to
-begin collecting personal data.
+provided. The owner says mailbox-held email copies will remain as
+communication records; database-backup expiry and Brevo message/log
+retention remain unspecified. The owner has approved sender/recipient
+routing and says the Brevo location review is okay. This record captures
+owner-provided decisions and blockers; it is not legal approval or
+authorization to begin collecting personal data.

@@ -52,7 +52,9 @@ adapter is not implemented or tested. The specific lawful basis,
 complete Privacy Notice, deletion implementation, backup/provider-copy
 handling and exact provider location/transfer disclosures remain open.
 The responsible-party name is Agrijuune. The product owner supplied
-public privacy contacts and specified deletion of all form-submitted
-information after seven days, to be implemented in code. Do not collect
+public privacy contacts and specified deletion of submitted database
+records after seven days, to be implemented in code. Each party will
+retain their email copies as communication records; database-backup
+expiry and Brevo message/log retention are unspecified. Do not collect
 personal information until the remaining privacy gate is approved.
 Review all proposed schema and SQL before applying it to a database.
