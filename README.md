@@ -140,6 +140,7 @@ The first milestone is validated demand, not a large customer count.
 - [Stitch design export and image assets](docs/designs/)
 - [Stitch Design Project](https://stitch.google.com/projects/6282007789333470748)
 - [Implementation Plan](docs/Agrijuune_Implementation_Plan_v1.0.pdf)
+- [Deployment and Environment Plan](docs/decisions/2026-11-23-deployment-and-environments.md)
 - `[PLACEHOLDER - operating manuals and templates]`
 
 ## Project Links

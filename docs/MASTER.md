@@ -161,10 +161,25 @@ The agreed technology direction is:
 The backend is a modular monolith. Keep private database operations and
 sensitive credentials on the server.
 
+### Deployment and environments
+
+-   **Production frontend:** Vercel,
+    <https://agrijuune.vercel.app/>.
+-   **Production API:** Render, <https://agrijuune.onrender.com/>.
+-   **Production database:** Supabase PostgreSQL.
+-   **Custom domain:** None confirmed; the provider hostnames above are
+    in use.
+-   **Preview:** Vercel pull-request previews support frontend review
+    only. No staging API or Supabase database is configured; previews
+    must not use production data or credentials.
+-   **Local:** Use local configuration and test/sample data. Do not
+    reuse production credentials.
+-   **Branch protection:** Managed in GitHub settings by the repository
+    owner; details are not duplicated in this document.
+
 The following remain decisions to confirm rather than assumptions:
 
 -   Package manager.
--   Hosting provider and production domains.
 -   Email provider and sender configuration.
 -   Analytics provider and consent approach.
 -   Final enquiry form fields and retention period.

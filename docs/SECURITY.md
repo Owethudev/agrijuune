@@ -31,6 +31,11 @@ require review.
 -   Never place private email-provider credentials in frontend code.
 -   Treat all Vite-exposed variables as public; only non-secret
     configuration may use the frontend's public environment prefix.
+-   Keep production backend secrets in the Render service's environment
+    configuration. Vercel frontend variables must contain public
+    configuration only.
+-   Vercel pull-request previews are frontend-only; do not connect them
+    to production credentials, API writes or personal data.
 -   Validate required server environment variables on startup.
 -   Rotate any credential that is accidentally committed or exposed.
 

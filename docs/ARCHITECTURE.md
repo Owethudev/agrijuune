@@ -247,8 +247,14 @@ Separate local, test/staging and production configuration. Validate
 required environment variables at application startup. Never silently
 substitute production credentials or default secrets.
 
-Provider names, hosting, domains, package manager and email configuration
-remain open decisions. Do not hard-code assumptions.
+Production hosts, URLs and environment boundaries are recorded in
+`MASTER.md` and
+`decisions/2026-11-23-deployment-and-environments.md`. Vercel pull-request
+previews are frontend-only; no staging API or database is configured.
+
+The repository owner manages branch-protection settings in GitHub.
+Package manager and email configuration remain open decisions. Do not
+hard-code assumptions.
 
 ## 11. Performance and accessibility
 
