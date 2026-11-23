@@ -659,11 +659,11 @@ Maintain approved service-interest options, language strings, FAQ content, navig
 
 ## 11.2 Third-party services
 
-Brevo is the selected email delivery provider. The product owner reports that the deployed backend has `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL` configured; actual values are not recorded here. The email adapter is not implemented or tested, and delivery remains disabled until sender/recipient verification and the privacy gate are complete. Analytics, map and bot-protection providers are not selected. No non-essential analytics is approved at launch. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
+Brevo is the selected email delivery provider. The product owner reports that the deployed backend has `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL` configured; actual values are not recorded here. The owner approved sender/recipient routing and says the Brevo data-location review is okay, but exact location/transfer details for the Privacy Notice have not been supplied. The email adapter is not implemented or tested, and delivery remains disabled until the privacy gate and implementation are complete. Analytics, map and bot-protection providers are not selected. No non-essential analytics is approved at launch. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the responsible-party contact details, lawful basis, complete Privacy Notice and deletion/backup process are approved. The owner-provided draft acknowledgement and one-week retention period are recorded in the enquiry decision record; the week start and deletion behavior still need confirmation. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented, sender/recipient configuration is verified and the privacy gate is approved. No non-essential analytics runs at launch.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the lawful basis, complete Privacy Notice, responsible-party legal identity and actionable deletion/backup process are approved. The owner supplied public privacy contact details and set one-week retention from submission, with deletion of all form-submitted information; backup/provider-copy handling still needs detail. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
@@ -821,7 +821,7 @@ Privacy requirements:
 
 ## 13.3 Open questions — resolve before approval
 
-1. What public contact email should be displayed for privacy requests, and are the configured Brevo sender and recipient approved for enquiry delivery?
+1. What legal/business identity should be named as the responsible party in the Privacy Notice? Public privacy contact details have been supplied, and the configured Brevo sender and recipient are approved for enquiry delivery.
 
 1. Should any farm details be collected before the demo? Earlier answers suggested pre-demo farm context, but later answers say anyone can view the demo without registration. Recommended resolution: no gate before demo; collect farm context in the enquiry form only.
 
@@ -835,7 +835,7 @@ Privacy requirements:
 
 1. Is a database needed, or is a secure form/email service sufficient?
 
-1. What lawful basis, Privacy Notice, provider data locations and cross-border safeguards are approved? The owner set a one-week retention period; confirm how it is measured and how deletion and backup expiry are handled.
+1. What specific lawful basis and complete Privacy Notice are approved? The owner says the Brevo data-location review is okay; exact locations/transfers to disclose and deletion/backup/provider-copy handling remain to be documented. Retention is one week from submission, and all form-submitted information is to be deleted.
 
 1. How will enquiries be tracked after delivery? The product owner is the intended follow-up recipient; no CRM/dashboard has been selected.
 
@@ -895,7 +895,7 @@ This is a later-stage workflow, not authorisation to code before open questions 
 
 - Technology stack, hosting and integrations — pending.
 
-- Lawful basis, complete Privacy Notice, providers/data locations and deletion/backup handling — pending review. The owner set a one-week retention period and supplied acknowledgement wording; see the enquiry decision record.
+- Specific lawful basis, complete Privacy Notice, responsible-party legal identity, exact provider location/transfer disclosures and actionable deletion/backup handling — pending. The owner set one-week retention from submission, specified deletion of all form-submitted information, supplied public privacy contact details and approved sender/recipient routing; see the enquiry decision record.
 
 - Open questions empty — not complete; see Section 13.3.
 
