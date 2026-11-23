@@ -1,29 +1,8 @@
 export const routes = [
-  {
-    path: '/',
-    label: 'Home',
-    title: 'Agrijuune',
-    description:
-      'Farm management technology and agricultural machinery detailing.',
-  },
-  {
-    path: '/services',
-    label: 'Services',
-    title: 'Services',
-    description: 'Information about Agrijuune services will be added here.',
-  },
-  {
-    path: '/about',
-    label: 'About / Contact',
-    title: 'About & Contact',
-    description: 'Company and contact information will be added here.',
-  },
-  {
-    path: '/faq',
-    label: 'FAQ',
-    title: 'Frequently asked questions',
-    description: 'Answers to common questions will be added here.',
-  },
+  { path: '/' },
+  { path: '/services' },
+  { path: '/about' },
+  { path: '/faq' },
 ] as const;
 
 export type RoutePath = (typeof routes)[number]['path'];

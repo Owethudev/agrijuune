@@ -168,6 +168,9 @@ The first milestone is validated demand, not a large customer count.
 This repository uses npm workspaces for the React/Vite frontend and
 Node.js/Express backend. Both applications use strict TypeScript; the
 frontend retains the existing CSS approach without a styling framework.
+The frontend provides English and Afrikaans interface copy from
+[the translation module](frontend/src/content/translations.ts); unapproved
+page details remain placeholders.
 
 Install dependencies:
 

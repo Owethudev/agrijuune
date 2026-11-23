@@ -26,6 +26,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
+  document.head.querySelector('meta[name="description"]')?.remove();
 });
 
 describe('public application shell', () => {
@@ -81,6 +82,44 @@ describe('public application shell', () => {
     ).toHaveFocus();
   });
 
+  it('switches language while preserving the route and updating page metadata', () => {
+    window.history.replaceState(null, '', '/services');
+    const metaDescription = document.createElement('meta');
+    metaDescription.name = 'description';
+    document.head.append(metaDescription);
+
+    render(<App />);
+    const languageSelect = screen.getByRole('combobox', { name: 'Language' });
+    languageSelect.focus();
+    fireEvent.change(languageSelect, { target: { value: 'af' } });
+
+    expect(window.location.pathname).toBe('/services');
+    expect(languageSelect).toHaveFocus();
+    expect(languageSelect).toHaveValue('af');
+    expect(document.documentElement).toHaveAttribute('lang', 'af-ZA');
+    expect(document.title).toBe('Dienste | Agrijuune');
+    expect(metaDescription).toHaveAttribute(
+      'content',
+      'Agrijuune bring plaasbestuurstegnologie en dieptereiniging van landboumasjinerie bymekaar.',
+    );
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Dienste' }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      within(
+        screen.getByRole('navigation', { name: 'Primêre navigasie' }),
+      ).getByRole('link', { name: 'Gereelde vrae' }),
+    );
+
+    expect(window.location.pathname).toBe('/faq');
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Gereelde vrae' }),
+    ).toHaveFocus();
+    expect(document.title).toBe('Gereelde vrae | Agrijuune');
+    expect(languageSelect).toHaveValue('af');
+  });
+
   it('closes the mobile menu on Escape and restores focus to its toggle', () => {
     render(<App />);
     const menuToggle = screen.getByRole('button', { name: 'Menu' });
@@ -95,5 +134,21 @@ describe('public application shell', () => {
       'false',
     );
     expect(screen.getByRole('button', { name: 'Menu' })).toHaveFocus();
+  });
+
+  it('localizes the mobile menu controls when Afrikaans is selected', () => {
+    render(<App />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Language' }), {
+      target: { value: 'af' },
+    });
+
+    const menuToggle = screen.getByRole('button', { name: 'Kieslys' });
+    fireEvent.click(menuToggle);
+
+    expect(menuToggle).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('button', { name: 'Sluit kieslys' })).toBeVisible();
+    expect(
+      screen.getByRole('navigation', { name: 'Primêre navigasie' }),
+    ).toBeInTheDocument();
   });
 });
