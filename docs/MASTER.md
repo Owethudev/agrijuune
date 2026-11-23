@@ -188,13 +188,16 @@ than assumptions:
 -   Package manager.
 -   Brevo is selected, and the product owner reports `BREVO_API_KEY`,
     `EMAIL_FROM` and `BUSINESS_EMAIL` are configured in the deployed
-    backend. The adapter is not implemented; sender/recipient
-    verification and provider data-location review remain pending. Email
-    delivery is disabled.
--   Public responsible-party contact details, lawful basis, complete
-    Privacy Notice and deletion/backup process. The owner-provided
-    acknowledgement wording and one-week retention period are recorded
-    in the enquiry decision record.
+    backend. The product owner approved sender/recipient routing and
+    says the Brevo data-location review is okay, but exact provider
+    disclosures remain outstanding. The adapter is not implemented and
+    email delivery is disabled.
+-   Specific lawful basis, complete Privacy Notice, responsible-party
+    legal identity and actionable deletion/backup process. The owner
+    supplied public privacy contact details and confirmed one-week
+    retention from submission, with deletion of all submitted form
+    information; backup and provider-copy handling still need detail.
+    See the enquiry decision record.
 -   Brand logo, photography, video and final design assets.
 
 No non-essential analytics is approved at launch. Any later analytics

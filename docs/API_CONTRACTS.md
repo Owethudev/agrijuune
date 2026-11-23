@@ -144,15 +144,18 @@ and a non-empty `servicesOfInterest` containing only
 
 This contract is not permission to collect personal information. The
 product owner confirms responsibility for enquiry data, supplied
-acknowledgement wording and set a one-week retention period; see the
+acknowledgement wording and set one-week retention from submission, with
+deletion of all information submitted through the form; see the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-The lawful basis, complete Privacy Notice, public responsible-party
-contact details and deletion/backup process remain pending. Do not
-enable the form or endpoint until these are approved and actionable.
-Brevo is selected, and the product owner reports that the deployed
-backend uses `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. The
-adapter is not implemented or tested, sender/recipient verification and
-provider data-location review remain pending, and email notifications
+The specific lawful basis, complete Privacy Notice,
+responsible-party legal identity, deletion mechanism and handling of
+backups/provider copies remain pending. Do not enable the form or
+endpoint until these are approved and actionable. Brevo is selected, and
+the product owner reports that the deployed backend uses
+`BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. They approved
+sender/recipient routing and say the data-location review is okay, but
+the adapter is not implemented or tested and exact provider
+location/transfer disclosures remain outstanding. Email notifications
 remain disabled. No non-essential analytics is approved at launch.
 
 ### Success response
@@ -201,11 +204,12 @@ Do not return `201` if persistence failed.
 
 The enquiry must be persisted before notification is attempted.
 
--   Do not attempt email while a provider, sender and exact authorized
-    recipient address are unapproved or unconfigured, or while the
-    privacy gate or adapter implementation remains incomplete. Brevo is
-    selected, but no email has been sent; until delivery is approved and
-    implemented, record notification status as `not_configured`.
+-   Do not attempt email until the privacy gate and adapter
+    implementation are complete and the approved sender and exact
+    authorized recipient are configured. The product owner approved
+    sender/recipient routing, but no email has been sent; until delivery
+    is implemented and approved for launch, record notification status
+    as `not_configured`.
 -   If persistence succeeds and email succeeds, return `201`.
 -   If persistence succeeds but email fails, the enquiry is still
     received; return `201` and record the notification failure for

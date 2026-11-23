@@ -7,17 +7,20 @@ substitute for legal advice
 
 **Current enquiry gate:** The product owner approved the enquiry field
 set, confirmed responsibility for enquiry data and stated that enquiries
-should come directly to them. The product owner supplied acknowledgement
-wording and set a one-week retention period. The lawful basis, complete
-Privacy Notice, public responsible-party contact details and
-deletion/backup process and Brevo data-location review remain pending.
-Brevo is selected, and the product owner reports that `BREVO_API_KEY`,
-`EMAIL_FROM` and `BUSINESS_EMAIL` are configured in the deployed backend.
-The adapter has not been implemented or tested, and sender/recipient
-verification remains pending, so email notifications remain disabled.
-Do not collect personal information until the remaining privacy and
-deletion decisions are reviewed and approved. No non-essential analytics
-is approved at launch.
+should come directly to them. They supplied acknowledgement wording and
+public privacy contact details, and set one-week retention from
+submission, with deletion of all information submitted through the
+form. The specific lawful basis, complete Privacy Notice,
+responsible-party legal identity, deletion mechanism and handling of
+backups/provider copies remain pending. The product owner says the
+Brevo data-location review is okay; exact location/transfer disclosures
+for the Privacy Notice remain outstanding. Brevo is selected, and the
+product owner reports that `BREVO_API_KEY`, `EMAIL_FROM` and
+`BUSINESS_EMAIL` are configured in the deployed backend. They approved
+sender/recipient routing, but the adapter has not been implemented or
+tested and no email has been sent. Do not collect personal information
+until the remaining privacy and deletion decisions are actionable. No
+non-essential analytics is approved at launch.
 
 ## 1. Security objectives
 

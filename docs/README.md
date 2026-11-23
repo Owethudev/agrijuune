@@ -47,9 +47,13 @@ workspace setup remains unchanged. The production hosts and preview
 boundaries are recorded in the deployment plan. The enquiry field
 contract and one-week retention period are recorded in the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-Brevo is selected, but its adapter is not implemented or tested. The
-complete Privacy Notice, lawful basis, public responsible-party contact
-details, provider data-location review and deletion/backup process
-remain open. Do not collect personal information until the privacy gate
-is approved. Review all proposed schema and SQL before applying it to a
+Brevo is selected and sender/recipient routing is approved, but its
+adapter is not implemented or tested. The specific lawful basis,
+complete Privacy Notice, responsible-party legal identity, deletion
+mechanism, backup/provider-copy handling and exact provider
+location/transfer disclosures remain open. The product owner supplied
+public privacy contact details and set one-week retention from
+submission, with deletion of all form-submitted information. Do not
+collect personal information until the remaining privacy gate is
+approved. Review all proposed schema and SQL before applying it to a
 database.
