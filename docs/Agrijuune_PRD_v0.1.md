@@ -2,8 +2,10 @@
 > [PDF](Agrijuune_PRD_v0.1.pdf). The approved enquiry fields and service
 > identifiers are recorded in the
 > [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-> Privacy, retention and delivery approvals remain outstanding; use the
-> [master project brief](MASTER.md) and current project decisions for
+> Lawful-basis, Privacy Notice, deletion/backup and email-delivery
+> approvals remain outstanding. The owner-set one-week retention period
+> and supplied draft acknowledgement are recorded in the decision record;
+> use the [master project brief](MASTER.md) and current decisions for
 > approved requirements.
 
 **AGRIJUUNE**
@@ -504,7 +506,7 @@ Required or recommended fields:
 
 - Additional message — optional, with length limit and warning not to submit sensitive or confidential farm information.
 
-The form must state that an enquiry is not a booking, quote acceptance or purchase commitment. A Privacy Notice and acknowledgement wording still require approval; do not enable personal-data collection before that review.
+The form must state that an enquiry is not a booking, quote acceptance or purchase commitment. The owner supplied draft acknowledgement wording, recorded in the enquiry decision record; the complete Privacy Notice and lawful basis still require approval. Do not enable personal-data collection before that review.
 
 **S9 — FAQ**
 
@@ -661,7 +663,7 @@ Email delivery provider, analytics provider, map provider and bot-protection ser
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the responsible party, lawful basis, privacy notice/acknowledgement wording and retention/deletion process are approved. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until its provider, sender and exact recipient address are approved. No non-essential analytics runs at launch.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the responsible-party contact details, lawful basis, complete Privacy Notice and deletion/backup process are approved. The owner-provided draft acknowledgement and one-week retention period are recorded in the enquiry decision record; the week start and deletion behavior still need confirmation. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until its provider, sender and exact recipient address are approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
@@ -831,7 +833,7 @@ Privacy requirements:
 
 1. Is a database needed, or is a secure form/email service sufficient?
 
-1. What are the Privacy Notice, lawful basis, retention period, provider data locations and cross-border safeguards?
+1. What lawful basis, Privacy Notice, provider data locations and cross-border safeguards are approved? The owner set a one-week retention period; confirm how it is measured and how deletion and backup expiry are handled.
 
 1. How will enquiries be tracked after delivery? The product owner is the intended follow-up recipient; no CRM/dashboard has been selected.
 
@@ -891,7 +893,7 @@ This is a later-stage workflow, not authorisation to code before open questions 
 
 - Technology stack, hosting and integrations — pending.
 
-- Privacy Notice, retention, providers and data locations — pending review.
+- Lawful basis, complete Privacy Notice, providers/data locations and deletion/backup handling — pending review. The owner set a one-week retention period and supplied acknowledgement wording; see the enquiry decision record.
 
 - Open questions empty — not complete; see Section 13.3.
 

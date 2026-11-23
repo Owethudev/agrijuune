@@ -6,13 +6,15 @@ enquiry API\
 substitute for legal advice
 
 **Current enquiry gate:** The product owner approved the enquiry field
-set and stated that enquiries should come directly to them. The exact
-recipient address, email provider and sender are not approved, so email
-notifications remain disabled. The responsible party, lawful basis,
-privacy notice/acknowledgement wording and retention/deletion process
-also remain unapproved. Do not collect personal information until those
-privacy decisions are reviewed and approved. No non-essential analytics
-is approved at launch.
+set, confirmed responsibility for enquiry data and stated that enquiries
+should come directly to them. The product owner supplied acknowledgement
+wording and set a one-week retention period. The lawful basis, complete
+Privacy Notice, public responsible-party contact details and
+deletion/backup process remain pending. The email provider, sender and
+exact recipient address are also not approved, so email notifications
+remain disabled. Do not collect personal information until the remaining
+privacy and deletion decisions are reviewed and approved. No
+non-essential analytics is approved at launch.
 
 ## 1. Security objectives
 

@@ -126,10 +126,14 @@ The approved enquiry field contract is:
     `machinery_detailing`.
 
 The cell number is the only phone field; do not add a separate `phone`
-field. These field decisions do not authorize collection. Do not enable
-an enquiry form or endpoint that collects personal information until the
-responsible party, lawful basis, privacy notice and acknowledgement
-wording, and retention/deletion process are reviewed and approved.
+field. The product owner confirms responsibility for enquiry data,
+provided acknowledgement wording and set a one-week retention period;
+see the [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
+These decisions do not authorize collection. The complete Privacy
+Notice, lawful basis, public responsible-party contact details and
+deletion/backup process remain pending. Do not enable an enquiry form or
+endpoint that collects personal information until those items are
+reviewed and approved.
 
 On submission:
 
@@ -182,8 +186,10 @@ The following remain decisions to confirm rather than assumptions:
 
 -   Package manager.
 -   Email provider, sender configuration and exact recipient address.
--   Responsible-party details, lawful basis, privacy notice and
-    acknowledgement wording, and retention/deletion process.
+-   Public responsible-party contact details, lawful basis, complete
+    Privacy Notice and deletion/backup process. The owner-provided
+    acknowledgement wording and one-week retention period are recorded
+    in the enquiry decision record.
 -   Brand logo, photography, video and final design assets.
 
 No non-essential analytics is approved at launch. Any later analytics
