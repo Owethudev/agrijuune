@@ -663,7 +663,7 @@ Brevo is the selected email delivery provider. The product owner reports that th
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the lawful basis, complete Privacy Notice, responsible-party legal identity and actionable deletion/backup process are approved. The owner supplied public privacy contact details and set one-week retention from submission, with deletion of all form-submitted information; backup/provider-copy handling still needs detail. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the lawful basis, complete Privacy Notice, seven-day deletion implementation and backup/provider-copy handling are approved. The responsible-party name is Agrijuune, and public privacy contact details are recorded in the enquiry decision record. The owner specified deletion of all form-submitted information seven days after submission and wants the purge implemented in code. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
@@ -821,7 +821,7 @@ Privacy requirements:
 
 ## 13.3 Open questions — resolve before approval
 
-1. What legal/business identity should be named as the responsible party in the Privacy Notice? Public privacy contact details have been supplied, and the configured Brevo sender and recipient are approved for enquiry delivery.
+1. What exact Brevo location/transfer details should the Privacy Notice disclose? The owner says the data-location review is okay, but disclosure details remain pending. Public privacy contacts and the responsible-party name, Agrijuune, have been supplied; sender/recipient routing is approved.
 
 1. Should any farm details be collected before the demo? Earlier answers suggested pre-demo farm context, but later answers say anyone can view the demo without registration. Recommended resolution: no gate before demo; collect farm context in the enquiry form only.
 
@@ -835,7 +835,7 @@ Privacy requirements:
 
 1. Is a database needed, or is a secure form/email service sufficient?
 
-1. What specific lawful basis and complete Privacy Notice are approved? The owner says the Brevo data-location review is okay; exact locations/transfers to disclose and deletion/backup/provider-copy handling remain to be documented. Retention is one week from submission, and all form-submitted information is to be deleted.
+1. What specific lawful basis and complete Privacy Notice are approved? The owner specified deleting all form-submitted information seven days after submission; the purge, backup and provider-copy handling remain to be implemented or documented.
 
 1. How will enquiries be tracked after delivery? The product owner is the intended follow-up recipient; no CRM/dashboard has been selected.
 
@@ -895,7 +895,7 @@ This is a later-stage workflow, not authorisation to code before open questions 
 
 - Technology stack, hosting and integrations — pending.
 
-- Specific lawful basis, complete Privacy Notice, responsible-party legal identity, exact provider location/transfer disclosures and actionable deletion/backup handling — pending. The owner set one-week retention from submission, specified deletion of all form-submitted information, supplied public privacy contact details and approved sender/recipient routing; see the enquiry decision record.
+- Specific lawful basis, complete Privacy Notice, exact provider location/transfer disclosures, seven-day purge implementation and backup/provider-copy handling — pending. The owner named Agrijuune as responsible party, supplied public privacy contacts, specified deletion of all form-submitted information seven days after submission and approved sender/recipient routing; see the enquiry decision record.
 
 - Open questions empty — not complete; see Section 13.3.
 

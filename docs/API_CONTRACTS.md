@@ -147,10 +147,11 @@ product owner confirms responsibility for enquiry data, supplied
 acknowledgement wording and set one-week retention from submission, with
 deletion of all information submitted through the form; see the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-The specific lawful basis, complete Privacy Notice,
-responsible-party legal identity, deletion mechanism and handling of
-backups/provider copies remain pending. Do not enable the form or
-endpoint until these are approved and actionable. Brevo is selected, and
+The specific lawful basis and complete Privacy Notice remain pending.
+The owner specified deletion of all form-submitted information after
+seven days and wants the purge implemented in code; the purge and
+backup/provider-copy handling remain outstanding. Do not enable the form
+or endpoint until these are approved and actionable. Brevo is selected, and
 the product owner reports that the deployed backend uses
 `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. They approved
 sender/recipient routing and say the data-location review is okay, but

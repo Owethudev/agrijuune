@@ -30,8 +30,8 @@ are `farm_management_technology` and `machinery_detailing`.
 The product owner stated that enquiries should come directly to them and
 confirmed that they are responsible for the enquiry data. They supplied
 `jezvestptyltd@gmail.com` and `0602900630` as public privacy contacts.
-The legal/business name to identify as the responsible party in the
-Privacy Notice still needs confirmation.
+The name to identify as the responsible party in the Privacy Notice is
+Agrijuune.
 
 The product owner selected Brevo and reports that the deployed backend
 uses these environment variable names:
@@ -66,18 +66,19 @@ The complete Privacy Notice and specific lawful basis have not been
 supplied or approved. The acknowledgement is not a substitute for
 either. The product owner set a one-week retention period starting when
 the enquiry is submitted and specified that all information submitted
-through the form should be deleted. The deletion mechanism and handling
-of backups and provider copies remain to be confirmed.
+through the form should be deleted. They want the seven-day deletion
+implemented in application code. The purge is not implemented yet, and
+handling of backups and provider copies remains to be confirmed.
 
 The product owner says the Brevo data-location and cross-border review
 is okay; the exact location and transfer details to disclose in the
 Privacy Notice have not been supplied. The complete Privacy Notice,
-specific lawful basis, responsible-party legal identity, actionable
-deletion/backup process and provider disclosure are prerequisites to
-collecting personal information. The approved form fields,
-acknowledgement and provider selection do not authorize collection. Do
-not enable an enquiry form or accepting endpoint, apply a production
-enquiry migration, or submit real enquiries until these are approved.
+specific lawful basis, implemented deletion process, backup/provider-copy
+handling and provider disclosure are prerequisites to collecting
+personal information. The approved form fields, acknowledgement and
+provider selection do not authorize collection. Do not enable an enquiry
+form or accepting endpoint, apply a production enquiry migration, or
+submit real enquiries until these are approved.
 
 No non-essential analytics is approved at launch. Any later analytics
 provider or consent approach requires separate approval.
@@ -86,8 +87,10 @@ provider or consent approach requires separate approval.
 
 Issue #3 remains open until the privacy and retention decisions are
 completed, including the specific lawful basis, complete Privacy Notice,
-responsible-party legal identity, deletion/backup handling and provider
-location/transfer disclosures. The owner has approved sender/recipient
-routing and says the Brevo location review is okay. This record captures
-owner-provided decisions and blockers; it is not legal approval or
-authorization to begin collecting personal data.
+seven-day deletion implementation, backup/provider-copy handling and
+provider location/transfer disclosures. The responsible-party name,
+public privacy contacts, retention period and deletion scope have been
+provided. The owner has approved sender/recipient routing and says the
+Brevo location review is okay. This record captures owner-provided
+decisions and blockers; it is not legal approval or authorization to
+begin collecting personal data.
