@@ -194,10 +194,11 @@ than assumptions:
     email delivery is disabled.
 -   Specific lawful basis and complete Privacy Notice. The responsible
     party is named Agrijuune; public privacy contacts are recorded in the
-    enquiry decision record. The owner specified deletion of all
-    submitted form information after seven days and wants the purge
-    implemented in code. The purge and backup/provider-copy handling
-    remain outstanding.
+    enquiry decision record. The owner specified deletion of database
+    records containing submitted form information after seven days and
+    wants the purge implemented in code. Each party will retain their
+    email copies as communication records; database-backup expiry and
+    Brevo message/log retention remain unspecified.
 -   Brand logo, photography, video and final design assets.
 
 No non-essential analytics is approved at launch. Any later analytics

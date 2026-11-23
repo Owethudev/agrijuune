@@ -8,12 +8,16 @@ substitute for legal advice
 **Current enquiry gate:** The product owner approved the enquiry field
 set, confirmed responsibility for enquiry data and stated that enquiries
 should come directly to them. They supplied acknowledgement wording and
-public privacy contact details, and set one-week retention from
-submission, with deletion of all information submitted through the
-form. The responsible-party name is Agrijuune. The specific lawful
+public privacy contact details, and set one-week retention for database
+records from submission, with submitted form information deleted from
+the database. The responsible-party name is Agrijuune. The specific lawful
 basis and complete Privacy Notice remain pending. The owner wants
 seven-day deletion implemented in application code; the purge and
-handling of backups/provider copies are not implemented or specified.
+database-backup expiry are not implemented or specified. The owner says
+each party will retain their email copies as communication records; the
+application purge will not remove these mailbox copies.
+Database-backup expiry and Brevo message/log retention remain
+unspecified.
 The product owner says the Brevo data-location review is okay; exact
 location/transfer disclosures for the Privacy Notice remain outstanding.
 Brevo is selected, and the
