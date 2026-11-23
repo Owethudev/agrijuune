@@ -8,6 +8,8 @@ demonstration and enquiry-capture release.
 
 -   [`Agrijuune_PRD_v0.1.md`](Agrijuune_PRD_v0.1.md) --- Markdown
     version of the product requirements document.
+-   [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) --- working palette,
+    provisional UI tokens and shared CSS primitives.
 -   [`Agrijuune_PRD_v0.1.pdf`](Agrijuune_PRD_v0.1.pdf) --- source PRD.
 -   [`Agrijuune_Implementation_Plan_v1.0.pdf`](Agrijuune_Implementation_Plan_v1.0.pdf)
     --- implementation plan.

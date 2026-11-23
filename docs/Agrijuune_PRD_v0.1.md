@@ -536,25 +536,26 @@ Use fictional records only, clearly marked “Sample data — for demonstration�
 
 - **Look and feel:** Innovative, agricultural, professional; practical rather than overly technical.
 
-- **Primary:** Sky blue, provisional `#87CEEB`.
+- **Working palette:** The supplied identity pack provides navy
+  (`#0B2D5B`), red (`#E30613`), blue (`#00AEEF`), cloud white
+  (`#F8FAFC`) and ink (`#071B33`). These working values remain subject
+  to founder approval; see `DESIGN_SYSTEM.md`.
 
-- **Secondary:** Cloud white, provisional `#F8FAFC`.
+- **Font:** A provisional Inter/system sans-serif stack is in use;
+  final typography remains subject to founder approval.
 
-- **Accent:** Scarlet red, provisional `#E32636`, used selectively.
-
-- **Text:** Deep navy/charcoal proposed; exact hex must be chosen and contrast-tested.
-
-- **Font:** Not selected; use a readable modern sans-serif with English/Afrikaans character coverage.
-
-- **Typography:** Body 16px minimum; small text 12px minimum; responsive headings.
+- **Typography:** Body 16px minimum; small text 12px minimum; responsive
+  headings. Current implementation values are provisional.
 
 - **Spacing:** Proposed 8px scale.
 
-- **Logo:** Technology-inspired identity communicating digital innovation, connected systems, precision, efficiency and reliability while suiting both divisions. Final logo asset not supplied.
+- **Logo:** Use the supplied identity-pack assets as working brand
+  direction; final selection and approval remain pending.
 
 - **Imagery:** 3D technology-and-agriculture hero visual; each division has a distinct visual theme within one unified brand.
 
-- Final hex values, typography, corner radii, shadows and detailed design tokens require founder approval.
+- Typography, spacing, corner radii, shadows and detailed design
+  tokens require founder approval.
 
 ## 9.2 Tone of voice
 
