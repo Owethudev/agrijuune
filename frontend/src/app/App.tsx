@@ -11,20 +11,24 @@ import {
   routes,
   type RoutePath,
 } from '../routing/routes';
+import {
+  getRouteCopy,
+  translations,
+  type Language,
+} from '../content/translations';
 import './App.css';
-
-const notFoundPage = {
-  title: 'Page not found',
-  description: 'The page you requested could not be found.',
-};
 
 export function App() {
   const [pathname, setPathname] = useState(() =>
     normalizePath(window.location.pathname),
   );
+  const [language, setLanguage] = useState<Language>('en');
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const activeRoute = getRoute(pathname);
-  const page = activeRoute ?? notFoundPage;
+  const languageContent = translations[language];
+  const page = activeRoute
+    ? getRouteCopy(language, activeRoute.path)
+    : languageContent.notFound;
   const headingRef = useRef<HTMLHeadingElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const previousPathRef = useRef(pathname);
@@ -40,15 +44,29 @@ export function App() {
   }, []);
 
   useEffect(() => {
+    document.documentElement.lang = languageContent.htmlLang;
     document.title =
       page.title === 'Agrijuune' ? 'Agrijuune' : `${page.title} | Agrijuune`;
+
+    const metaDescription = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]',
+    );
+    if (metaDescription) {
+      metaDescription.content = languageContent.metaDescription;
+    }
 
     if (previousPathRef.current !== pathname) {
       headingRef.current?.focus();
     }
 
     previousPathRef.current = pathname;
-  }, [page.title, pathname]);
+  }, [
+    language,
+    languageContent.htmlLang,
+    languageContent.metaDescription,
+    page.title,
+    pathname,
+  ]);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, path: RoutePath) {
     if (
@@ -82,10 +100,16 @@ export function App() {
     }
   }
 
+  function handleLanguageChange(value: string) {
+    if (value === 'en' || value === 'af') {
+      setLanguage(value);
+    }
+  }
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">
-        Skip to main content
+        {languageContent.shared.skipLink}
       </a>
 
       <header className="site-header" onKeyDown={handleNavigationKeyDown}>
@@ -93,7 +117,7 @@ export function App() {
           <a
             className="site-brand"
             href="/"
-            aria-label="Agrijuune home"
+            aria-label={languageContent.shared.homeLinkLabel}
             onClick={(event) => navigate(event, '/')}
           >
             <img src="/agrijuune-logo.svg" alt="" />
@@ -107,26 +131,48 @@ export function App() {
             aria-expanded={isNavigationOpen}
             onClick={() => setIsNavigationOpen((isOpen) => !isOpen)}
           >
-            {isNavigationOpen ? 'Close menu' : 'Menu'}
+            {isNavigationOpen
+              ? languageContent.shared.closeMenu
+              : languageContent.shared.menu}
           </button>
 
           <nav
             id="primary-navigation"
             className={`primary-navigation${isNavigationOpen ? ' primary-navigation--open' : ''}`}
-            aria-label="Primary"
+            aria-label={languageContent.shared.primaryNavigationLabel}
           >
-            {routes.map((route) => (
-              <a
-                key={route.path}
-                href={route.path}
-                aria-current={
-                  activeRoute?.path === route.path ? 'page' : undefined
+            {routes.map((route) => {
+              const routeCopy = getRouteCopy(language, route.path);
+
+              return (
+                <a
+                  key={route.path}
+                  href={route.path}
+                  aria-current={
+                    activeRoute?.path === route.path ? 'page' : undefined
+                  }
+                  onClick={(event) => navigate(event, route.path)}
+                >
+                  {routeCopy.label}
+                </a>
+              );
+            })}
+            <div className="language-switch">
+              <select
+                aria-label={languageContent.shared.languageSwitcherLabel}
+                value={language}
+                onChange={(event) =>
+                  handleLanguageChange(event.currentTarget.value)
                 }
-                onClick={(event) => navigate(event, route.path)}
               >
-                {route.label}
-              </a>
-            ))}
+                <option value="en" lang="en-ZA">
+                  English
+                </option>
+                <option value="af" lang="af-ZA">
+                  Afrikaans
+                </option>
+              </select>
+            </div>
           </nav>
         </div>
       </header>
@@ -150,17 +196,18 @@ export function App() {
           >
             Agrijuune
           </a>
-          <p>
-            Farm management technology and agricultural machinery detailing.
-          </p>
-          <nav className="footer-navigation" aria-label="Footer">
+          <p>{languageContent.shared.footerDescription}</p>
+          <nav
+            className="footer-navigation"
+            aria-label={languageContent.shared.footerNavigationLabel}
+          >
             {routes.map((route) => (
               <a
                 key={route.path}
                 href={route.path}
                 onClick={(event) => navigate(event, route.path)}
               >
-                {route.label}
+                {getRouteCopy(language, route.path).label}
               </a>
             ))}
           </nav>

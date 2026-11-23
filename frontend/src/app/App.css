@@ -139,6 +139,24 @@ main:focus-visible {
   flex: 0 0 auto;
 }
 
+.language-switch {
+  display: flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-1-5);
+}
+
+.language-switch select {
+  min-height: var(--control-min-height);
+  max-width: 100%;
+  padding: var(--space-1) var(--space-1-5);
+  border: var(--border-width) solid var(--agrijuune-navy);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--agrijuune-navy);
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+}
+
 .primary-navigation {
   position: absolute;
   top: 100%;
@@ -270,7 +288,7 @@ main:focus-visible {
 }
 
 /* CSS media queries need literal values; keep these aligned with tokens.css. */
-@media (min-width: 40rem) {
+@media (min-width: 48rem) {
   .site-header__inner {
     min-height: var(--layout-header-wide);
   }
@@ -294,6 +312,10 @@ main:focus-visible {
 
   .primary-navigation a {
     padding: var(--space-1) var(--space-1-5);
+  }
+
+  .language-switch {
+    padding: 0;
   }
 }
 

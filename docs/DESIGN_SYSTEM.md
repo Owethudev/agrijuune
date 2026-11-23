@@ -38,7 +38,7 @@ The token source is [`frontend/src/styles/tokens.css`](../frontend/src/styles/to
   and scale require founder review.
 - **Spacing:** A provisional 8px base scale, with a 4px half-step.
 - **Layout:** Content width 72rem, page width 48rem, copy width 38rem.
-- **Breakpoints:** 40rem for the horizontal primary navigation and
+- **Breakpoints:** 48rem for the horizontal primary navigation and
   64rem for the wide footer layout. CSS media queries use matching
   literal values because custom properties cannot be used there.
 - **Shape and depth:** Small/medium/large radii and three restrained
