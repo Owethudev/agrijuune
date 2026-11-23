@@ -190,7 +190,11 @@ export function App() {
         tabIndex={-1}
       >
         {isHomePage ? (
-          <HomePage copy={languageContent.home} headingRef={headingRef} />
+          <HomePage
+            copy={languageContent.home}
+            headingRef={headingRef}
+            language={language}
+          />
         ) : isServicesPage ? (
           <ServicesPage
             copy={languageContent.services}

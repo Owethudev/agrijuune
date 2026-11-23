@@ -56,6 +56,22 @@ export type HomePageCopy = {
     eyebrow: string;
     title: string;
     description: string;
+    startButton: string;
+    stepLabel: string;
+    stepOfLabel: string;
+    progressLabel: string;
+    potentialLabel: string;
+    controlsLabel: string;
+    backButton: string;
+    nextButton: string;
+    finishButton: string;
+    restartButton: string;
+    completionTitle: string;
+    completionDescription: string;
+    machineryCardTitle: string;
+    machineryNameLabel: string;
+    manufacturerLabel: string;
+    modelLabel: string;
   };
   interest: {
     eyebrow: string;
@@ -208,7 +224,7 @@ export const translations: Record<Language, LanguageContent> = {
         description:
           'Agrijuune is developing two complementary divisions for crop and vegetable farms in Gauteng: Farm Management Technology and Agricultural Machinery Detailing. Scope and availability are discussed individually.',
         servicesCta: 'Explore services',
-        demoCta: 'Explore the demo plan',
+        demoCta: 'Explore the demo',
         interestCta: 'Express interest',
         visualTechnology: 'Farm Management Technology',
         visualDetailing: 'Agricultural Machinery Detailing',
@@ -254,9 +270,26 @@ export const translations: Record<Language, LanguageContent> = {
       },
       demo: {
         eyebrow: 'Illustrative platform demo',
-        title: 'Explore the concept with fictional farm records.',
+        title: 'Explore potential capabilities with fictional machinery data.',
         description:
-          'A guided walkthrough is planned to demonstrate potential capabilities using fictional farm and machinery information, not a live customer system.',
+          'Explore six potential capability areas using fictional machinery examples. No login or live farm data is used.',
+        startButton: 'Start demo',
+        stepLabel: 'Step',
+        stepOfLabel: 'of',
+        progressLabel: 'Progress through demo steps',
+        potentialLabel: 'Potential capability',
+        controlsLabel: 'Demo controls',
+        backButton: 'Back',
+        nextButton: 'Next',
+        finishButton: 'Finish demo',
+        restartButton: 'Restart demo',
+        completionTitle: 'You have reached the end of the demo.',
+        completionDescription:
+          'This walkthrough illustrates potential capabilities and is not a live farm-management platform.',
+        machineryCardTitle: 'Fictional machinery record',
+        machineryNameLabel: 'Name',
+        manufacturerLabel: 'Manufacturer',
+        modelLabel: 'Model',
       },
       interest: {
         eyebrow: 'Next steps',
@@ -449,7 +482,7 @@ export const translations: Record<Language, LanguageContent> = {
         description:
           'Agrijuune ontwikkel twee aanvullende afdelings vir gewas- en groenteplase in Gauteng: Plaasbestuurstegnologie en skoonmaak en versorging van landboumasjinerie. Diensomvang en beskikbaarheid word individueel bespreek.',
         servicesCta: 'Verken die dienste',
-        demoCta: 'Verken die demoplan',
+        demoCta: 'Verken die demo',
         interestCta: 'Stel belang',
         visualTechnology: 'Plaasbestuurstegnologie',
         visualDetailing: 'Skoonmaak en versorging van landboumasjinerie',
@@ -496,9 +529,26 @@ export const translations: Record<Language, LanguageContent> = {
       },
       demo: {
         eyebrow: 'Illustratiewe platformdemo',
-        title: 'Verken die konsep met fiktiewe plaasrekords.',
+        title: 'Verken moontlike vermoëns met fiktiewe masjineriedata.',
         description:
-          '’n Begeleide deurloping word beplan om moontlike vermoëns met fiktiewe plaas- en masjinerie-inligting te wys, nie ’n regstreekse klantstelsel nie.',
+          'Verken ses moontlike vermoëns met fiktiewe masjinerievoorbeelde. Geen aanmelding of regstreekse plaasdata word gebruik nie.',
+        startButton: 'Begin demonstrasie',
+        stepLabel: 'Stap',
+        stepOfLabel: 'van',
+        progressLabel: 'Vordering deur demostappe',
+        potentialLabel: 'Moontlike vermoë',
+        controlsLabel: 'Demokontroles',
+        backButton: 'Terug',
+        nextButton: 'Volgende',
+        finishButton: 'Voltooi demo',
+        restartButton: 'Herbegin demo',
+        completionTitle: 'Jy het die einde van die demo bereik.',
+        completionDescription:
+          'Hierdie deurloping illustreer moontlike vermoëns en is nie ’n regstreekse plaasbestuurplatform nie.',
+        machineryCardTitle: 'Fiktiewe masjinerierekord',
+        machineryNameLabel: 'Naam',
+        manufacturerLabel: 'Vervaardiger',
+        modelLabel: 'Model',
       },
       interest: {
         eyebrow: 'Volgende stappe',
