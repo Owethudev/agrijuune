@@ -2,8 +2,9 @@
 
 **Database:** Supabase PostgreSQL\
 **Scope:** First-release public website enquiry capture\
-**Status:** Proposed baseline; confirm final form fields, retention and
-privacy requirements before production migration
+**Status:** Proposed baseline; required/optional fields and service IDs
+are approved, but privacy approval is still required before collecting
+data or applying a production migration
 
 ## 1. Database scope
 
@@ -35,9 +36,10 @@ Express API, which validates and persists them.
 
 ## 3. Proposed `enquiries` table
 
-The following is a starting schema, not an instruction to make every
-field mandatory. Final required/optional status must match the approved
-enquiry form and privacy review.
+The following is a starting schema, not an instruction to begin
+collection or apply a production migration. The required/optional
+contract below matches the approved form; privacy and retention approval
+is still a prerequisite for collecting personal information.
 
   ----------------------------------------------------------------------------------------
   Column                        Suggested type                Required Notes
@@ -52,8 +54,10 @@ enquiry form and privacy review.
   `email`                       `text`                             Yes Validated contact
                                                                        email
 
-  `phone`                       `text`                              No Confirm final form
-                                                                       requirement
+  `cell_number`                 `text`                             Yes Required cell
+                                                                       number; no
+                                                                       separate `phone`
+                                                                       field
 
   `farm_name`                   `text`                              No Farm/organisation
                                                                        name
@@ -69,8 +73,10 @@ enquiry form and privacy review.
                                                                        must be
                                                                        non-negative
 
-  `services_of_interest`        `text[]`                           Yes Allowlisted service
-                                                                       identifiers
+  `services_of_interest`        `text[]`                           Yes One or more
+                                                                       allowlisted IDs:
+                                                                       `farm_management_technology`,
+                                                                       `machinery_detailing`
 
   `additional_message`          `text`                              No Length-limited free
                                                                        text
@@ -118,7 +124,7 @@ create table public.enquiries (
   id uuid primary key default gen_random_uuid(),
   contact_name text not null check (char_length(trim(contact_name)) between 1 and 120),
   email text not null check (char_length(email) between 3 and 254),
-  phone text,
+  cell_number text not null,
   farm_name text,
   farm_location text,
   operation_type text,
@@ -130,7 +136,7 @@ create table public.enquiries (
   privacy_notice_version text,
   privacy_acknowledged_at timestamptz,
   created_at timestamptz not null default now(),
-  notification_status text not null default 'pending'
+  notification_status text not null default 'not_configured'
     check (notification_status in ('pending', 'sent', 'failed', 'not_configured')),
   notification_attempted_at timestamptz,
   status text not null default 'new'

@@ -116,22 +116,20 @@ professional mechanical assessment.
 The public visitor should be able to browse the website and access the
 standard demo without creating an account.
 
-An enquiry may collect, subject to the final approved form design:
+The approved enquiry field contract is:
 
--   Contact person's name.
--   Email address.
--   Phone number.
--   Farm or organisation name.
--   Farm location.
--   Type of agricultural operation.
--   Approximate number of tractors or machines.
--   Services of interest.
--   Optional additional message.
--   Acknowledgement of the applicable privacy notice.
+-   **Required:** contact person's name, email address, cell number
+    (`cell_number`) and one or more services of interest.
+-   **Optional:** farm or organisation name, farm location, operation
+    type, approximate machine count and additional message.
+-   **Service identifiers:** `farm_management_technology` and
+    `machinery_detailing`.
 
-The exact required/optional fields must be confirmed before
-implementation. Do not make optional farm-context fields mandatory
-without approval.
+The cell number is the only phone field; do not add a separate `phone`
+field. These field decisions do not authorize collection. Do not enable
+an enquiry form or endpoint that collects personal information until the
+responsible party, lawful basis, privacy notice and acknowledgement
+wording, and retention/deletion process are reviewed and approved.
 
 On submission:
 
@@ -139,7 +137,10 @@ On submission:
 2.  Validate it again on the server.
 3.  Persist the enquiry before attempting email notification.
 4.  Return a safe response to the browser.
-5.  Attempt an email notification through a replaceable email adapter.
+5.  If an email provider, sender and exact recipient address are approved
+    and configured, attempt notification through a replaceable email
+    adapter. Enquiries are intended to go directly to the product owner;
+    delivery remains disabled until those details are approved.
 6.  Record notification status without losing the enquiry if email
     delivery fails.
 
@@ -180,11 +181,13 @@ sensitive credentials on the server.
 The following remain decisions to confirm rather than assumptions:
 
 -   Package manager.
--   Email provider and sender configuration.
--   Analytics provider and consent approach.
--   Final enquiry form fields and retention period.
--   Final privacy notice wording and responsible-party details.
+-   Email provider, sender configuration and exact recipient address.
+-   Responsible-party details, lawful basis, privacy notice and
+    acknowledgement wording, and retention/deletion process.
 -   Brand logo, photography, video and final design assets.
+
+No non-essential analytics is approved at launch. Any later analytics
+provider or consent approach requires separate approval.
 
 Do not invent provider names, domains, API keys, credentials or business
 contact details.
