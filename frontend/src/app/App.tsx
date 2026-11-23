@@ -16,6 +16,7 @@ import {
   translations,
   type Language,
 } from '../content/translations';
+import { HomePage } from './HomePage';
 import './App.css';
 
 export function App() {
@@ -25,6 +26,7 @@ export function App() {
   const [language, setLanguage] = useState<Language>('en');
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const activeRoute = getRoute(pathname);
+  const isHomePage = activeRoute?.path === '/';
   const languageContent = translations[language];
   const page = activeRoute
     ? getRouteCopy(language, activeRoute.path)
@@ -177,14 +179,22 @@ export function App() {
         </div>
       </header>
 
-      <main id="main-content" className="main-content" tabIndex={-1}>
-        <div className="page-content card">
-          <p className="page-eyebrow">Agrijuune</p>
-          <h1 ref={headingRef} tabIndex={-1}>
-            {page.title}
-          </h1>
-          <p className="page-description">{page.description}</p>
-        </div>
+      <main
+        id="main-content"
+        className={`main-content${isHomePage ? ' main-content--home' : ''}`}
+        tabIndex={-1}
+      >
+        {isHomePage ? (
+          <HomePage copy={languageContent.home} headingRef={headingRef} />
+        ) : (
+          <div className="page-content card">
+            <p className="page-eyebrow">Agrijuune</p>
+            <h1 ref={headingRef} tabIndex={-1}>
+              {page.title}
+            </h1>
+            <p className="page-description">{page.description}</p>
+          </div>
+        )}
       </main>
 
       <footer className="site-footer">

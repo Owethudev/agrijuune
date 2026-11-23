@@ -13,11 +13,31 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { App } from './App';
 
 const publicPages = [
-  { path: '/', heading: 'Agrijuune' },
-  { path: '/services', heading: 'Services' },
-  { path: '/about', heading: 'About & Contact' },
-  { path: '/contact', heading: 'About & Contact' },
-  { path: '/faq', heading: 'Frequently asked questions' },
+  {
+    path: '/',
+    heading: 'Practical farm support, in one place.',
+    documentTitle: 'Agrijuune',
+  },
+  {
+    path: '/services',
+    heading: 'Services',
+    documentTitle: 'Services | Agrijuune',
+  },
+  {
+    path: '/about',
+    heading: 'About & Contact',
+    documentTitle: 'About & Contact | Agrijuune',
+  },
+  {
+    path: '/contact',
+    heading: 'About & Contact',
+    documentTitle: 'About & Contact | Agrijuune',
+  },
+  {
+    path: '/faq',
+    heading: 'Frequently asked questions',
+    documentTitle: 'Frequently asked questions | Agrijuune',
+  },
 ];
 
 beforeEach(() => {
@@ -30,17 +50,87 @@ afterEach(() => {
 });
 
 describe('public application shell', () => {
-  it.each(publicPages)('renders the $path route', ({ path, heading }) => {
-    window.history.replaceState(null, '', path);
+  it.each(publicPages)(
+    'renders the $path route',
+    ({ path, heading, documentTitle }) => {
+      window.history.replaceState(null, '', path);
 
+      render(<App />);
+
+      expect(
+        screen.getByRole('heading', { level: 1, name: heading }),
+      ).toBeInTheDocument();
+      expect(document.title).toBe(documentTitle);
+    },
+  );
+
+  it('presents both divisions with honest service and availability labels', () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', { level: 1, name: heading }),
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Practical farm support, in one place.',
+      }),
     ).toBeInTheDocument();
-    expect(document.title).toBe(
-      heading === 'Agrijuune' ? 'Agrijuune' : `${heading} | Agrijuune`,
-    );
+    expect(
+      screen.getByRole('heading', {
+        level: 3,
+        name: 'Farm Management Technology',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 3,
+        name: 'Agricultural Machinery Detailing',
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Potential capabilities')).toBeInTheDocument();
+    expect(screen.getByText('Planned service')).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Explore services' }),
+    ).toHaveAttribute('href', '#divisions');
+    expect(
+      screen.getByRole('link', { name: 'Explore the demo plan' }),
+    ).toHaveAttribute('href', '#platform-demo');
+    expect(
+      screen.getByRole('link', { name: 'Express interest' }),
+    ).toHaveAttribute('href', '#interest');
+    expect(document.querySelector('#platform-demo')).toBeInTheDocument();
+    expect(document.querySelector('#interest')).toBeInTheDocument();
+    expect(
+      screen.getByText(/This page does not collect personal information/),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('form')).not.toBeInTheDocument();
+  });
+
+  it('localizes homepage content into Afrikaans', () => {
+    render(<App />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Language' }), {
+      target: { value: 'af' },
+    });
+
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Praktiese ondersteuning vir plaasbedrywighede.',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 3,
+        name: 'Plaasbestuurstegnologie',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 3,
+        name: 'Skoonmaak en versorging van landboumasjinerie',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Verken die demoplan' }),
+    ).toHaveAttribute('href', '#platform-demo');
   });
 
   it('updates the route and focuses the new page heading', () => {
@@ -58,6 +148,26 @@ describe('public application shell', () => {
       screen.getByRole('heading', { level: 1, name: 'Services' }),
     ).toHaveFocus();
     expect(document.title).toBe('Services | Agrijuune');
+  });
+
+  it('focuses the homepage heading when navigating home', () => {
+    window.history.replaceState(null, '', '/services');
+    render(<App />);
+
+    fireEvent.click(
+      within(screen.getByRole('navigation', { name: 'Primary' })).getByRole(
+        'link',
+        { name: 'Home' },
+      ),
+    );
+
+    expect(window.location.pathname).toBe('/');
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Practical farm support, in one place.',
+      }),
+    ).toHaveFocus();
   });
 
   it('updates the active page after browser history navigation', () => {
@@ -78,7 +188,10 @@ describe('public application shell', () => {
       within(primaryNavigation).getByRole('link', { name: 'Home' }),
     ).toHaveAttribute('aria-current', 'page');
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Agrijuune' }),
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Practical farm support, in one place.',
+      }),
     ).toHaveFocus();
   });
 
