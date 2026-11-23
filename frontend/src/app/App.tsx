@@ -16,6 +16,8 @@ import {
   translations,
   type Language,
 } from '../content/translations';
+import { AboutPage } from './AboutPage';
+import { FaqPage } from './FaqPage';
 import { HomePage } from './HomePage';
 import { ServicesPage } from './ServicesPage';
 import './App.css';
@@ -29,6 +31,8 @@ export function App() {
   const activeRoute = getRoute(pathname);
   const isHomePage = activeRoute?.path === '/';
   const isServicesPage = activeRoute?.path === '/services';
+  const isAboutPage = activeRoute?.path === '/about';
+  const isFaqPage = activeRoute?.path === '/faq';
   const isFullPage = isHomePage || isServicesPage;
   const languageContent = translations[language];
   const page = activeRoute
@@ -195,6 +199,19 @@ export function App() {
             divisions={languageContent.home.divisions}
             headingRef={headingRef}
             onNavigate={navigate}
+          />
+        ) : isAboutPage ? (
+          <AboutPage
+            copy={languageContent.about}
+            divisions={languageContent.home.divisions}
+            headingRef={headingRef}
+            onNavigate={navigate}
+          />
+        ) : isFaqPage ? (
+          <FaqPage
+            copy={languageContent.faq}
+            title={page.title}
+            headingRef={headingRef}
           />
         ) : (
           <div className="page-content card">
