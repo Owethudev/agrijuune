@@ -208,6 +208,13 @@ main:focus-visible {
     var(--color-surface-subtle);
 }
 
+.main-content.main-content--full-page {
+  display: block;
+  min-height: unset;
+  padding: 0;
+  background: none;
+}
+
 .page-content {
   width: min(100%, var(--layout-page-width));
   padding: var(--space-6) var(--space-3);

@@ -20,7 +20,7 @@ const publicPages = [
   },
   {
     path: '/services',
-    heading: 'Services',
+    heading: 'Two complementary divisions, one practical approach.',
     documentTitle: 'Services | Agrijuune',
   },
   {
@@ -104,6 +104,100 @@ describe('public application shell', () => {
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
 
+  it('explains service capabilities, boundaries, and the enquiry placeholder', () => {
+    window.history.replaceState(null, '', '/services');
+    render(<App />);
+
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Two complementary divisions, one practical approach.',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Potential capability areas' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/not every feature is built or included/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /not mechanical repair, fault diagnosis or formal technical inspection/i,
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/not represented as food-safe sanitation/i),
+    ).toBeInTheDocument();
+    const interestLink = screen.getByRole('link', { name: 'Express interest' });
+    expect(interestLink).toHaveAttribute('href', '#services-enquiry');
+    expect(document.querySelector('#services-enquiry')).toBeInTheDocument();
+    expect(
+      screen.getByText(/does not collect personal information/i),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('form')).not.toBeInTheDocument();
+  });
+
+  it('provides working Home and About / Contact links on the Services page', () => {
+    window.history.replaceState(null, '', '/services');
+    render(<App />);
+
+    const servicesPageNavigation = screen.getByRole('navigation', {
+      name: 'Services',
+    });
+
+    fireEvent.click(
+      within(servicesPageNavigation).getByRole('link', {
+        name: /^Home$/,
+      }),
+    );
+    expect(window.location.pathname).toBe('/');
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Practical farm support, in one place.',
+      }),
+    ).toHaveFocus();
+
+    window.history.replaceState(null, '', '/services');
+    act(() => {
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+    fireEvent.click(
+      within(screen.getByRole('navigation', { name: 'Services' })).getByRole(
+        'link',
+        { name: /^About \/ Contact$/ },
+      ),
+    );
+
+    expect(window.location.pathname).toBe('/about');
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'About & Contact' }),
+    ).toHaveFocus();
+  });
+
+  it('localizes the Services page and its contact placeholders into Afrikaans', () => {
+    window.history.replaceState(null, '', '/services');
+    render(<App />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Language' }), {
+      target: { value: 'af' },
+    });
+
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Twee aanvullende afdelings, een praktiese benadering.',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Moontlike vermoëns' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /hierdie bladsy versamel nie persoonlike inligting nie/i,
+      ),
+    ).toBeInTheDocument();
+  });
+
   it('localizes homepage content into Afrikaans', () => {
     render(<App />);
     fireEvent.change(screen.getByRole('combobox', { name: 'Language' }), {
@@ -145,7 +239,10 @@ describe('public application shell', () => {
 
     expect(window.location.pathname).toBe('/services');
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Services' }),
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Two complementary divisions, one practical approach.',
+      }),
     ).toHaveFocus();
     expect(document.title).toBe('Services | Agrijuune');
   });
@@ -216,7 +313,10 @@ describe('public application shell', () => {
       'Agrijuune bring plaasbestuurstegnologie en dieptereiniging van landboumasjinerie bymekaar.',
     );
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Dienste' }),
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Twee aanvullende afdelings, een praktiese benadering.',
+      }),
     ).toBeInTheDocument();
 
     fireEvent.click(

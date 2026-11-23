@@ -17,6 +17,7 @@ import {
   type Language,
 } from '../content/translations';
 import { HomePage } from './HomePage';
+import { ServicesPage } from './ServicesPage';
 import './App.css';
 
 export function App() {
@@ -27,6 +28,8 @@ export function App() {
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const activeRoute = getRoute(pathname);
   const isHomePage = activeRoute?.path === '/';
+  const isServicesPage = activeRoute?.path === '/services';
+  const isFullPage = isHomePage || isServicesPage;
   const languageContent = translations[language];
   const page = activeRoute
     ? getRouteCopy(language, activeRoute.path)
@@ -181,11 +184,18 @@ export function App() {
 
       <main
         id="main-content"
-        className={`main-content${isHomePage ? ' main-content--home' : ''}`}
+        className={`main-content${isFullPage ? ' main-content--full-page' : ''}`}
         tabIndex={-1}
       >
         {isHomePage ? (
           <HomePage copy={languageContent.home} headingRef={headingRef} />
+        ) : isServicesPage ? (
+          <ServicesPage
+            copy={languageContent.services}
+            divisions={languageContent.home.divisions}
+            headingRef={headingRef}
+            onNavigate={navigate}
+          />
         ) : (
           <div className="page-content card">
             <p className="page-eyebrow">Agrijuune</p>
