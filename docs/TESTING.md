@@ -146,22 +146,26 @@ guarantees.
 
 ## 8. Commands and tooling
 
-The exact test framework and scripts must follow the repository's
-installed tooling. Do not invent commands or add a testing framework
-without checking the package files first.
-
-Before merging/releasing, run the available equivalents of:
+From the repository root, install from the lockfile and run the checks
+defined by the current npm workspace scripts:
 
 ``` bash
-# Examples only — confirm actual scripts in package.json first
+npm ci
 npm run lint
+npm run format:check
 npm run typecheck
 npm test
 npm run build
 ```
 
-If frontend and backend are separate packages, run the relevant checks
-in each package.
+The GitHub Actions workflow at `.github/workflows/ci.yml` runs these
+commands on pull requests targeting `main` and on pushes to `main`. The
+`quality` job is required by the active `main` ruleset.
+The workflow uses no production credentials or personal data.
+
+Dependabot dependency alerts/security updates are enabled in repository
+settings; `.github/dependabot.yml` schedules weekly npm version updates
+for the root lockfile and workspaces.
 
 ## 9. Definition of done
 
