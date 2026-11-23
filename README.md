@@ -142,8 +142,9 @@ The first milestone is validated demand, not a large customer count.
 
 ## Project Links
 
-- **Repository:** `[PLACEHOLDER]`
-- **Website:** `[PLACEHOLDER]`
+- **Repository:** [Owethudev/agrijuune](https://github.com/Owethudev/agrijuune)
+- **Website:** [Agrijuune](https://agrijuune.vercel.app/)
+- **Backend:** [Agrijuune API](https://agrijuune.onrender.com)
 - **Email:** `[PLACEHOLDER]`
 - **Phone:** `[PLACEHOLDER]`
 - **Social media:** `[PLACEHOLDER]`
