@@ -1,0 +1,7 @@
+:root {
+  --agrijuune-navy: #0B2D5B;
+  --agrijuune-red: #E30613;
+  --agrijuune-blue: #00AEEF;
+  --agrijuune-cloud-white: #F8FAFC;
+  --agrijuune-ink: #071B33;
+}
