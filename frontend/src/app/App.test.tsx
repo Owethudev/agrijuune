@@ -46,7 +46,11 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
-  document.head.querySelector('meta[name="description"]')?.remove();
+  document.head
+    .querySelectorAll(
+      'meta[name="description"], meta[name="robots"], meta[property^="og:"], meta[name^="twitter:"], link[rel="canonical"]',
+    )
+    .forEach((element) => element.remove());
 });
 
 describe('public application shell', () => {
@@ -310,6 +314,69 @@ describe('public application shell', () => {
     expect(document.title).toBe('Services | Agrijuune');
   });
 
+  it('sets route-specific, crawlable and social metadata', () => {
+    window.history.replaceState(null, '', '/services');
+    render(<App />);
+
+    expect(document.title).toBe('Services | Agrijuune');
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
+      'content',
+      'Explore potential farm management technology capabilities and planned agricultural machinery detailing for farms in Gauteng.',
+    );
+    expect(document.querySelector('meta[property="og:title"]')).toHaveAttribute(
+      'content',
+      'Services | Agrijuune',
+    );
+    expect(
+      document.querySelector('meta[property="og:description"]'),
+    ).toHaveAttribute(
+      'content',
+      'Explore potential farm management technology capabilities and planned agricultural machinery detailing for farms in Gauteng.',
+    );
+    expect(document.querySelector('meta[property="og:url"]')).toHaveAttribute(
+      'content',
+      'https://agrijuune.vercel.app/services',
+    );
+    expect(document.querySelector('meta[name="twitter:card"]')).toHaveAttribute(
+      'content',
+      'summary_large_image',
+    );
+    expect(document.querySelector('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://agrijuune.vercel.app/services',
+    );
+    expect(document.querySelector('meta[name="robots"]')).toHaveAttribute(
+      'content',
+      'index,follow',
+    );
+  });
+
+  it('canonicalizes the contact alias and excludes unknown routes from indexing', () => {
+    window.history.replaceState(null, '', '/contact');
+    render(<App />);
+
+    expect(document.querySelector('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://agrijuune.vercel.app/about',
+    );
+
+    act(() => {
+      window.history.replaceState(null, '', '/not-found');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+
+    expect(document.querySelector('meta[name="robots"]')).toHaveAttribute(
+      'content',
+      'noindex,nofollow',
+    );
+    expect(
+      document.querySelector('link[rel="canonical"]'),
+    ).not.toBeInTheDocument();
+    expect(
+      document.querySelector('meta[property="og:url"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it('focuses the homepage heading when navigating home', () => {
     window.history.replaceState(null, '', '/services');
     render(<App />);
@@ -373,8 +440,11 @@ describe('public application shell', () => {
     expect(document.title).toBe('Dienste | Agrijuune');
     expect(metaDescription).toHaveAttribute(
       'content',
-      'Agrijuune bring plaasbestuurstegnologie en dieptereiniging van landboumasjinerie bymekaar.',
+      'Verken moontlike plaasbestuurstegnologievermoëns en beplande skoonmaak en versorging van landboumasjinerie vir plase in Gauteng.',
     );
+    expect(
+      document.querySelector('meta[property="og:locale"]'),
+    ).toHaveAttribute('content', 'af_ZA');
     expect(
       screen.getByRole('heading', {
         level: 1,
@@ -394,6 +464,10 @@ describe('public application shell', () => {
     ).toHaveFocus();
     expect(document.title).toBe('Gereelde vrae | Agrijuune');
     expect(languageSelect).toHaveValue('af');
+    expect(document.querySelector('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://agrijuune.vercel.app/faq',
+    );
   });
 
   it('closes the mobile menu on Escape and restores focus to its toggle', () => {

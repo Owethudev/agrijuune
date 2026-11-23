@@ -151,7 +151,6 @@ export type FaqPageCopy = {
 
 type LanguageContent = {
   htmlLang: string;
-  metaDescription: string;
   shared: SharedCopy;
   home: HomePageCopy;
   services: ServicesPageCopy;
@@ -166,33 +165,31 @@ const englishRoutes: Record<RoutePath, RouteCopy> = {
     label: 'Home',
     title: 'Agrijuune',
     description:
-      'Farm management technology and agricultural machinery detailing.',
+      'Explore Agrijuune’s potential farm management technology and planned agricultural machinery detailing for farms in Gauteng.',
   },
   '/services': {
     label: 'Services',
     title: 'Services',
     description:
-      'Potential farm management technology capabilities and planned agricultural machinery detailing.',
+      'Explore potential farm management technology capabilities and planned agricultural machinery detailing for farms in Gauteng.',
   },
   '/about': {
     label: 'About / Contact',
     title: 'About & Contact',
     description:
-      'Agrijuune’s purpose, two divisions and confirmed contact information.',
+      'Read about Agrijuune’s purpose, two divisions and current contact arrangements.',
   },
   '/faq': {
     label: 'FAQ',
     title: 'Frequently asked questions',
     description:
-      'Answers about Agrijuune’s services, scope, demo and enquiry route.',
+      'Answers about Agrijuune’s proposed services, service scope, demonstrations and enquiry arrangements.',
   },
 };
 
 export const translations: Record<Language, LanguageContent> = {
   en: {
     htmlLang: 'en-ZA',
-    metaDescription:
-      'Agrijuune brings together farm management technology and agricultural machinery detailing.',
     shared: {
       closeMenu: 'Close menu',
       footerNavigationLabel: 'Footer',
@@ -434,8 +431,6 @@ export const translations: Record<Language, LanguageContent> = {
   },
   af: {
     htmlLang: 'af-ZA',
-    metaDescription:
-      'Agrijuune bring plaasbestuurstegnologie en dieptereiniging van landboumasjinerie bymekaar.',
     shared: {
       closeMenu: 'Sluit kieslys',
       footerNavigationLabel: 'Voetskrifnavigasie',
@@ -582,25 +577,25 @@ export const translations: Record<Language, LanguageContent> = {
         label: 'Tuis',
         title: 'Agrijuune',
         description:
-          'Plaasbestuurstegnologie en dieptereiniging van landboumasjinerie.',
+          'Verken Agrijuune se moontlike plaasbestuurstegnologie en beplande skoonmaak en versorging van landboumasjinerie vir plase in Gauteng.',
       },
       '/services': {
         label: 'Dienste',
         title: 'Dienste',
         description:
-          'Moontlike plaasbestuurstegnologievermoëns en beplande skoonmaak en versorging van landboumasjinerie.',
+          'Verken moontlike plaasbestuurstegnologievermoëns en beplande skoonmaak en versorging van landboumasjinerie vir plase in Gauteng.',
       },
       '/about': {
         label: 'Oor ons / Kontak',
         title: 'Oor ons en kontak',
         description:
-          'Agrijuune se doel, twee afdelings en bevestigde kontakinligting.',
+          'Lees oor Agrijuune se doel, twee afdelings en huidige kontakreëlings.',
       },
       '/faq': {
         label: 'Gereelde vrae',
         title: 'Gereelde vrae',
         description:
-          'Antwoorde oor Agrijuune se dienste, omvang, demonstrasie en navraagroete.',
+          'Antwoorde oor Agrijuune se voorgestelde dienste, omvang, demonstrasies en navraagreëlings.',
       },
     },
     about: {

@@ -19,6 +19,7 @@ import {
 import { AboutPage } from './AboutPage';
 import { FaqPage } from './FaqPage';
 import { HomePage } from './HomePage';
+import { updatePageMetadata } from './seo';
 import { ServicesPage } from './ServicesPage';
 import './App.css';
 
@@ -53,16 +54,12 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = languageContent.htmlLang;
-    document.title =
-      page.title === 'Agrijuune' ? 'Agrijuune' : `${page.title} | Agrijuune`;
-
-    const metaDescription = document.querySelector<HTMLMetaElement>(
-      'meta[name="description"]',
-    );
-    if (metaDescription) {
-      metaDescription.content = languageContent.metaDescription;
-    }
+    updatePageMetadata({
+      language: languageContent.htmlLang,
+      path: activeRoute?.path ?? null,
+      title: page.title,
+      description: page.description,
+    });
 
     if (previousPathRef.current !== pathname) {
       headingRef.current?.focus();
@@ -72,9 +69,10 @@ export function App() {
   }, [
     language,
     languageContent.htmlLang,
-    languageContent.metaDescription,
+    page.description,
     page.title,
     pathname,
+    activeRoute?.path,
   ]);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, path: RoutePath) {
