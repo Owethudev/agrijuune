@@ -185,9 +185,8 @@ backend/
   tests/
 ```
 
-If the project uses JavaScript rather than TypeScript, retain the same
-separation with `.js` files. TypeScript is recommended but not yet
-confirmed as a final project decision.
+Both applications use strict TypeScript. Keep runtime validation for
+untrusted input; TypeScript types do not validate HTTP requests.
 
 ## 7. Suggested frontend layout
 
@@ -248,8 +247,8 @@ Separate local, test/staging and production configuration. Validate
 required environment variables at application startup. Never silently
 substitute production credentials or default secrets.
 
-Provider names, hosting, domains, package manager and email
-configuration remain open decisions. Do not hard-code assumptions.
+Provider names, hosting, domains, package manager and email configuration
+remain open decisions. Do not hard-code assumptions.
 
 ## 11. Performance and accessibility
 

@@ -135,9 +135,11 @@ The first milestone is validated demand, not a large customer count.
 ## Documentation
 
 - [Agrijuune Business Concept](docs/Agrijuune_Business_Concept.pdf)
+- [Agrijuune Product Requirements Document](docs/Agrijuune_PRD_v0.1.md)
+- [Product Requirements Document source PDF](docs/Agrijuune_PRD_v0.1.pdf)
+- [Stitch design export and image assets](docs/designs/)
 - [Stitch Design Project](https://stitch.google.com/projects/6282007789333470748)
-- `[PLACEHOLDER - product requirements document]`
-- `[PLACEHOLDER - implementation plan]`
+- [Implementation Plan](docs/Agrijuune_Implementation_Plan_v1.0.pdf)
 - `[PLACEHOLDER - operating manuals and templates]`
 
 ## Project Links
@@ -163,8 +165,8 @@ The first milestone is validated demand, not a large customer count.
 ## Development Setup
 
 This repository uses npm workspaces for the React/Vite frontend and
-Node.js/Express backend. TypeScript is a provisional scaffold choice;
-the project documentation still requires confirmation.
+Node.js/Express backend. Both applications use strict TypeScript; the
+frontend retains the existing CSS approach without a styling framework.
 
 Install dependencies:
 

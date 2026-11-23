@@ -154,15 +154,15 @@ The agreed technology direction is:
 -   **Frontend:** React + Vite.
 -   **Backend:** Node.js + Express.
 -   **Database:** Supabase PostgreSQL.
+-   **Language:** Strict TypeScript in both frontend and backend.
+-   **Styling:** Continue with the existing CSS approach; no styling
+    framework is approved.
 
 The backend is a modular monolith. Keep private database operations and
 sensitive credentials on the server.
 
 The following remain decisions to confirm rather than assumptions:
 
--   TypeScript versus JavaScript for each application.
--   Styling solution (Tailwind CSS is an option, not a confirmed
-    requirement).
 -   Package manager.
 -   Hosting provider and production domains.
 -   Email provider and sender configuration.
