@@ -1,21 +1,28 @@
-# Project Skeleton Defaults
+# Project Language and Styling Defaults
 
-- **Status:** Provisional; confirmation is still required.
+- **Status:** Accepted.
 - **Date:** 2026-11-22
+- **Confirmed:** 2026-11-23
 
 ## Context
 
-The project documentation establishes React/Vite, Node/Express and
-Supabase/PostgreSQL, but leaves the application language and package
-manager open. No manifests or lockfiles existed when the skeleton was
-started.
+The project uses React/Vite for the frontend and Node/Express for the
+backend. Both applications already use strict TypeScript. The frontend
+already uses CSS files and shared CSS custom properties; no styling
+framework is installed.
 
-## Provisional setup
+## Decision
 
-- TypeScript is used because `ARCHITECTURE.md` recommends it.
-- npm workspaces are used as the default because no package manager was
-  previously established.
+- Keep strict TypeScript in both the frontend and backend.
+- Keep the existing CSS approach, including shared CSS custom
+  properties. Do not introduce Tailwind CSS or another styling
+  framework.
+- Leave the existing npm workspace setup unchanged; package-manager
+  changes are outside this decision.
 
-These are setup assumptions, not product-owner-approved architectural
-decisions. Confirm them before treating this scaffold as the permanent
-project standard.
+## Consequences
+
+- The existing TypeScript compiler configurations remain authoritative.
+- New frontend styling follows the current CSS conventions.
+- Reconsider this decision only with product-owner approval and a
+  documented migration plan.

@@ -37,12 +37,8 @@ abstractions merely to satisfy a pattern.
 
 ## 4. TypeScript and JavaScript
 
-TypeScript is recommended, but the final language choice is still to be
-confirmed. Follow the language already used in the repository.
+Both applications use strict TypeScript.
 
-If TypeScript is adopted:
-
--   Enable strict type checking where practical.
 -   Avoid `any`; use `unknown` and narrow types at untrusted boundaries.
 -   Define explicit request, response and domain types.
 -   Do not use type assertions to bypass validation.
@@ -50,9 +46,6 @@ If TypeScript is adopted:
     validate HTTP requests.
 -   Avoid duplicating types manually where a safe shared source can be
     used.
-
-If JavaScript is retained, use clear module boundaries and runtime
-schemas for external input.
 
 ## 5. Backend standards
 
@@ -84,6 +77,8 @@ schemas for external input.
 -   Do not introduce state-management libraries without a demonstrated
     need.
 -   Do not add animation or 3D dependencies solely for decoration.
+-   Continue using the existing CSS approach and shared CSS custom
+    properties; do not introduce a styling framework without approval.
 
 ## 7. Naming and file organisation
 
