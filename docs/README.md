@@ -15,6 +15,8 @@ demonstration and enquiry-capture release.
     --- business concept.
 -   [`designs/`](designs/) --- Stitch design export and image assets.
 -   [`decisions/`](decisions/) --- recorded project decisions.
+-   [`decisions/2026-11-23-deployment-and-environments.md`](decisions/2026-11-23-deployment-and-environments.md)
+    --- production hosts, preview boundaries and secret handling.
 
 ## Engineering references
 
@@ -39,7 +41,8 @@ deliberately do not specify a full farm-management application.
 
 Strict TypeScript is used in both applications, and the frontend keeps
 its existing CSS approach without a styling framework. The current npm
-workspace setup remains unchanged. Hosting, email provider, final form
-fields, privacy notice and retention period remain decisions to
+workspace setup remains unchanged. The production hosts and preview
+boundaries are recorded in the deployment plan. Email provider, final
+form fields, privacy notice and retention period remain decisions to
 confirm. Review all proposed schema and SQL before applying it to a
 database.
