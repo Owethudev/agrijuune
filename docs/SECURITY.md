@@ -68,7 +68,7 @@ values.
 GitHub secret scanning and push protection are enabled for the
 repository. Dependabot dependency graph, alerts and security updates are
 also enabled; `.github/dependabot.yml` schedules weekly npm version
-updates. Keep the `CI / quality` check required by the active `main`
+updates. Keep the `quality` job required by the active `main`
 ruleset, with no bypass actors.
 
 ## 3. Supabase and database access
@@ -196,7 +196,7 @@ Before launch, verify:
 -   [ ] GitHub secret scanning and push protection are enabled.
 -   [ ] Dependabot dependency graph, alerts and security updates are
     enabled.
--   [ ] `main` requires the `CI / quality` check and a pull request,
+-   [ ] `main` requires the `quality` job and a pull request,
     without bypass actors.
 -   [ ] Supabase service-role key is server-only.
 -   [ ] RLS is enabled and tested on private tables.

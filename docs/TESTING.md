@@ -160,7 +160,7 @@ npm run build
 
 The GitHub Actions workflow at `.github/workflows/ci.yml` runs these
 commands on pull requests targeting `main` and on pushes to `main`. The
-`CI / quality` status check is required by the active `main` ruleset.
+`quality` job is required by the active `main` ruleset.
 The workflow uses no production credentials or personal data.
 
 Dependabot dependency alerts/security updates are enabled in repository
