@@ -95,12 +95,18 @@ describe('public application shell', () => {
       screen.getByRole('link', { name: 'Explore services' }),
     ).toHaveAttribute('href', '#divisions');
     expect(
-      screen.getByRole('link', { name: 'Explore the demo plan' }),
+      screen.getByRole('link', { name: 'Explore the demo' }),
     ).toHaveAttribute('href', '#platform-demo');
     expect(
       screen.getByRole('link', { name: 'Express interest' }),
     ).toHaveAttribute('href', '#interest');
     expect(document.querySelector('#platform-demo')).toBeInTheDocument();
+    expect(
+      screen.getByText('Fictional demonstration data'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Start demo' }),
+    ).toBeInTheDocument();
     expect(document.querySelector('#interest')).toBeInTheDocument();
     expect(
       screen.getByText(/This page does not collect personal information/),
@@ -290,8 +296,9 @@ describe('public application shell', () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: 'Verken die demoplan' }),
+      screen.getByRole('link', { name: 'Verken die demo' }),
     ).toHaveAttribute('href', '#platform-demo');
+    expect(screen.getByText('Fiktiewe demonstrasiedata')).toBeInTheDocument();
   });
 
   it('updates the route and focuses the new page heading', () => {

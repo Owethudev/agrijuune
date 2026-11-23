@@ -1,14 +1,16 @@
 import type { Ref } from 'react';
-import type { HomePageCopy } from '../content/translations';
+import type { HomePageCopy, Language } from '../content/translations';
+import { GuidedDemo } from '../demo/GuidedDemo';
 import { DivisionCard } from './DivisionCard';
 import './HomePage.css';
 
 type HomePageProps = {
   copy: HomePageCopy;
   headingRef: Ref<HTMLHeadingElement>;
+  language: Language;
 };
 
-export function HomePage({ copy, headingRef }: HomePageProps) {
+export function HomePage({ copy, headingRef, language }: HomePageProps) {
   return (
     <div className="home-page">
       <section
@@ -98,6 +100,7 @@ export function HomePage({ copy, headingRef }: HomePageProps) {
           <p className="home-eyebrow">{copy.demo.eyebrow}</p>
           <h2 id="home-demo-title">{copy.demo.title}</h2>
           <p>{copy.demo.description}</p>
+          <GuidedDemo copy={copy.demo} language={language} />
         </div>
       </section>
 

@@ -208,7 +208,7 @@
   background: var(--color-surface-hover);
 }
 
-.home-demo__content > p:last-child {
+.home-demo__content > p {
   max-width: var(--layout-copy-width);
   margin: var(--space-2) 0 0;
   color: var(--color-text-muted);
