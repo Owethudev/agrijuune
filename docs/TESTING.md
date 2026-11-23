@@ -49,6 +49,8 @@ Test:
 -   Validation feedback.
 -   Loading, success and error states.
 -   Keyboard interactions for navigation and demo controls.
+-   Public route rendering, active navigation, route-change focus, and
+    keyboard dismissal of the mobile menu.
 -   Responsive-critical components where the test environment supports
     it.
 
