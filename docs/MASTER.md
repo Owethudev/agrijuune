@@ -192,12 +192,12 @@ than assumptions:
     says the Brevo data-location review is okay, but exact provider
     disclosures remain outstanding. The adapter is not implemented and
     email delivery is disabled.
--   Specific lawful basis, complete Privacy Notice, responsible-party
-    legal identity and actionable deletion/backup process. The owner
-    supplied public privacy contact details and confirmed one-week
-    retention from submission, with deletion of all submitted form
-    information; backup and provider-copy handling still need detail.
-    See the enquiry decision record.
+-   Specific lawful basis and complete Privacy Notice. The responsible
+    party is named Agrijuune; public privacy contacts are recorded in the
+    enquiry decision record. The owner specified deletion of all
+    submitted form information after seven days and wants the purge
+    implemented in code. The purge and backup/provider-copy handling
+    remain outstanding.
 -   Brand logo, photography, video and final design assets.
 
 No non-essential analytics is approved at launch. Any later analytics
