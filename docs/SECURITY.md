@@ -65,6 +65,12 @@ FRONTEND_ORIGIN=
 These are names/examples only. Do not populate them with invented
 values.
 
+GitHub secret scanning and push protection are enabled for the
+repository. Dependabot dependency graph, alerts and security updates are
+also enabled; `.github/dependabot.yml` schedules weekly npm version
+updates. Keep the `CI / quality` check required by the active `main`
+ruleset, with no bypass actors.
+
 ## 3. Supabase and database access
 
 -   Enable Row Level Security (RLS) on tables containing enquiry or
@@ -187,6 +193,11 @@ recovery, audit logging and session management before implementation.
 Before launch, verify:
 
 -   [ ] No secrets or `.env` files are committed.
+-   [ ] GitHub secret scanning and push protection are enabled.
+-   [ ] Dependabot dependency graph, alerts and security updates are
+    enabled.
+-   [ ] `main` requires the `CI / quality` check and a pull request,
+    without bypass actors.
 -   [ ] Supabase service-role key is server-only.
 -   [ ] RLS is enabled and tested on private tables.
 -   [ ] Anonymous reads/updates/deletes of enquiries are denied.
