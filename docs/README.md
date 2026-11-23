@@ -44,7 +44,10 @@ deliberately do not specify a full farm-management application.
 Strict TypeScript is used in both applications, and the frontend keeps
 its existing CSS approach without a styling framework. The current npm
 workspace setup remains unchanged. The production hosts and preview
-boundaries are recorded in the deployment plan. Email provider, final
-form fields, privacy notice and retention period remain decisions to
-confirm. Review all proposed schema and SQL before applying it to a
+boundaries are recorded in the deployment plan. The enquiry field
+contract and one-week retention period are recorded in the
+[enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
+The email provider, complete Privacy Notice, lawful basis, public
+responsible-party contact details and deletion/backup process remain
+open. Review all proposed schema and SQL before applying it to a
 database.

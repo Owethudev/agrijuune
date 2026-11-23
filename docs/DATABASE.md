@@ -38,8 +38,10 @@ Express API, which validates and persists them.
 
 The following is a starting schema, not an instruction to begin
 collection or apply a production migration. The required/optional
-contract below matches the approved form; privacy and retention approval
-is still a prerequisite for collecting personal information.
+contract below matches the approved form. The product owner set a
+one-week retention period, but the lawful basis, complete Privacy Notice
+and deletion/backup process remain prerequisites for collecting
+personal information.
 
   ----------------------------------------------------------------------------------------
   Column                        Suggested type                Required Notes
@@ -206,13 +208,15 @@ in depth.
 
 ## 8. Retention, deletion and backups
 
-The business must approve a retention period based on its purpose and
-legal obligations. Do not invent a fixed retention period.
+The product owner set a one-week retention period. Before collection,
+confirm when the week starts and approve the deletion process, including
+how deleted records expire from backups. This retention decision alone
+does not authorize collection.
 
 Before launch, define:
 
 -   Who may access enquiry records.
--   How long records are retained.
+-   How the one-week retention period is measured and enforced.
 -   How deletion requests are assessed and actioned.
 -   Whether backups retain deleted records and for how long.
 -   How database backups and restoration are tested.

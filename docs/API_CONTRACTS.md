@@ -142,11 +142,14 @@ and a non-empty `servicesOfInterest` containing only
 `farmLocation`, `operationType`, `machineCountEstimate` and
 `additionalMessage` are optional. There is no separate `phone` field.
 
-This contract is not permission to collect personal information. Do not
-enable the form or endpoint until the responsible party, lawful basis,
-privacy notice/acknowledgement and retention/deletion process are
-approved. The product owner is the intended follow-up recipient, but the
-email provider, sender and exact recipient address are not approved;
+This contract is not permission to collect personal information. The
+product owner confirms responsibility for enquiry data, supplied
+acknowledgement wording and set a one-week retention period; see the
+[enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
+The lawful basis, complete Privacy Notice, public responsible-party
+contact details and deletion/backup process remain pending. Do not
+enable the form or endpoint until these are approved and actionable.
+The email provider, sender and exact recipient address are also pending;
 email notifications remain disabled. No non-essential analytics is
 approved at launch.
 
