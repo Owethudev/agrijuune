@@ -659,11 +659,11 @@ Maintain approved service-interest options, language strings, FAQ content, navig
 
 ## 11.2 Third-party services
 
-Email delivery provider, analytics provider, map provider and bot-protection service are not selected. Enquiries are intended to go directly to the product owner, but delivery remains disabled until an email provider, sender and exact recipient address are approved. No non-essential analytics is approved at launch. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
+Brevo is the selected email delivery provider. The product owner reports that the deployed backend has `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL` configured; actual values are not recorded here. The email adapter is not implemented or tested, and delivery remains disabled until sender/recipient verification and the privacy gate are complete. Analytics, map and bot-protection providers are not selected. No non-essential analytics is approved at launch. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the responsible-party contact details, lawful basis, complete Privacy Notice and deletion/backup process are approved. The owner-provided draft acknowledgement and one-week retention period are recorded in the enquiry decision record; the week start and deletion behavior still need confirmation. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until its provider, sender and exact recipient address are approved. No non-essential analytics runs at launch.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the responsible-party contact details, lawful basis, complete Privacy Notice and deletion/backup process are approved. The owner-provided draft acknowledgement and one-week retention period are recorded in the enquiry decision record; the week start and deletion behavior still need confirmation. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented, sender/recipient configuration is verified and the privacy gate is approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
@@ -679,9 +679,11 @@ A visitor's browser loads the public website and static demo content. Enquiry co
 
 - `PUBLIC_SITE_URL` — canonical URL; public.
 
-- `EMAIL_PROVIDER_API_KEY` — email delivery secret; server only.
+- `BREVO_API_KEY` — Brevo API key; server only.
 
-- `ENQUIRY_RECIPIENT_EMAIL` — destination inbox; server configuration.
+- `EMAIL_FROM` — sender identity; server configuration.
+
+- `BUSINESS_EMAIL` — destination inbox; server configuration.
 
 - `ANALYTICS_ID` — analytics property identifier; only after consent configuration.
 
@@ -819,7 +821,7 @@ Privacy requirements:
 
 ## 13.3 Open questions — resolve before approval
 
-1. What public contact email should be displayed, and what email provider, sender and exact address should deliver enquiries to the product owner?
+1. What public contact email should be displayed for privacy requests, and are the configured Brevo sender and recipient approved for enquiry delivery?
 
 1. Should any farm details be collected before the demo? Earlier answers suggested pre-demo farm context, but later answers say anyone can view the demo without registration. Recommended resolution: no gate before demo; collect farm context in the enquiry form only.
 
@@ -829,7 +831,7 @@ Privacy requirements:
 
 1. What are the final approved brand hex codes, logo asset, typography and 3D direction?
 
-1. Which hosting, domain, frontend stack and enquiry delivery provider will be used?
+1. Which hosting, domain and frontend stack will be used? Brevo is the selected enquiry delivery provider.
 
 1. Is a database needed, or is a secure form/email service sufficient?
 

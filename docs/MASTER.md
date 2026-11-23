@@ -182,10 +182,15 @@ sensitive credentials on the server.
 -   **Branch protection:** Managed in GitHub settings by the repository
     owner; details are not duplicated in this document.
 
-The following remain decisions to confirm rather than assumptions:
+The following decisions and implementations require confirmation rather
+than assumptions:
 
 -   Package manager.
--   Email provider, sender configuration and exact recipient address.
+-   Brevo is selected, and the product owner reports `BREVO_API_KEY`,
+    `EMAIL_FROM` and `BUSINESS_EMAIL` are configured in the deployed
+    backend. The adapter is not implemented; sender/recipient
+    verification and provider data-location review remain pending. Email
+    delivery is disabled.
 -   Public responsible-party contact details, lawful basis, complete
     Privacy Notice and deletion/backup process. The owner-provided
     acknowledgement wording and one-week retention period are recorded
