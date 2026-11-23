@@ -65,11 +65,53 @@ export type HomePageCopy = {
   };
 };
 
+export type ServicesPageCopy = {
+  hero: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    homeLinkLabel: string;
+    aboutLinkLabel: string;
+    interestLinkLabel: string;
+  };
+  divisions: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  details: {
+    title: string;
+    technology: {
+      capabilitiesTitle: string;
+      capabilities: string[];
+      boundariesTitle: string;
+      boundaries: string[];
+    };
+    detailing: {
+      approachTitle: string;
+      approach: string[];
+      boundariesTitle: string;
+      boundaries: string[];
+    };
+  };
+  arrangements: {
+    title: string;
+    description: string;
+  };
+  enquiry: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    placeholder: string;
+  };
+};
+
 type LanguageContent = {
   htmlLang: string;
   metaDescription: string;
   shared: SharedCopy;
   home: HomePageCopy;
+  services: ServicesPageCopy;
   routes: Partial<Record<RoutePath, RouteCopy>>;
   notFound: Omit<RouteCopy, 'label'>;
 };
@@ -84,7 +126,8 @@ const englishRoutes: Record<RoutePath, RouteCopy> = {
   '/services': {
     label: 'Services',
     title: 'Services',
-    description: 'Service descriptions will be added after content approval.',
+    description:
+      'Potential farm management technology capabilities and planned agricultural machinery detailing.',
   },
   '/about': {
     label: 'About / Contact',
@@ -182,6 +225,69 @@ export const translations: Record<Language, LanguageContent> = {
           'Placeholder: approved contact information will be added later. This page does not collect personal information.',
       },
     },
+    services: {
+      hero: {
+        eyebrow: 'Services',
+        title: 'Two complementary divisions, one practical approach.',
+        description:
+          'Explore potential farm management technology capabilities and planned machinery detailing. Actual features, work scope, pricing and availability are discussed individually.',
+        homeLinkLabel: 'Home',
+        aboutLinkLabel: 'About / Contact',
+        interestLinkLabel: 'Express interest',
+      },
+      divisions: {
+        eyebrow: 'What we are developing',
+        title: 'Explore both divisions',
+        description:
+          'Each division has a distinct role. The cards summarize the proposed offer; further details clarify what is potential, planned or outside scope.',
+      },
+      details: {
+        title: 'Scope and service boundaries',
+        technology: {
+          capabilitiesTitle: 'Potential capability areas',
+          capabilities: [
+            'Machinery registration and digital asset records',
+            'Maintenance schedules, history and reminders',
+            'Tools and equipment stock availability',
+            'Detailing service records',
+            'Dashboards and reports',
+            'Possible document storage, subject to consultation',
+          ],
+          boundariesTitle: 'What to expect',
+          boundaries: [
+            'These are potential capabilities; not every feature is built or included in every system.',
+            'Workflows, data, permissions, recipients, configuration, hosting and support are agreed during consultation.',
+            'Operating-hours tracking, telematics and automated maintenance decisions are not committed capabilities.',
+          ],
+        },
+        detailing: {
+          approachTitle: 'Planned approach',
+          approach: [
+            'On-site cleaning and detailing for tractors and agricultural machinery.',
+            'Work is tailored to machine type, condition and customer requirements.',
+          ],
+          boundariesTitle: 'What is not included',
+          boundaries: [
+            'This service is not mechanical repair, fault diagnosis or formal technical inspection.',
+            'Standard detailing is not represented as food-safe sanitation.',
+            'Online booking is not available.',
+          ],
+        },
+      },
+      arrangements: {
+        title: 'Agreed for each customer',
+        description:
+          'Scope, package combinations, pricing, configuration and operating arrangements are determined with each customer. No fixed packages, prices or guaranteed outcomes are published.',
+      },
+      enquiry: {
+        eyebrow: 'Next steps',
+        title: 'Express interest',
+        description:
+          'Contact details and an enquiry route are still being prepared.',
+        placeholder:
+          'Placeholder: no form is available and this page does not collect personal information.',
+      },
+    },
     routes: englishRoutes,
     notFound: {
       title: 'Page not found',
@@ -270,6 +376,69 @@ export const translations: Record<Language, LanguageContent> = {
           'Plekhouer: goedgekeurde kontakbesonderhede sal later bygevoeg word. Hierdie bladsy versamel nie persoonlike inligting nie.',
       },
     },
+    services: {
+      hero: {
+        eyebrow: 'Dienste',
+        title: 'Twee aanvullende afdelings, een praktiese benadering.',
+        description:
+          'Verken moontlike plaasbestuurstegnologievermoëns en beplande masjienversorging. Werklike funksies, diensomvang, pryse en beskikbaarheid word individueel bespreek.',
+        homeLinkLabel: 'Tuis',
+        aboutLinkLabel: 'Oor ons / Kontak',
+        interestLinkLabel: 'Stel belang',
+      },
+      divisions: {
+        eyebrow: 'Wat ons ontwikkel',
+        title: 'Verken albei afdelings',
+        description:
+          'Elke afdeling het ’n eie rol. Die kaarte som die voorgestelde aanbod op; verdere besonderhede verduidelik wat moontlik, beplan of buite omvang is.',
+      },
+      details: {
+        title: 'Omvang en diensgrense',
+        technology: {
+          capabilitiesTitle: 'Moontlike vermoëns',
+          capabilities: [
+            'Masjienregistrasie en digitale baterekords',
+            'Instandhoudingskedules, -geskiedenis en aanmanings',
+            'Beskikbaarheid van gereedskap en toerusting',
+            'Detaileringsdiensrekords',
+            'Dashboards en verslae',
+            'Moontlike dokumentberging, onderhewig aan konsultasie',
+          ],
+          boundariesTitle: 'Wat om te verwag',
+          boundaries: [
+            'Dit is moontlike vermoëns; nie elke funksie is reeds gebou of by elke stelsel ingesluit nie.',
+            'Werkvloeie, data, toestemmings, ontvangers, opstelling, huisvesting en ondersteuning word tydens konsultasie ooreengekom.',
+            'Ure-opsporing, telematika en outomatiese instandhoudingsbesluite is nie bevestigde vermoëns nie.',
+          ],
+        },
+        detailing: {
+          approachTitle: 'Beplande benadering',
+          approach: [
+            'Skoonmaak en versorging op die perseel vir trekkers en landboumasjinerie.',
+            'Werk word aangepas volgens masjientipe, toestand en klantvereistes.',
+          ],
+          boundariesTitle: 'Wat nie ingesluit is nie',
+          boundaries: [
+            'Hierdie diens sluit nie meganiese herstelwerk, foutdiagnose of formele tegniese inspeksie in nie.',
+            'Standaardversorging word nie as voedselveilige sanitasie voorgestel nie.',
+            'Aanlyn bespreking is nie beskikbaar nie.',
+          ],
+        },
+      },
+      arrangements: {
+        title: 'Ooreengekom met elke klant',
+        description:
+          'Omvang, kombinasies van pakkette, pryse, opstelling en bedryfsreëlings word met elke klant bepaal. Geen vaste pakkette, pryse of gewaarborgde uitkomste word gepubliseer nie.',
+      },
+      enquiry: {
+        eyebrow: 'Volgende stappe',
+        title: 'Stel belang',
+        description:
+          'Kontakbesonderhede en ’n navraagroete word nog voorberei.',
+        placeholder:
+          'Plekhouer: geen vorm is beskikbaar nie en hierdie bladsy versamel nie persoonlike inligting nie.',
+      },
+    },
     routes: {
       '/': {
         label: 'Tuis',
@@ -281,7 +450,7 @@ export const translations: Record<Language, LanguageContent> = {
         label: 'Dienste',
         title: 'Dienste',
         description:
-          'Diensbeskrywings sal bygevoeg word ná goedkeuring van die inhoud.',
+          'Moontlike plaasbestuurstegnologievermoëns en beplande skoonmaak en versorging van landboumasjinerie.',
       },
       '/about': {
         label: 'Oor ons / Kontak',

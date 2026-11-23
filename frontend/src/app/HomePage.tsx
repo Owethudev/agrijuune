@@ -1,37 +1,12 @@
 import type { Ref } from 'react';
-import type { HomeDivisionCopy, HomePageCopy } from '../content/translations';
+import type { HomePageCopy } from '../content/translations';
+import { DivisionCard } from './DivisionCard';
 import './HomePage.css';
 
 type HomePageProps = {
   copy: HomePageCopy;
   headingRef: Ref<HTMLHeadingElement>;
 };
-
-type DivisionCardProps = {
-  copy: HomeDivisionCopy;
-  variant: 'technology' | 'detailing';
-};
-
-function DivisionCard({ copy, variant }: DivisionCardProps) {
-  return (
-    <article
-      className={`home-division-card home-division-card--${variant}`}
-      aria-labelledby={`division-${variant}-title`}
-    >
-      <p className="home-division-card__status">{copy.status}</p>
-      <h3 id={`division-${variant}-title`}>{copy.title}</h3>
-      <p className="home-division-card__description">{copy.description}</p>
-      <ul className="home-division-card__highlights">
-        {copy.highlights.map((highlight) => (
-          <li key={highlight}>{highlight}</li>
-        ))}
-      </ul>
-      <a className="home-text-link" href="#interest">
-        {copy.ctaLabel}
-      </a>
-    </article>
-  );
-}
 
 export function HomePage({ copy, headingRef }: HomePageProps) {
   return (
@@ -83,8 +58,16 @@ export function HomePage({ copy, headingRef }: HomePageProps) {
         <h2 id="home-divisions-title">{copy.divisions.title}</h2>
         <p className="home-section__intro">{copy.divisions.description}</p>
         <div className="home-division-grid">
-          <DivisionCard copy={copy.divisions.technology} variant="technology" />
-          <DivisionCard copy={copy.divisions.detailing} variant="detailing" />
+          <DivisionCard
+            copy={copy.divisions.technology}
+            variant="technology"
+            ctaHref="#interest"
+          />
+          <DivisionCard
+            copy={copy.divisions.detailing}
+            variant="detailing"
+            ctaHref="#interest"
+          />
         </div>
         <p className="home-disclaimer">{copy.divisions.disclaimer}</p>
       </section>
