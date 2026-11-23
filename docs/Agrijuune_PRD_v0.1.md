@@ -1,8 +1,10 @@
-> **Source note:** This Markdown copy preserves the draft
-> [PDF](Agrijuune_PRD_v0.1.pdf)'s original content and open questions.
-> Later confirmations are recorded in
-> [the project decisions](decisions/2026-11-22-project-skeleton-defaults.md)
-> and [the master project brief](MASTER.md).
+> **Source note:** This remains a draft derived from the
+> [PDF](Agrijuune_PRD_v0.1.pdf). The approved enquiry fields and service
+> identifiers are recorded in the
+> [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
+> Privacy, retention and delivery approvals remain outstanding; use the
+> [master project brief](MASTER.md) and current project decisions for
+> approved requirements.
 
 **AGRIJUUNE**
 
@@ -180,7 +182,7 @@ Targets are proposed validation targets, not proven forecasts.
 
 - **F5 — SEO foundations:** Unique metadata, semantic content, bilingual page structure and Gauteng location context. Goal G1.
 
-- **F6 — Privacy-respecting analytics:** Measure visitor activity, service interest, demo engagement and enquiry conversion. Goal G3.
+- **F6 — Privacy-respecting analytics (deferred):** No non-essential analytics at launch; reconsider only after separate privacy and consent approval.
 
 - **F7 — Future portfolio readiness:** Prepare for genuine testimonials and a gallery for both divisions, but do not display fabricated content. Goal G1.
 
@@ -484,37 +486,25 @@ Required or recommended fields:
 
 - Email address — required.
 
-- Contact number — required.
+- Cell number — required; this is the only phone field.
 
-- Farm name — required.
+- Farm name — optional.
 
-- Farm location — required; general town/area and province, not precise GPS.
+- Farm location — optional; general town/area and province, not precise GPS.
 
-- Type of farming operation — required; include crop/vegetable and Other/custom.
+- Type of farming operation — optional.
 
-- Approximate number of tractors/machines — recommended/optional estimate.
+- Approximate number of tractors/machines — optional estimate.
 
-- Services of interest — required multi-select:
+- Services of interest — required multi-select, allowlisting:
 
-- Farm management software.
+- `farm_management_technology` — Farm Management Technology.
 
-- Machinery registration/digital asset records.
-
-- Maintenance scheduling/reminders.
-
-- Maintenance history/service records.
-
-- Scheduled agricultural machinery detailing.
-
-- Once-off tractor/machinery cleaning.
-
-- Complete combined package.
-
-- Other/custom.
+- `machinery_detailing` — Agricultural Machinery Detailing.
 
 - Additional message — optional, with length limit and warning not to submit sensitive or confidential farm information.
 
-The form must state that an enquiry is not a booking, quote acceptance or purchase commitment. Link the Privacy Notice and use approved privacy acknowledgement/consent wording.
+The form must state that an enquiry is not a booking, quote acceptance or purchase commitment. A Privacy Notice and acknowledgement wording still require approval; do not enable personal-data collection before that review.
 
 **S9 — FAQ**
 
@@ -600,21 +590,21 @@ The public website requires a small data model only. It must not store real cust
 
 - `email` — required email.
 
-- `phone` — required phone, accept common South African formats and normalise server-side.
+- `cell_number` — required cell number, normalise server-side.
 
-- `farm_name` — required text.
+- `farm_name` — optional text.
 
-- `farm_location` — required general town/area/province text.
+- `farm_location` — optional general town/area/province text.
 
-- `operation_type` — required choice/custom text.
+- `operation_type` — optional text.
 
 - `machine_count_estimate` — optional approximate whole number or range.
 
-- `services_of_interest` — required list of approved choices.
+- `services_of_interest` — required non-empty list of `farm_management_technology` and/or `machinery_detailing`.
 
 - `additional_message` — optional long text with length limit.
 
-- `privacy_acknowledged` — required yes/no where required, with notice version and timestamp.
+- `privacy_acknowledged` — conditional on the approved privacy design; wording and version are not yet approved.
 
 - `created_at` — date-time stored UTC, displayed SAST.
 
@@ -666,21 +656,21 @@ Maintain approved service-interest options, language strings, FAQ content, navig
 
 ## 11.2 Third-party services
 
-Email delivery provider, analytics provider, map provider and bot-protection service are not selected. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
+Email delivery provider, analytics provider, map provider and bot-protection service are not selected. Enquiries are intended to go directly to the product owner, but delivery remains disabled until an email provider, sender and exact recipient address are approved. No non-essential analytics is approved at launch. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. On enquiry submission, the browser sends validated form data to a server-side endpoint or approved form service. That service validates the request, applies abuse controls and sends the enquiry to Agrijuune's authorised email destination, optionally retaining a minimal record if a database is approved. Analytics runs separately under approved consent rules; analytics failure must never block the website or enquiry flow.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the responsible party, lawful basis, privacy notice/acknowledgement wording and retention/deletion process are approved. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until its provider, sender and exact recipient address are approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
 - Public content: anyone can read.
 
-- Enquiry: public visitor can create through validated endpoint.
+- Enquiry: public visitor may create through a validated endpoint only after the privacy gate is approved.
 
 - Enquiry read/update: authorised Agrijuune handler only, through approved provider; no public exposure.
 
-- Analytics: approved/consented events only; aggregated reporting preferred.
+- Analytics: no non-essential analytics at launch; any later use requires approval and applicable consent.
 
 ## 11.5 Environment variables (proposed)
 
@@ -826,9 +816,7 @@ Privacy requirements:
 
 ## 13.3 Open questions — resolve before approval
 
-1. What public contact email should be displayed, and who receives enquiries?
-
-1. Which enquiry fields are required versus optional, and what are the final service-interest choices?
+1. What public contact email should be displayed, and what email provider, sender and exact address should deliver enquiries to the product owner?
 
 1. Should any farm details be collected before the demo? Earlier answers suggested pre-demo farm context, but later answers say anyone can view the demo without registration. Recommended resolution: no gate before demo; collect farm context in the enquiry form only.
 
@@ -842,11 +830,9 @@ Privacy requirements:
 
 1. Is a database needed, or is a secure form/email service sufficient?
 
-1. Which analytics provider and consent approach will be used?
-
 1. What are the Privacy Notice, lawful basis, retention period, provider data locations and cross-border safeguards?
 
-1. How will enquiries be tracked after email receipt, and who is responsible for follow-up? No CRM/dashboard has been selected.
+1. How will enquiries be tracked after delivery? The product owner is the intended follow-up recipient; no CRM/dashboard has been selected.
 
 1. Should the thank-you page state a response time? No response SLA has been agreed.
 

@@ -82,7 +82,7 @@ Purpose: validate and persist an enquiry from the public website.
 {
   "contactName": "Example Contact",
   "email": "contact@example.com",
-  "phone": "+27 00 000 0000",
+  "cellNumber": "+27 00 000 0000",
   "farmName": "Example Farm",
   "farmLocation": "Gauteng",
   "operationType": "Mixed farming",
@@ -91,13 +91,12 @@ Purpose: validate and persist an enquiry from the public website.
     "farm_management_technology",
     "machinery_detailing"
   ],
-  "additionalMessage": "Please contact me about your services.",
-  "privacyNoticeVersion": "2026-01"
+  "additionalMessage": "Please contact me about your services."
 }
 ```
 
 This is illustrative sample data, not real contact information. Final
-field names and required/optional status must match the approved form.
+field names use camelCase in JSON and must match the approved form.
 
 ### Field guidance
 
@@ -110,8 +109,7 @@ field names and required/optional status must match the approved form.
   `email`                  string                  Required; valid email;
                                                    maximum 254 characters
 
-  `phone`                  string                  Optional until
-                                                   confirmed; length and
+  `cellNumber`             string                  Required; length and
                                                    format bounds
 
   `farmName`               string                  Optional; length bound
@@ -137,6 +135,20 @@ field names and required/optional status must match the approved form.
 The server must set `created_at`, initial lead `status` and notification
 status. Ignore or reject client attempts to set server-controlled
 fields.
+
+The approved required fields are `contactName`, `email`, `cellNumber`
+and a non-empty `servicesOfInterest` containing only
+`farm_management_technology` and/or `machinery_detailing`. `farmName`,
+`farmLocation`, `operationType`, `machineCountEstimate` and
+`additionalMessage` are optional. There is no separate `phone` field.
+
+This contract is not permission to collect personal information. Do not
+enable the form or endpoint until the responsible party, lawful basis,
+privacy notice/acknowledgement and retention/deletion process are
+approved. The product owner is the intended follow-up recipient, but the
+email provider, sender and exact recipient address are not approved;
+email notifications remain disabled. No non-essential analytics is
+approved at launch.
 
 ### Success response
 
@@ -184,6 +196,9 @@ Do not return `201` if persistence failed.
 
 The enquiry must be persisted before notification is attempted.
 
+-   Do not attempt email while a provider, sender and exact authorized
+    recipient address are unapproved or unconfigured. Until then, record
+    notification status as `not_configured`.
 -   If persistence succeeds and email succeeds, return `201`.
 -   If persistence succeeds but email fails, the enquiry is still
     received; return `201` and record the notification failure for

@@ -5,6 +5,15 @@ enquiry API\
 **Status:** Engineering baseline; not a legal certification or
 substitute for legal advice
 
+**Current enquiry gate:** The product owner approved the enquiry field
+set and stated that enquiries should come directly to them. The exact
+recipient address, email provider and sender are not approved, so email
+notifications remain disabled. The responsible party, lawful basis,
+privacy notice/acknowledgement wording and retention/deletion process
+also remain unapproved. Do not collect personal information until those
+privacy decisions are reviewed and approved. No non-essential analytics
+is approved at launch.
+
 ## 1. Security objectives
 
 -   Protect visitor and enquiry information.
