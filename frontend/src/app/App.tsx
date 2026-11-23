@@ -89,7 +89,7 @@ export function App() {
       </a>
 
       <header className="site-header" onKeyDown={handleNavigationKeyDown}>
-        <div className="site-header__inner">
+        <div className="container site-header__inner">
           <a
             className="site-brand"
             href="/"
@@ -101,7 +101,7 @@ export function App() {
 
           <button
             ref={menuButtonRef}
-            className="navigation-toggle"
+            className="button button--secondary navigation-toggle"
             type="button"
             aria-controls="primary-navigation"
             aria-expanded={isNavigationOpen}
@@ -132,7 +132,7 @@ export function App() {
       </header>
 
       <main id="main-content" className="main-content" tabIndex={-1}>
-        <div className="page-content">
+        <div className="page-content card">
           <p className="page-eyebrow">Agrijuune</p>
           <h1 ref={headingRef} tabIndex={-1}>
             {page.title}
@@ -142,7 +142,7 @@ export function App() {
       </main>
 
       <footer className="site-footer">
-        <div className="site-footer__inner">
+        <div className="container site-footer__inner">
           <a
             className="footer-brand"
             href="/"

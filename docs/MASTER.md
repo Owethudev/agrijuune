@@ -197,9 +197,11 @@ contact details.
 The desired visual direction is premium, modern and agricultural, with
 technology and equipment care both clearly represented.
 
-The preferred colour direction is sky blue, cloud white and scarlet red.
-Suggested starting values are `#87CEEB`, `#F8FAFC` and `#E32636`; treat
-these as provisional design tokens until approved.
+The supplied identity pack provides the working navy, red, blue,
+cloud-white and ink palette in
+`resources/companyIdentityPack/brand-colors.json`. Treat the palette
+and detailed UI tokens as provisional until founder review; see
+`DESIGN_SYSTEM.md` for current usage and contrast guidance.
 
 Use motion and any 3D elements selectively. Performance, accessibility,
 readability and mobile usability take priority over decorative effects.
