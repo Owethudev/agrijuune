@@ -1,21 +1,25 @@
 # Agrijuune --- Database Design
 
 **Database:** Supabase PostgreSQL\
-**Scope:** First-release public website enquiry capture\
+**Scope:** First-release enquiry capture and invite-only team access\
 **Status:** The owner authorized and the prototype schema was applied to
 live Supabase on 2026-11-24. This is schema-only approval; collecting
 enquiry data remains blocked by the privacy and deletion prerequisites
-below.
+below. The team-membership migration has not been applied to a hosted
+project.
 
 ## 1. Database scope
 
-The first release needs a small database footprint. Its primary
-persistence requirement is public website enquiries.
+The first release needs a small database footprint. Its planned
+persistence requirement is public website enquiries. The approved
+`team_members` table stores invite-only team access roles; it does not
+store application profiles or customer data.
 
-Do not create farm, machinery, maintenance, inventory, user, tenant or
+Do not create farm, machinery, maintenance, inventory, tenant or
 detailing-operation tables for a future farm platform unless separately
-approved. The standard demo should use fictional sample data and does
-not need production farm records.
+approved. Do not treat `team_members` as a general user or tenant model.
+The standard demo should use fictional sample data and does not need
+production farm records.
 
 ## 2. Access architecture
 
@@ -30,6 +34,12 @@ Express API
    v
 Supabase PostgreSQL
 ```
+
+Team sign-in is a separate browser-to-Supabase Auth flow. The browser
+uses only the public anon key; `team_members` RLS grants a signed-in
+member access only to their own role, and admins can manage team-role
+rows. This membership is not permission to read enquiries or other
+private records. See [Team access](./TEAM_ACCESS.md).
 
 The browser must not receive the Supabase service-role key. The
 preferred design is for the browser to submit enquiries only to the

@@ -54,6 +54,46 @@ afterEach(() => {
 });
 
 describe('public application shell', () => {
+  it('keeps the public homepage and adds team sign-in to the menu', () => {
+    render(<App />);
+
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Practical farm support, in one place.',
+      }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Menu' }));
+    expect(screen.getByRole('link', { name: 'Team sign in' })).toHaveAttribute(
+      'href',
+      '/team/sign-in',
+    );
+  });
+
+  it('renders the team sign-in page at its direct route', () => {
+    window.history.replaceState(null, '', '/team/sign-in');
+    render(<App />);
+
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Team sign in' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Email address')).toBeInTheDocument();
+    expect(screen.getByLabelText('Password')).toBeInTheDocument();
+  });
+
+  it('offers sign-in when a signed-out visitor opens the team portal', () => {
+    window.history.replaceState(null, '', '/team');
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Sign in' }));
+
+    expect(window.location.pathname).toBe('/team/sign-in');
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Team sign in' }),
+    ).toBeInTheDocument();
+  });
+
   it.each(publicPages)(
     'renders the $path route',
     ({ path, heading, documentTitle }) => {

@@ -1,7 +1,7 @@
 # Agrijuune --- Security and Privacy Requirements
 
-**Scope:** First-release public website, standard sample demo and
-enquiry API\
+**Scope:** First-release public website, sample demo, enquiry API and
+invite-only team access\
 **Status:** Engineering baseline; not a legal certification or
 substitute for legal advice
 
@@ -112,6 +112,14 @@ actors.
 -   Do not disable RLS to fix application errors.
 -   Use migrations for schema and policy changes.
 -   Review database policies whenever a table or access path changes.
+-   Team roles are stored only in `team_members`; do not infer access to
+    enquiries or other records from a client-side role check.
+-   Keep public Auth signup disabled. Invite approved team members
+    through Supabase Auth only after adding their normalized email to
+    `team_members`.
+-   Configure hosted Supabase Auth settings separately from
+    `supabase/config.toml`; local configuration does not update hosted
+    projects.
 
 ## 4. Input validation
 

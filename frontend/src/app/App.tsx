@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -6,10 +7,11 @@ import {
   type MouseEvent,
 } from 'react';
 import {
+  teamPaths,
   getRoute,
   normalizePath,
   routes,
-  type RoutePath,
+  type AppPath,
 } from '../routing/routes';
 import {
   getRouteCopy,
@@ -21,27 +23,67 @@ import { FaqPage } from './FaqPage';
 import { HomePage } from './HomePage';
 import { updatePageMetadata } from './seo';
 import { ServicesPage } from './ServicesPage';
+import { TeamPortalPage, TeamSignInPage } from '../auth/TeamPages';
+import { TeamAuthProvider } from '../auth/team-auth';
+import { useTeamAuth } from '../auth/team-auth-context';
 import './App.css';
 
 export function App() {
+  return (
+    <TeamAuthProvider>
+      <SiteApp />
+    </TeamAuthProvider>
+  );
+}
+
+function SiteApp() {
   const [pathname, setPathname] = useState(() =>
     normalizePath(window.location.pathname),
   );
   const [language, setLanguage] = useState<Language>('en');
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
+  const { signOut, state: authState } = useTeamAuth();
   const activeRoute = getRoute(pathname);
   const isHomePage = activeRoute?.path === '/';
   const isServicesPage = activeRoute?.path === '/services';
   const isAboutPage = activeRoute?.path === '/about';
   const isFaqPage = activeRoute?.path === '/faq';
+  const isTeamSignIn = pathname === teamPaths.signIn;
+  const isTeamPortal = pathname === teamPaths.portal;
   const isFullPage = isHomePage || isServicesPage;
   const languageContent = translations[language];
   const page = activeRoute
     ? getRouteCopy(language, activeRoute.path)
-    : languageContent.notFound;
+    : isTeamSignIn
+      ? {
+          title: languageContent.team.signInTitle,
+          description: languageContent.team.signInDescription,
+        }
+      : isTeamPortal
+        ? {
+            title: languageContent.team.portalTitle,
+            description: languageContent.team.portalDescription,
+          }
+        : languageContent.notFound;
   const headingRef = useRef<HTMLHeadingElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const previousPathRef = useRef(pathname);
+
+  const navigateToPath = useCallback(
+    (path: AppPath) => {
+      setIsNavigationOpen(false);
+
+      const nextPath = normalizePath(path);
+      if (nextPath === pathname) {
+        headingRef.current?.focus();
+        return;
+      }
+
+      window.history.pushState(null, '', nextPath);
+      setPathname(nextPath);
+    },
+    [pathname],
+  );
 
   useEffect(() => {
     const handlePopState = () => {
@@ -67,15 +109,15 @@ export function App() {
 
     previousPathRef.current = pathname;
   }, [
+    activeRoute?.path,
     language,
     languageContent.htmlLang,
     page.description,
     page.title,
     pathname,
-    activeRoute?.path,
   ]);
 
-  function navigate(event: MouseEvent<HTMLAnchorElement>, path: RoutePath) {
+  function navigate(event: MouseEvent<HTMLAnchorElement>, path: AppPath) {
     if (
       event.defaultPrevented ||
       event.button !== 0 ||
@@ -88,16 +130,7 @@ export function App() {
     }
 
     event.preventDefault();
-    setIsNavigationOpen(false);
-
-    const nextPath = normalizePath(path);
-    if (nextPath === pathname) {
-      headingRef.current?.focus();
-      return;
-    }
-
-    window.history.pushState(null, '', nextPath);
-    setPathname(nextPath);
+    navigateToPath(path);
   }
 
   function handleNavigationKeyDown(event: KeyboardEvent<HTMLElement>) {
@@ -164,6 +197,35 @@ export function App() {
                 </a>
               );
             })}
+            {authState.status === 'authenticated' ? (
+              <>
+                <a
+                  href={teamPaths.portal}
+                  aria-current={isTeamPortal ? 'page' : undefined}
+                  onClick={(event) => navigate(event, teamPaths.portal)}
+                >
+                  {languageContent.shared.teamPortal}
+                </a>
+                <button
+                  className="primary-navigation__sign-out"
+                  type="button"
+                  onClick={() => {
+                    setIsNavigationOpen(false);
+                    void signOut();
+                  }}
+                >
+                  {languageContent.shared.signOut}
+                </button>
+              </>
+            ) : (
+              <a
+                href={teamPaths.signIn}
+                aria-current={isTeamSignIn ? 'page' : undefined}
+                onClick={(event) => navigate(event, teamPaths.signIn)}
+              >
+                {languageContent.shared.teamSignIn}
+              </a>
+            )}
             <div className="language-switch">
               <select
                 aria-label={languageContent.shared.languageSwitcherLabel}
@@ -189,7 +251,19 @@ export function App() {
         className={`main-content${isFullPage ? ' main-content--full-page' : ''}`}
         tabIndex={-1}
       >
-        {isHomePage ? (
+        {isTeamSignIn ? (
+          <TeamSignInPage
+            copy={languageContent.team}
+            headingRef={headingRef}
+            onAuthenticated={() => navigateToPath(teamPaths.portal)}
+          />
+        ) : isTeamPortal ? (
+          <TeamPortalPage
+            copy={languageContent.team}
+            headingRef={headingRef}
+            onSignIn={() => navigateToPath(teamPaths.signIn)}
+          />
+        ) : isHomePage ? (
           <HomePage
             copy={languageContent.home}
             headingRef={headingRef}
