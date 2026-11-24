@@ -38,7 +38,7 @@ describe('EnquiryForm', () => {
   it('sends the approved fields with a stable idempotency key across retry', async () => {
     const fetchMock = vi
       .fn<typeof fetch>()
-      .mockRejectedValueOnce(new Error('Network unavailable'))
+      .mockRejectedValueOnce(new TypeError('Network unavailable'))
       .mockResolvedValueOnce(
         new Response(
           JSON.stringify({
@@ -75,12 +75,12 @@ describe('EnquiryForm', () => {
 
     const firstRequest = fetchMock.mock.calls[0]?.[1];
     const retryRequest = fetchMock.mock.calls[1]?.[1];
-    expect(firstRequest?.headers).toMatchObject({
-      'Idempotency-Key': idempotencyKey,
-    });
-    expect(retryRequest?.headers).toMatchObject({
-      'Idempotency-Key': idempotencyKey,
-    });
+    expect(new Headers(firstRequest?.headers).get('Idempotency-Key')).toBe(
+      idempotencyKey,
+    );
+    expect(new Headers(retryRequest?.headers).get('Idempotency-Key')).toBe(
+      idempotencyKey,
+    );
     expect(JSON.parse(String(firstRequest?.body))).toEqual({
       contactName: 'Example Contact',
       email: 'contact@example.com',

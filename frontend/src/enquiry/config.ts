@@ -34,6 +34,3 @@ export const enquiryPrivacyNoticeUrl = readPrivacyNoticeUrl(
 export const enquiryCollectionEnabled =
   import.meta.env.VITE_ENQUIRY_COLLECTION_ENABLED === 'true' &&
   enquiryPrivacyNoticeUrl !== undefined;
-
-export const enquiryApiBaseUrl =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '') ?? '/api/v1';
