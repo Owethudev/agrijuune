@@ -16,7 +16,43 @@ type SharedCopy = {
   languageSwitcherLabel: string;
   menu: string;
   primaryNavigationLabel: string;
+  signOut: string;
   skipLink: string;
+  teamPortal: string;
+  teamSignIn: string;
+};
+
+export type TeamCopy = {
+  accessDenied: string;
+  accessCheckError: string;
+  addMemberButton: string;
+  addMemberError: string;
+  addMemberSuccess: string;
+  adminRole: string;
+  emailLabel: string;
+  invitationInstructions: string;
+  loadMembersError: string;
+  memberEmailLabel: string;
+  memberExistsError: string;
+  membersDescription: string;
+  membersTitle: string;
+  notConfigured: string;
+  portalLinkLabel: string;
+  portalDescription: string;
+  portalTitle: string;
+  removeMemberButton: string;
+  removeMemberConfirmation: string;
+  removeMemberError: string;
+  signInButton: string;
+  signInDescription: string;
+  signInTitle: string;
+  signOutButton: string;
+  signingIn: string;
+  checkingSession: string;
+  signOutError: string;
+  teamRole: string;
+  passwordLabel: string;
+  authError: string;
 };
 
 export type HomeDivisionCopy = {
@@ -220,6 +256,7 @@ export type FaqPageCopy = {
 type LanguageContent = {
   htmlLang: string;
   shared: SharedCopy;
+  team: TeamCopy;
   home: HomePageCopy;
   services: ServicesPageCopy;
   about: AboutPageCopy;
@@ -267,7 +304,49 @@ export const translations: Record<Language, LanguageContent> = {
       languageSwitcherLabel: 'Language',
       menu: 'Menu',
       primaryNavigationLabel: 'Primary',
+      signOut: 'Sign out',
       skipLink: 'Skip to main content',
+      teamPortal: 'Team portal',
+      teamSignIn: 'Team sign in',
+    },
+    team: {
+      accessDenied:
+        'This account does not have team access. Contact an administrator.',
+      accessCheckError: 'Team access could not be verified. Try again later.',
+      addMemberButton: 'Add team member',
+      addMemberError: 'The team member could not be added. Try again.',
+      addMemberSuccess:
+        'Team access added. Invite this email from Supabase Auth to let them sign in.',
+      adminRole: 'Administrator',
+      emailLabel: 'Email address',
+      invitationInstructions:
+        'Add a team email here, then invite that same address from Supabase Auth. Only invited accounts with a matching role can sign in.',
+      loadMembersError: 'Team access could not be loaded. Try again later.',
+      memberEmailLabel: 'Team member email',
+      memberExistsError: 'That email already has team access.',
+      membersDescription:
+        'Invite new people from Supabase Auth after adding their email here. Only team roles can be assigned from this page.',
+      membersTitle: 'Team access',
+      notConfigured: 'Team sign-in is not configured in this environment yet.',
+      portalLinkLabel: 'Open team portal',
+      portalDescription:
+        'This private workspace is separate from the public Agrijuune website.',
+      portalTitle: 'Team workspace',
+      removeMemberButton: 'Remove access',
+      removeMemberConfirmation:
+        'Remove this team member’s role? Existing sessions may remain active until refreshed. Disable their Supabase Auth user for immediate revocation.',
+      removeMemberError: 'Team access could not be removed. Try again.',
+      signInButton: 'Sign in',
+      signInDescription:
+        'This sign-in is for invited Agrijuune team members only.',
+      signInTitle: 'Team sign in',
+      signOutButton: 'Sign out',
+      signingIn: 'Signing in…',
+      checkingSession: 'Checking team access…',
+      signOutError: 'You could not be signed out. Please try again.',
+      teamRole: 'Team member',
+      passwordLabel: 'Password',
+      authError: 'Sign-in failed. Check your details and try again.',
     },
     home: {
       hero: {
@@ -619,7 +698,53 @@ export const translations: Record<Language, LanguageContent> = {
       languageSwitcherLabel: 'Taal',
       menu: 'Kieslys',
       primaryNavigationLabel: 'Primêre navigasie',
+      signOut: 'Meld af',
       skipLink: 'Slaan na hoofinhoud oor',
+      teamPortal: 'Spanportaal',
+      teamSignIn: 'Spanaanmelding',
+    },
+    team: {
+      accessDenied:
+        'Hierdie rekening het nie spantoegang nie. Kontak ’n administrateur.',
+      accessCheckError:
+        'Spantoegang kon nie bevestig word nie. Probeer later weer.',
+      addMemberButton: 'Voeg spanlid by',
+      addMemberError: 'Die spanlid kon nie bygevoeg word nie. Probeer weer.',
+      addMemberSuccess:
+        'Spantoegang is bygevoeg. Nooi hierdie e-posadres via Supabase Auth sodat hulle kan aanmeld.',
+      adminRole: 'Administrateur',
+      emailLabel: 'E-posadres',
+      invitationInstructions:
+        'Voeg eers ’n span-e-posadres hier by en nooi dan dieselfde adres via Supabase Auth. Slegs genooide rekeninge met ’n ooreenstemmende rol kan aanmeld.',
+      loadMembersError:
+        'Spantoegang kon nie gelaai word nie. Probeer later weer.',
+      memberEmailLabel: 'Spanlid se e-posadres',
+      memberExistsError: 'Daardie e-posadres het reeds spantoegang.',
+      membersDescription:
+        'Nooi nuwe persone via Supabase Auth nadat hul e-posadres hier bygevoeg is. Slegs spanrolle kan vanaf hierdie bladsy toegeken word.',
+      membersTitle: 'Spantoegang',
+      notConfigured:
+        'Spanaanmelding is nog nie in hierdie omgewing opgestel nie.',
+      portalLinkLabel: 'Maak spanportaal oop',
+      portalDescription:
+        'Hierdie privaat werkruimte is apart van die openbare Agrijuune-webwerf.',
+      portalTitle: 'Spanwerkruimte',
+      removeMemberButton: 'Verwyder toegang',
+      removeMemberConfirmation:
+        'Verwyder hierdie spanlid se rol? Bestaande sessies kan aktief bly totdat dit verfris. Deaktiveer die Supabase Auth-gebruiker vir onmiddellike intrekking.',
+      removeMemberError: 'Spantoegang kon nie verwyder word nie. Probeer weer.',
+      signInButton: 'Meld aan',
+      signInDescription:
+        'Hierdie aanmelding is slegs vir genooide Agrijuune-spanlede.',
+      signInTitle: 'Spanaanmelding',
+      signOutButton: 'Meld af',
+      signingIn: 'Meld aan…',
+      checkingSession: 'Kontroleer spantoegang…',
+      signOutError: 'Jy kon nie afmeld nie. Probeer asseblief weer.',
+      teamRole: 'Spanlid',
+      passwordLabel: 'Wagwoord',
+      authError:
+        'Aanmelding het misluk. Kontroleer jou besonderhede en probeer weer.',
     },
     home: {
       hero: {

@@ -7,6 +7,13 @@ export const routes = [
 
 export type RoutePath = (typeof routes)[number]['path'];
 
+export const teamPaths = {
+  signIn: '/team/sign-in',
+  portal: '/team',
+} as const;
+
+export type AppPath = RoutePath | (typeof teamPaths)[keyof typeof teamPaths];
+
 export function normalizePath(pathname: string) {
   if (pathname === '/') {
     return pathname;

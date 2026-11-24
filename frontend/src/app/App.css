@@ -176,6 +176,7 @@ main:focus-visible {
 }
 
 .primary-navigation a,
+.primary-navigation__sign-out,
 .footer-navigation a {
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -187,8 +188,19 @@ main:focus-visible {
   font-weight: var(--font-weight-semibold);
 }
 
+.primary-navigation__sign-out {
+  padding: var(--space-1-5);
+  border: 0;
+  background: transparent;
+  color: var(--agrijuune-navy);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  cursor: pointer;
+}
+
 .primary-navigation a:hover,
-.primary-navigation a[aria-current='page'] {
+.primary-navigation a[aria-current='page'],
+.primary-navigation__sign-out:hover {
   background: var(--color-surface-hover);
   color: var(--agrijuune-navy);
 }
@@ -318,6 +330,10 @@ main:focus-visible {
   }
 
   .primary-navigation a {
+    padding: var(--space-1) var(--space-1-5);
+  }
+
+  .primary-navigation__sign-out {
     padding: var(--space-1) var(--space-1-5);
   }
 

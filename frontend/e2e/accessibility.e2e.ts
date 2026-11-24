@@ -4,6 +4,16 @@ import { expect, test } from '@playwright/test';
 const publicRoutes = ['/', '/services', '/about', '/faq'] as const;
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
+test('/team/sign-in has no automated WCAG 2.2 AA violations', async ({
+  page,
+}) => {
+  await page.goto('/team/sign-in');
+
+  const results = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+
+  expect(results.violations).toEqual([]);
+});
+
 for (const route of publicRoutes) {
   test(`${route} has no automated WCAG 2.2 AA violations`, async ({ page }) => {
     await page.goto(route);
