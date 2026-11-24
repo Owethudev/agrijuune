@@ -89,8 +89,12 @@ preflight requests.
 GitHub secret scanning and push protection are enabled for the
 repository. Dependabot dependency graph, alerts and security updates are
 also enabled; `.github/dependabot.yml` schedules weekly npm version
-updates. Keep the `quality` job required by the active `main`
-ruleset, with no bypass actors.
+updates. The required `quality` job runs `npm audit --audit-level=high`
+and scans the production frontend build for server-only setting names,
+Supabase service-role JWTs, Brevo API keys and private-key material.
+This supplements, but does not replace, GitHub secret scanning. Keep the
+`quality` job required by the active `main` ruleset, with no bypass
+actors.
 
 ## 3. Supabase and database access
 

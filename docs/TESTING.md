@@ -113,6 +113,8 @@ encourage a duplicate submission when the enquiry was already saved.
 -   Verify RLS policies using the intended database roles.
 -   Verify no anonymous select/update/delete access to enquiries.
 -   Verify the service-role key is absent from frontend build output.
+-   Run `npm audit --audit-level=high` and scan the built frontend for
+    server-only credentials.
 -   Verify production CORS rejects unapproved origins.
 -   Verify request-size and rate limits.
 -   Verify idempotent retries replay the saved ID, changed content with
@@ -167,12 +169,14 @@ npm run lint
 npm run format:check
 npm run typecheck
 npm test
+npm audit --audit-level=high
 npm run build
 npm run check:performance
 ```
 
-The root `npm run build` also runs `npm run check:performance` after
-building both workspaces.
+The root `npm run build` scans the frontend output for server-only
+credentials and runs `npm run check:performance` after building both
+workspaces.
 
 The migration check is offline and does not connect to Supabase or
 execute SQL. It verifies timestamped migration names and prevents direct

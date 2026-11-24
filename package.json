@@ -13,14 +13,15 @@
   "scripts": {
     "dev:frontend": "npm run dev --workspace frontend",
     "dev:backend": "npm run dev --workspace backend",
-    "build": "npm run build --workspaces && npm run check:performance",
+    "build": "npm run build --workspaces && npm run check:frontend-secrets && npm run check:performance",
     "check:performance": "node scripts/check-performance-budget.mjs",
+    "check:frontend-secrets": "node scripts/check-frontend-secrets.mjs",
     "check:migrations": "node scripts/check-supabase-migrations.mjs",
     "lint": "eslint frontend backend eslint.config.js",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "node --test scripts/check-supabase-migrations.test.mjs && npm run test --workspaces --if-present",
-    "format": "prettier --write \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"scripts/check-supabase-migrations*.mjs\" \"*.{json,js}\"",
-    "format:check": "prettier --check \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"scripts/check-supabase-migrations*.mjs\" \"*.{json,js}\""
+    "test": "node --test scripts/check-supabase-migrations.test.mjs scripts/check-frontend-secrets.test.mjs && npm run test --workspaces --if-present",
+    "format": "prettier --write \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"scripts/check-supabase-migrations*.mjs\" \"scripts/check-frontend-secrets*.mjs\" \"*.{json,js}\"",
+    "format:check": "prettier --check \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"scripts/check-supabase-migrations*.mjs\" \"scripts/check-frontend-secrets*.mjs\" \"*.{json,js}\""
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
