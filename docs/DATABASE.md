@@ -114,6 +114,19 @@ the deletion/backup controls remain prerequisites for collection.
                                                                        values, e.g. `new`,
                                                                        `contacted`,
                                                                        `closed`
+
+  `idempotency_key_hash`        `text`                              No SHA-256 of a
+                                                                       client-generated
+                                                                       UUID v4; unique
+                                                                       while the enquiry
+                                                                       exists
+
+  `idempotency_request_hash`    `text`                              No HMAC fingerprint
+                                                                       of normalized
+                                                                       fields, keyed by
+                                                                       the UUID v4;
+                                                                       removed with the
+                                                                       enquiry
   ----------------------------------------------------------------------------------------
 
 Use database constraints for required values, sensible lengths and
@@ -141,6 +154,14 @@ The same migration was applied to the user-confirmed non-production
 Editor. Its migration history records version `20261124095323` with the
 five source statements. This environment has no staging API and received
 no enquiry records.
+
+[`20261124141740_add_enquiry_idempotency.sql`](../supabase/migrations/20261124141740_add_enquiry_idempotency.sql)
+adds a nullable key hash, a keyed request fingerprint, a paired-format
+constraint and a partial unique index. It does not insert or update
+enquiry data and has not been applied to any database. The key and
+fingerprint are stored on the enquiry row so the existing retention
+deletion removes them together; do not enable collection until the
+documented deletion process is implemented and verified.
 
 ## 5. Row Level Security
 

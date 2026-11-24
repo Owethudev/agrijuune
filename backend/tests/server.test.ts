@@ -217,7 +217,7 @@ describe('backend server', () => {
         headers: {
           Origin: allowedOrigin,
           'Access-Control-Request-Method': 'POST',
-          'Access-Control-Request-Headers': 'content-type',
+          'Access-Control-Request-Headers': 'content-type, idempotency-key',
         },
       });
 
@@ -227,7 +227,7 @@ describe('backend server', () => {
       ).toBe('GET, HEAD, POST');
       expect(
         preflightResponse.headers.get('Access-Control-Allow-Headers'),
-      ).toBe('Content-Type');
+      ).toBe('Content-Type, Idempotency-Key');
 
       const rejectedResponse = await fetch(`${origin}/resource`, {
         headers: {

@@ -3,6 +3,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { createSupabaseEnquiryRepository } from '../src/infrastructure/database/supabase-enquiry-repository.js';
 import { createEnquiryService } from '../src/services/enquiry-service.js';
 import type { Database } from '../src/infrastructure/database/database.types.js';
+import {
+  hashIdempotencyKey,
+  hashIdempotencyRequest,
+  validateIdempotencyKey,
+} from '../src/validation/idempotency-key.js';
 import type { EnquiryInput } from '../src/validation/enquiry-validation.js';
 
 const enquiry: EnquiryInput = {
@@ -16,6 +21,16 @@ const enquiry: EnquiryInput = {
   servicesOfInterest: ['farm_management_technology'],
   additionalMessage: 'Please contact me about your services.',
 };
+
+function getIdempotencyKey() {
+  const result = validateIdempotencyKey('7e5dfc21-574c-4c33-9f7e-477cb2f79ca3');
+
+  if (!result.valid) {
+    throw new Error('Test idempotency key is invalid.');
+  }
+
+  return result.value;
+}
 
 function createTestClient(fetchImplementation: typeof fetch) {
   return createClient<Database>(
@@ -36,6 +51,7 @@ function createTestClient(fetchImplementation: typeof fetch) {
 
 describe('Supabase enquiry repository', () => {
   it('maps validated input to a server-controlled insert and returns only its ID', async () => {
+    const idempotencyKey = getIdempotencyKey();
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({ id: '00000000-0000-0000-0000-000000000001' }),
@@ -52,11 +68,12 @@ describe('Supabase enquiry repository', () => {
     );
     const service = createEnquiryService(repository);
 
-    const result = await service.submit(enquiry);
+    const result = await service.submit(enquiry, idempotencyKey);
 
     expect(result).toEqual({
       ok: true,
       enquiryId: '00000000-0000-0000-0000-000000000001',
+      replayed: false,
     });
     expect(fetchMock).toHaveBeenCalledOnce();
 
@@ -79,10 +96,13 @@ describe('Supabase enquiry repository', () => {
       additional_message: 'Please contact me about your services.',
       notification_status: 'not_configured',
       status: 'new',
+      idempotency_key_hash: hashIdempotencyKey(idempotencyKey),
+      idempotency_request_hash: hashIdempotencyRequest(enquiry, idempotencyKey),
     });
   });
 
   it('maps database errors to a safe unavailable result', async () => {
+    const idempotencyKey = getIdempotencyKey();
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
@@ -102,7 +122,7 @@ describe('Supabase enquiry repository', () => {
       createTestClient(fetchMock),
     );
 
-    const result = await repository.create(enquiry);
+    const result = await repository.create(enquiry, idempotencyKey);
 
     expect(result).toEqual({ ok: false, reason: 'unavailable' });
     expect(JSON.stringify(result)).not.toContain('private database details');
@@ -110,6 +130,7 @@ describe('Supabase enquiry repository', () => {
   });
 
   it('maps rejected database requests to a safe unavailable result', async () => {
+    const idempotencyKey = getIdempotencyKey();
     const fetchMock = vi
       .fn<typeof fetch>()
       .mockRejectedValue(new TypeError('private transport details'));
@@ -117,9 +138,161 @@ describe('Supabase enquiry repository', () => {
       createTestClient(fetchMock),
     );
 
-    const result = await repository.create(enquiry);
+    const result = await repository.create(enquiry, idempotencyKey);
 
     expect(result).toEqual({ ok: false, reason: 'unavailable' });
     expect(JSON.stringify(result)).not.toContain('private transport details');
+  });
+
+  it('replays the original enquiry when a key and normalized request are repeated', async () => {
+    const idempotencyKey = getIdempotencyKey();
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            code: '23505',
+            message: 'duplicate key',
+          }),
+          {
+            status: 409,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            id: '00000000-0000-0000-0000-000000000001',
+            idempotency_request_hash: hashIdempotencyRequest(
+              enquiry,
+              idempotencyKey,
+            ),
+          }),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        ),
+      );
+    const repository = createSupabaseEnquiryRepository(
+      createTestClient(fetchMock),
+    );
+
+    const result = await repository.create(enquiry, idempotencyKey);
+
+    expect(result).toEqual({
+      ok: true,
+      enquiryId: '00000000-0000-0000-0000-000000000001',
+      replayed: true,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const replayLookup = fetchMock.mock.calls[1];
+
+    if (!replayLookup) {
+      throw new Error('Idempotency replay lookup was not made.');
+    }
+
+    const lookupUrl = new URL(String(replayLookup[0]));
+    expect(lookupUrl.searchParams.get('idempotency_key_hash')).toBe(
+      `eq.${hashIdempotencyKey(idempotencyKey)}`,
+    );
+    expect(lookupUrl.searchParams.get('select')).toBe(
+      'id,idempotency_request_hash',
+    );
+  });
+
+  it('rejects reuse of a key for a different request', async () => {
+    const idempotencyKey = getIdempotencyKey();
+    const changedEnquiry = { ...enquiry, farmName: 'Different Farm' };
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            code: '23505',
+            message: 'duplicate key',
+          }),
+          {
+            status: 409,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            id: '00000000-0000-0000-0000-000000000001',
+            idempotency_request_hash: hashIdempotencyRequest(
+              enquiry,
+              idempotencyKey,
+            ),
+          }),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        ),
+      );
+    const repository = createSupabaseEnquiryRepository(
+      createTestClient(fetchMock),
+    );
+
+    const result = await repository.create(changedEnquiry, idempotencyKey);
+
+    expect(result).toEqual({ ok: false, reason: 'conflict' });
+  });
+
+  it('allows an intentional repeat submission with a new key', async () => {
+    const firstKey = getIdempotencyKey();
+    const secondKeyResult = validateIdempotencyKey(
+      '7e5dfc21-574c-4c33-9f7e-477cb2f79ca4',
+    );
+
+    if (!secondKeyResult.valid) {
+      throw new Error('Second test idempotency key is invalid.');
+    }
+
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ id: '00000000-0000-0000-0000-000000000001' }),
+          {
+            status: 201,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ id: '00000000-0000-0000-0000-000000000002' }),
+          {
+            status: 201,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        ),
+      );
+    const repository = createSupabaseEnquiryRepository(
+      createTestClient(fetchMock),
+    );
+
+    const firstResult = await repository.create(enquiry, firstKey);
+    const secondResult = await repository.create(
+      enquiry,
+      secondKeyResult.value,
+    );
+
+    expect(firstResult).toEqual({
+      ok: true,
+      enquiryId: '00000000-0000-0000-0000-000000000001',
+      replayed: false,
+    });
+    expect(secondResult).toEqual({
+      ok: true,
+      enquiryId: '00000000-0000-0000-0000-000000000002',
+      replayed: false,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 });

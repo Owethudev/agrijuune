@@ -1,7 +1,10 @@
 import type { Response } from 'express';
 
 export type ApiErrorCode =
+  | 'IDEMPOTENCY_CONFLICT'
+  | 'IDEMPOTENCY_KEY_REQUIRED'
   | 'INTERNAL_ERROR'
+  | 'INVALID_IDEMPOTENCY_KEY'
   | 'INVALID_JSON'
   | 'METHOD_NOT_ALLOWED'
   | 'NOT_FOUND'

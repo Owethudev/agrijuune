@@ -20,6 +20,8 @@ type EnquiryRow = {
   notification_status: NotificationStatus;
   notification_attempted_at: string | null;
   status: EnquiryStatus;
+  idempotency_key_hash: string | null;
+  idempotency_request_hash: string | null;
 };
 
 type EnquiryInsert = {
@@ -39,6 +41,8 @@ type EnquiryInsert = {
   notification_status?: NotificationStatus;
   notification_attempted_at?: string | null;
   status?: EnquiryStatus;
+  idempotency_key_hash?: string | null;
+  idempotency_request_hash?: string | null;
 };
 
 export type Database = {

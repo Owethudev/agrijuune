@@ -6,7 +6,7 @@ import {
   HTTP_METHODS_HEADER,
 } from './request-policy.js';
 
-const ALLOWED_HEADERS = new Set(['content-type']);
+const ALLOWED_HEADERS = new Set(['content-type', 'idempotency-key']);
 
 export function createCorsMiddleware(
   frontendOrigin: string | undefined,
@@ -69,8 +69,14 @@ export function createCorsMiddleware(
 
     response.set('Access-Control-Allow-Methods', CORS_METHODS_HEADER);
 
-    if (requestedHeaders?.length) {
-      response.set('Access-Control-Allow-Headers', 'Content-Type');
+    const allowedHeaders = requestedHeaders
+      ?.filter((header) => ALLOWED_HEADERS.has(header))
+      .map((header) =>
+        header === 'content-type' ? 'Content-Type' : 'Idempotency-Key',
+      );
+
+    if (allowedHeaders?.length) {
+      response.set('Access-Control-Allow-Headers', allowedHeaders.join(', '));
     }
 
     response.set('Access-Control-Max-Age', '600');

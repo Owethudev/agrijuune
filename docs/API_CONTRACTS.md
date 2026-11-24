@@ -107,6 +107,10 @@ Purpose: validate and persist an enquiry from the public website.
 This is illustrative sample data, not real contact information. Final
 field names use camelCase in JSON and must match the approved form.
 
+Once the endpoint is wired, every POST must also include an
+`Idempotency-Key` header containing a UUID v4 generated for that user
+submission. Reuse that key only for retries of the same submission.
+
 ### Field guidance
 
   ------------------------------------------------------------------------
@@ -213,6 +217,10 @@ to the browser.
 
   `400`                   `INVALID_JSON`              Malformed JSON request
 
+  `400`                   `IDEMPOTENCY_KEY_REQUIRED`  Missing key header
+
+  `400`                   `INVALID_IDEMPOTENCY_KEY`   Key is not a UUID v4
+
   `403`                   `ORIGIN_NOT_ALLOWED`        Origin or preflight
                                                      headers are not
                                                      allowlisted
@@ -228,6 +236,9 @@ to the browser.
 
   `429`                   `RATE_LIMITED`             Too many requests
 
+  `409`                   `IDEMPOTENCY_CONFLICT`      Key reused with
+                                                     different content
+
   `500`                   `INTERNAL_ERROR`           Unexpected server
                                                      failure
 
@@ -241,7 +252,8 @@ The JSON request-body limit is 10 KB. `POST` requests must use
 `Content-Type: application/json`. The current API only enables `GET`,
 `HEAD`, `POST` and `OPTIONS`; `OPTIONS` is used for allowed CORS
 preflights. CORS allows the exact `FRONTEND_ORIGIN` configured for the
-backend, without credentials, and only the `Content-Type` request header.
+backend, without credentials, and only the `Content-Type` and
+`Idempotency-Key` request headers.
 If `FRONTEND_ORIGIN` is unset, cross-origin browser requests are denied.
 
 Enquiry POST requests are limited to 10 requests per IP address in a
@@ -253,8 +265,21 @@ store is required if the API is scaled across multiple instances.
 
 Do not suppress enquiries based only on matching email addresses or
 request contents. That could reject legitimate repeat enquiries. The
-endpoint remains unavailable; before enabling it, add persistent
-idempotency handling for retried submissions and document its behavior.
+idempotency-key validator accepts only UUID v4 keys. The repository
+stores a SHA-256 hash of each key and an HMAC fingerprint of the
+normalized request, keyed by that UUID, on the corresponding enquiry
+row; it does not store the raw key or request fingerprint input. A
+repeat with the same key and
+normalized request replays the original enquiry ID and success response.
+Reusing a key with different content returns `409 IDEMPOTENCY_CONFLICT`
+and does not create another enquiry. A new intentional submission must
+use a new key. The key hashes are deleted with their enquiry, so they do
+not outlive the enquiry retention period.
+
+The route remains unavailable and does not accept or persist enquiries.
+Do not enable it until the privacy and deletion prerequisites below are
+resolved and the controller is wired to validate the key and map replay,
+conflict and persistence results safely.
 
 ### Email notification behaviour
 
@@ -285,6 +310,8 @@ public API unless separately approved.
 -   Do not use wildcard origins with credentialed requests.
 -   Accept JSON for the enquiry endpoint.
 -   Apply request-size limits and rate limiting.
+-   Reassess whether a honeypot or other bot control is justified before
+    exposing a public enquiry form or route; neither is exposed now.
 -   Use HTTPS in production.
 -   Do not enable credentials unless the endpoint genuinely needs them.
 
@@ -294,11 +321,14 @@ The frontend API client should:
 
 -   Use a configured API base URL.
 -   Set the expected content type.
+-   Generate one UUID v4 idempotency key per deliberate submission and
+    preserve it across retries of that submission.
 -   Handle network failures and non-2xx responses.
 -   Map safe validation messages to the relevant form fields.
 -   Avoid logging personal form data.
--   Avoid automatic retries for enquiry POST requests unless an
-    idempotency strategy is implemented.
+-   Do not automatically retry enquiry POST requests until the route is
+    wired to the idempotency contract.
+-   Never reuse an idempotency key for a changed submission.
 
 ## 7. Contract change process
 
