@@ -118,6 +118,11 @@ encourage a duplicate submission when the enquiry was already saved.
 -   Verify errors do not disclose stack traces or provider internals.
 -   Verify logs do not contain full enquiry payloads or secrets.
 
+Run [`supabase/tests/enquiries_rls.sql`](../supabase/tests/enquiries_rls.sql)
+through the Supabase SQL Editor only against the confirmed non-production
+database after applying the enquiries migration. The assertions use
+catalogue metadata and do not read or write enquiry records.
+
 ## 6. Accessibility checks
 
 Check:
