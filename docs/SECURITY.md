@@ -6,21 +6,18 @@ enquiry API\
 substitute for legal advice
 
 **Current enquiry gate:** The product owner approved the enquiry field
-set, confirmed responsibility for enquiry data and stated that enquiries
-should come directly to them. They supplied acknowledgement wording and
-public privacy contact details, and set one-week retention for database
-records from submission, with submitted form information deleted from
-the database. The responsible-party name is Agrijuune. The specific lawful
-basis and complete Privacy Notice remain pending. The owner wants
-seven-day deletion implemented in application code; the purge and
-database-backup expiry are not implemented or specified. The owner says
-each party will retain their email copies as communication records; the
-application purge will not remove these mailbox copies.
-Database-backup expiry and Brevo message/log retention remain
-unspecified.
-The product owner says the Brevo data-location review is okay; exact
-location/transfer disclosures for the Privacy Notice remain outstanding.
-Brevo is selected, and the
+set, confirmed responsibility for enquiry data, approved the notice text
+and selected both documented lawful-basis grounds according to enquiry
+context; see the [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
+The responsible-party name is Agrijuune. The notice still has
+placeholders for the registered business name, business address and
+Information Officer. The owner set seven-day retention for database
+records from submission and a maximum seven-day backup-retention target.
+The purge and backup provider behavior are not implemented or verified.
+Each party will retain their email copies as communication records; the
+application purge will not remove those mailbox copies. Brevo
+message/log retention and exact provider location/transfer disclosures
+remain pending. Brevo is selected, and the
 product owner reports that `BREVO_API_KEY`, `EMAIL_FROM` and
 `BUSINESS_EMAIL` are configured in the deployed backend. They approved
 sender/recipient routing, but the adapter has not been implemented or
@@ -156,20 +153,21 @@ for responding to the enquiry.
 Before launch:
 
 -   Identify and document the responsible party and contact details.
--   Approve a clear privacy notice explaining purpose, use, recipients,
-    retention and contact channels.
--   Determine and document the appropriate lawful basis for processing.
+-   Complete the owner-approved notice's registered-name, address and
+    Information Officer placeholders before publication.
+-   Record the owner's selected lawful-basis grounds in the
+    [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md);
+    this is not an independent legal assessment.
 -   Obtain and record any required consent or acknowledgement
     accurately; do not use a checkbox as a substitute for identifying
     the lawful basis.
--   Define retention and secure deletion procedures.
+-   Implement and verify the seven-day database purge and backup-retention
+    target before collection.
 -   Restrict access to enquiry records to authorised personnel.
 -   Establish a process for access, correction, objection and deletion
     requests where applicable.
--   Review email provider, hosting and database operator terms and data
-    locations.
--   Assess cross-border processing and operator agreements where
-    relevant.
+-   Verify provider retention, locations and cross-border safeguards;
+    keep exact disclosures pending until confirmed.
 -   Avoid collecting sensitive personal information in the enquiry form.
 
 Do not invent the privacy notice version, retention period or legal

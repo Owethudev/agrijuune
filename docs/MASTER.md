@@ -127,13 +127,17 @@ The approved enquiry field contract is:
 
 The cell number is the only phone field; do not add a separate `phone`
 field. The product owner confirms responsibility for enquiry data,
-provided acknowledgement wording and set a one-week retention period;
-see the [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-These decisions do not authorize collection. The complete Privacy
-Notice, lawful basis, public responsible-party contact details and
-deletion/backup process remain pending. Do not enable an enquiry form or
-endpoint that collects personal information until those items are
-reviewed and approved.
+provided acknowledgement wording, approved the notice text and selected
+both documented lawful-basis grounds according to the enquiry context;
+see the [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md)
+and [Privacy Notice](PRIVACY_NOTICE.md). The notice still contains
+placeholders for the registered business name, business address and
+Information Officer. The owner set seven-day database retention and a
+maximum seven-day backup-retention target, but deletion and backup
+behavior remain unverified. Exact provider locations/transfers and
+Brevo message/log retention are pending. Do not publish the notice or
+enable an enquiry form or endpoint that collects personal information
+until those gates are resolved.
 
 On submission:
 
@@ -192,13 +196,16 @@ than assumptions:
     says the Brevo data-location review is okay, but exact provider
     disclosures remain outstanding. The adapter is not implemented and
     email delivery is disabled.
--   Specific lawful basis and complete Privacy Notice. The responsible
-    party is named Agrijuune; public privacy contacts are recorded in the
-    enquiry decision record. The owner specified deletion of database
+-   The owner-approved Privacy Notice and selected lawful-basis grounds
+    are recorded in the enquiry decision record. The responsible party
+    is named Agrijuune, and public privacy contacts are recorded there.
+    The notice's registered-name, address and Information Officer
+    placeholders remain. The owner specified deletion of database
     records containing submitted form information after seven days and
-    wants the purge implemented in code. Each party will retain their
-    email copies as communication records; database-backup expiry and
-    Brevo message/log retention remain unspecified.
+    a maximum seven-day backup-retention target; the purge and provider
+    behavior must be implemented and verified. Each party will retain
+    email copies as communication records; Brevo message/log retention
+    and exact provider location/transfer disclosures remain pending.
 -   Brand logo, photography, video and final design assets.
 
 No non-essential analytics is approved at launch. Any later analytics

@@ -152,20 +152,19 @@ and a non-empty `servicesOfInterest` containing only
 `additionalMessage` are optional. There is no separate `phone` field.
 
 This contract is not permission to collect personal information. The
-product owner confirms responsibility for enquiry data, supplied
-acknowledgement wording and set one-week retention for database records
-from submission, with submitted information deleted from the database;
-see the
+product owner approved the Privacy Notice text and selected both
+documented lawful-basis grounds according to enquiry context; see the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-The specific lawful basis and complete Privacy Notice remain pending.
-The owner specified deletion of database records containing
-form-submitted information after seven days and wants the purge
-implemented in code; the purge and database-backup expiry remain
-outstanding. Each party will retain their email copies as communication
-records, and the database purge will not remove mailbox copies; Brevo
-message/log retention is unspecified. Do not enable the form or endpoint
-until these are approved and actionable. Brevo is selected, and
-the product owner reports that the deployed backend uses
+The notice still has publication placeholders for the registered
+business name, business address and Information Officer. The owner set
+seven-day database retention from submission and a maximum seven-day
+backup-retention target. The purge and backup behavior remain
+unimplemented or unverified. Each party will retain their email copies
+as communication records, and the database purge will not remove
+mailbox copies; Brevo message/log retention is pending. Do not enable the
+form or endpoint until the publication, deletion, backup and provider
+disclosure gates are resolved. Brevo is selected, and the product owner
+reports that the deployed backend uses
 `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. They approved
 sender/recipient routing and say the data-location review is okay, but
 the adapter is not implemented or tested and exact provider

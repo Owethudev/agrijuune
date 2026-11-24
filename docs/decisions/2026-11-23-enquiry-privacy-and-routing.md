@@ -62,48 +62,48 @@ The product owner supplied this privacy acknowledgement wording:
 > For more information about how your information is collected, used,
 > stored and protected, please read our Privacy Notice.
 
-The complete Privacy Notice and specific lawful basis have not been
-supplied or approved. The acknowledgement is not a substitute for
-either. The product owner set one-week retention for database records,
-starting when the enquiry is submitted, and specified that all
-form-submitted information should be deleted from the database. They
-want the seven-day deletion implemented in application code. The purge
-is not implemented yet, and
-the product owner says each party will retain their email copies as
-communication records. The application purge will not remove
-mailbox-held copies; no fixed mailbox retention period is set by
-Agrijuune.
-Database-backup expiry and Brevo's own message/log retention remain to
-be confirmed.
+The product owner supplied and approved the text in
+[`../PRIVACY_NOTICE.md`](../PRIVACY_NOTICE.md), and selected both
+sections 6.1 (steps requested before a potential agreement) and 6.2
+(legitimate interests for general enquiries), depending on the
+circumstances. The owner says no additional legal review is needed. This
+records the owner's decision and is not an independent legal assessment.
+The acknowledgement is not a substitute for the Privacy Notice.
 
-The product owner says the Brevo data-location and cross-border review
-is okay; the exact location and transfer details to disclose in the
-Privacy Notice have not been supplied. Keep these owner-input
-placeholders until provided:
+The official privacy email is `jezvestptyltd@gmail.com`. The registered
+business name, business address and appointed Information Officer are
+still placeholders in the notice and must be completed before
+publication.
 
-- **Lawful basis:** `[PENDING — owner to supply]`
-- **Complete Privacy Notice:** `[PENDING — owner to supply]`
-- **Brevo locations and transfers:** `[PENDING — owner to supply]`
+The product owner set seven-day retention for database records, starting
+when the enquiry is submitted, and wants all form-submitted information
+deleted from the database. The purge is not implemented or verified.
+The backup-retention target is no more than seven days, but provider
+configuration and deletion behavior are not verified. Each party will
+retain their email copies as communication records; the application
+purge will not remove mailbox-held copies. Brevo message and log
+retention remains pending.
 
-Implementation of the database deletion process and database-backup
-expiry are also outstanding. The approved form fields, acknowledgement
-and provider selection do not authorize collection. Do not enable an
-enquiry form or accepting endpoint, apply a production enquiry migration,
-or submit real enquiries until these are approved.
+The product owner marked exact provider locations, cross-border
+transfers and safeguards pending. Do not claim that data stays in South
+Africa or that a particular safeguard is active until provider
+configuration and disclosures are verified.
+
+The approved form fields, acknowledgement, notice text and provider
+selection do not by themselves authorize collection. Do not publish the
+notice, enable an enquiry form or accepting endpoint, apply a production
+enquiry migration, or submit real enquiries until the publication
+placeholders, deletion process, backup handling and provider disclosures
+are resolved and verified.
 
 No non-essential analytics is approved at launch. Any later analytics
 provider or consent approach requires separate approval.
 
 ## Follow-up
 
-Issue #3 remains open until the privacy and retention decisions are
-completed, including the specific lawful basis, complete Privacy Notice,
-seven-day deletion implementation, backup/provider-copy handling and
-provider location/transfer disclosures. The responsible-party name,
-public privacy contacts, retention period and deletion scope have been
-provided. The owner says mailbox-held email copies will remain as
-communication records; database-backup expiry and Brevo message/log
-retention remain unspecified. The owner has approved sender/recipient
-routing and says the Brevo location review is okay. This record captures
-owner-provided decisions and blockers; it is not legal approval or
-authorization to begin collecting personal data.
+Issue #3 remains open until the publication placeholders, seven-day
+database deletion, backup-retention behavior, Brevo message/log
+retention, and exact provider location/transfer disclosures are
+resolved. The owner-provided notice and lawful-basis choices are
+recorded, but are not an independent legal assessment or authorization
+to begin collecting personal data.
