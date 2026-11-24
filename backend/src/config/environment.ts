@@ -96,6 +96,20 @@ function readBoundedInteger(
   return parsedValue;
 }
 
+function readBoolean(source: EnvironmentSource, name: string) {
+  const value = readOptionalValue(source, name);
+
+  if (!value) {
+    return false;
+  }
+
+  if (value !== 'true' && value !== 'false') {
+    throw new Error(`${name} must be true or false.`);
+  }
+
+  return value === 'true';
+}
+
 function isNodeEnvironment(value: string): value is NodeEnvironment {
   return NODE_ENVIRONMENTS.has(value);
 }
@@ -169,6 +183,10 @@ export function parseEnvironment(source: EnvironmentSource) {
         86_400_000,
       ),
     } satisfies EnquiryRateLimitConfiguration,
+    enquiryEmailNotificationsEnabled: readBoolean(
+      source,
+      'ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED',
+    ),
     supabase:
       supabaseUrl && supabaseServiceRoleKey
         ? { url: supabaseUrl, serviceRoleKey: supabaseServiceRoleKey }

@@ -183,11 +183,16 @@ form or endpoint until the publication, deletion, backup and provider
 disclosure gates are resolved. Brevo is selected, and the product owner
 reports that the deployed backend uses
 `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. They approved
-sender/recipient routing and say the data-location review is okay, but
-the server-side adapter is implemented and unit-tested, but no enquiry
-workflow invokes it. Exact provider location/transfer disclosures remain
-outstanding, and no email has been sent. Email notifications remain
-disabled until persistence and the privacy launch gates are complete. No
+sender/recipient routing and say the data-location review is okay. The
+adapter is implemented and the service contains the gated notification
+flow, but the public route does not invoke that service. Exact provider
+location/transfer disclosures remain outstanding, and no email has been
+sent. Email notifications remain
+disabled by default through the backend-only
+`ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` setting. The service integration
+persists notification status and avoids sending again on an idempotent
+replay, but the public route remains unwired. Keep the setting unset or
+`false` until the privacy and deletion gates are complete. No
 non-essential analytics is approved at launch.
 
 ### Success response
@@ -289,10 +294,14 @@ The enquiry must be persisted before notification is attempted.
     `BUSINESS_EMAIL`. It returns `not_configured` when no complete
     provider configuration is present and safe `failed` outcomes for
     provider or request errors.
--   Do not invoke the adapter until persistence succeeds and the privacy
-    launch gate is complete. No current enquiry workflow invokes it, and
-    no email has been sent; notification status remains
-    `not_configured` until integration is approved.
+-   The service records `pending` after successful persistence and
+    before attempting notification, then records `sent`, `failed` or
+    `not_configured`. If the final status update fails, `pending` remains
+    for manual follow-up. Idempotent replays do not send another email.
+-   The public route remains unwired, so no current request invokes this
+    integration and no email has been sent. The
+    `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` backend setting defaults to
+    `false`; do not enable it until the privacy launch gate is complete.
 -   If persistence succeeds and email succeeds, return `201`.
 -   If persistence succeeds but email fails, the enquiry is still
     received; return `201` and record the notification failure for

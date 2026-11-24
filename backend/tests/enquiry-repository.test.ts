@@ -1,7 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { describe, expect, it, vi } from 'vitest';
 import { createSupabaseEnquiryRepository } from '../src/infrastructure/database/supabase-enquiry-repository.js';
-import { createEnquiryService } from '../src/services/enquiry-service.js';
 import type { Database } from '../src/infrastructure/database/database.types.js';
 import {
   hashIdempotencyKey,
@@ -50,11 +49,14 @@ function createTestClient(fetchImplementation: typeof fetch) {
 }
 
 describe('Supabase enquiry repository', () => {
-  it('maps validated input to a server-controlled insert and returns only its ID', async () => {
+  it('maps validated input to a server-controlled insert and returns safe status', async () => {
     const idempotencyKey = getIdempotencyKey();
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
-        JSON.stringify({ id: '00000000-0000-0000-0000-000000000001' }),
+        JSON.stringify({
+          id: '00000000-0000-0000-0000-000000000001',
+          notification_status: 'not_configured',
+        }),
         {
           status: 201,
           headers: {
@@ -66,14 +68,13 @@ describe('Supabase enquiry repository', () => {
     const repository = createSupabaseEnquiryRepository(
       createTestClient(fetchMock),
     );
-    const service = createEnquiryService(repository);
-
-    const result = await service.submit(enquiry, idempotencyKey);
+    const result = await repository.create(enquiry, idempotencyKey);
 
     expect(result).toEqual({
       ok: true,
       enquiryId: '00000000-0000-0000-0000-000000000001',
       replayed: false,
+      notificationStatus: 'not_configured',
     });
     expect(fetchMock).toHaveBeenCalledOnce();
 
@@ -168,6 +169,7 @@ describe('Supabase enquiry repository', () => {
               enquiry,
               idempotencyKey,
             ),
+            notification_status: 'failed',
           }),
           {
             status: 200,
@@ -185,6 +187,7 @@ describe('Supabase enquiry repository', () => {
       ok: true,
       enquiryId: '00000000-0000-0000-0000-000000000001',
       replayed: true,
+      notificationStatus: 'failed',
     });
     expect(fetchMock).toHaveBeenCalledTimes(2);
     const replayLookup = fetchMock.mock.calls[1];
@@ -198,7 +201,7 @@ describe('Supabase enquiry repository', () => {
       `eq.${hashIdempotencyKey(idempotencyKey)}`,
     );
     expect(lookupUrl.searchParams.get('select')).toBe(
-      'id,idempotency_request_hash',
+      'id,idempotency_request_hash,notification_status',
     );
   });
 
@@ -227,6 +230,7 @@ describe('Supabase enquiry repository', () => {
               enquiry,
               idempotencyKey,
             ),
+            notification_status: 'not_configured',
           }),
           {
             status: 200,
@@ -257,7 +261,10 @@ describe('Supabase enquiry repository', () => {
       .fn<typeof fetch>()
       .mockResolvedValueOnce(
         new Response(
-          JSON.stringify({ id: '00000000-0000-0000-0000-000000000001' }),
+          JSON.stringify({
+            id: '00000000-0000-0000-0000-000000000001',
+            notification_status: 'not_configured',
+          }),
           {
             status: 201,
             headers: { 'Content-Type': 'application/json' },
@@ -266,7 +273,10 @@ describe('Supabase enquiry repository', () => {
       )
       .mockResolvedValueOnce(
         new Response(
-          JSON.stringify({ id: '00000000-0000-0000-0000-000000000002' }),
+          JSON.stringify({
+            id: '00000000-0000-0000-0000-000000000002',
+            notification_status: 'not_configured',
+          }),
           {
             status: 201,
             headers: { 'Content-Type': 'application/json' },
@@ -287,12 +297,78 @@ describe('Supabase enquiry repository', () => {
       ok: true,
       enquiryId: '00000000-0000-0000-0000-000000000001',
       replayed: false,
+      notificationStatus: 'not_configured',
     });
     expect(secondResult).toEqual({
       ok: true,
       enquiryId: '00000000-0000-0000-0000-000000000002',
       replayed: false,
+      notificationStatus: 'not_configured',
     });
     expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('updates notification status without exposing database errors', async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({ id: '00000000-0000-0000-0000-000000000001' }),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        },
+      ),
+    );
+    const repository = createSupabaseEnquiryRepository(
+      createTestClient(fetchMock),
+    );
+
+    const result = await repository.updateNotificationStatus(
+      '00000000-0000-0000-0000-000000000001',
+      'sent',
+      '2026-11-24T12:00:00.000Z',
+    );
+
+    expect(result).toEqual({ ok: true });
+    const request = fetchMock.mock.calls[0];
+
+    if (!request) {
+      throw new Error('Notification status update was not made.');
+    }
+
+    expect(request[1]?.method).toBe('PATCH');
+    expect(JSON.parse(String(request[1]?.body))).toEqual({
+      notification_status: 'sent',
+      notification_attempted_at: '2026-11-24T12:00:00.000Z',
+    });
+    expect(new URL(String(request[0])).searchParams.get('id')).toBe(
+      'eq.00000000-0000-0000-0000-000000000001',
+    );
+  });
+
+  it('returns a safe failure when notification status cannot be persisted', async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          code: 'XX000',
+          message: 'private database details',
+        }),
+        {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        },
+      ),
+    );
+    const repository = createSupabaseEnquiryRepository(
+      createTestClient(fetchMock),
+    );
+
+    const result = await repository.updateNotificationStatus(
+      '00000000-0000-0000-0000-000000000001',
+      'failed',
+      '2026-11-24T12:00:00.000Z',
+    );
+
+    expect(result).toEqual({ ok: false });
+    expect(JSON.stringify(result)).not.toContain('private database details');
   });
 });

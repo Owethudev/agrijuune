@@ -23,8 +23,10 @@ remain pending. Brevo is selected, and the
 product owner reports that `BREVO_API_KEY`, `EMAIL_FROM` and
 `BUSINESS_EMAIL` are configured in the deployed backend. They approved
 sender/recipient routing. The server-only adapter is implemented and
-unit-tested, but no enquiry workflow invokes it and no email has been
-sent. Do not collect personal information or send enquiry notifications
+unit-tested, and the enquiry service now persists notification outcomes;
+the public route remains unwired and no email has been sent. The
+backend-only `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` setting defaults to
+`false`. Do not collect personal information or enable notifications
 until the remaining privacy and deletion decisions are actionable. No
 non-essential analytics is approved at launch.
 
@@ -73,6 +75,7 @@ BREVO_API_KEY=
 EMAIL_FROM=
 BUSINESS_EMAIL=
 FRONTEND_ORIGIN=
+ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED=false
 ```
 
 These are names/examples only; do not record real values in source
@@ -192,6 +195,9 @@ contact details. They must be approved by the business.
 -   Record notification status safely.
 -   Ensure a temporary email failure does not discard the enquiry.
 -   Define a manual review/retry procedure before launch.
+-   Keep `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` unset or `false` until
+    the privacy and deletion gates are cleared. Enabling it does not
+    publish or wire the currently unavailable public endpoint.
 
 ## 8. Authentication and demo boundary
 
