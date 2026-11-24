@@ -2,9 +2,10 @@
 
 **Database:** Supabase PostgreSQL\
 **Scope:** First-release public website enquiry capture\
-**Status:** The owner authorized applying the prototype schema to live
-Supabase. This is schema-only approval; collecting enquiry data remains
-blocked by the privacy and deletion prerequisites below.
+**Status:** The owner authorized and the prototype schema was applied to
+live Supabase on 2026-11-24. This is schema-only approval; collecting
+enquiry data remains blocked by the privacy and deletion prerequisites
+below.
 
 ## 1. Database scope
 
@@ -123,7 +124,11 @@ It enforces bounded text lengths, non-negative counts, the approved
 service IDs and controlled status values. It adds only a creation-time
 index; one person may submit more than one enquiry, so email is not
 unique. The migration creates no sample records, triggers, or access
-policies.
+policies. It was applied through the authenticated Supabase Dashboard SQL
+Editor after the CLI's configured database password failed
+authentication. The same migration version, name and five SQL statements
+were recorded in `supabase_migrations.schema_migrations`. No enquiry
+records were inserted.
 
 ## 5. Row Level Security
 
@@ -178,6 +183,10 @@ in depth.
     specifically authorized this initial schema-only migration against
     the live project. That exception does not authorize data writes or
     future production schema changes without review and approval.
+-   The initial live migration was run through the Dashboard SQL Editor
+    and its version was recorded in the Supabase migration-history
+    table. Correct the local CLI database password before using the
+    documented CLI workflow for later migrations.
 -   Use forward migrations and a documented recovery approach.
 -   Update this document when schema, constraints, indexes or RLS
     policies change.

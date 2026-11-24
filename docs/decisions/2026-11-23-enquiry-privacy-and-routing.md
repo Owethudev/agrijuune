@@ -101,6 +101,12 @@ activities remain blocked until the publication placeholders, deletion
 process, backup handling and provider disclosures are resolved and
 verified.
 
+The schema-only migration was applied to live Supabase on 2026-11-24
+through the authenticated Dashboard SQL Editor because the configured
+CLI database password failed authentication. Its migration version was
+recorded in Supabase's migration history. No enquiry records were
+inserted, and this did not enable collection or email.
+
 No non-essential analytics is approved at launch. Any later analytics
 provider or consent approach requires separate approval.
 
