@@ -7,6 +7,7 @@ export type ApiErrorCode =
   | 'NOT_FOUND'
   | 'ORIGIN_NOT_ALLOWED'
   | 'PAYLOAD_TOO_LARGE'
+  | 'RATE_LIMITED'
   | 'UNSUPPORTED_MEDIA_TYPE';
 
 export function sendApiError(

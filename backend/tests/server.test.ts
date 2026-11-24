@@ -3,6 +3,7 @@ import express from 'express';
 import { describe, expect, it, vi } from 'vitest';
 import { app } from '../src/app.js';
 import { createCorsMiddleware } from '../src/middleware/cors.js';
+import { createEnquiryRateLimitMiddleware } from '../src/middleware/enquiry-rate-limit.js';
 import { errorHandler } from '../src/middleware/error-handler.js';
 import { notFoundMiddleware } from '../src/middleware/not-found.js';
 import { requestIdMiddleware } from '../src/middleware/request-id.js';
@@ -112,6 +113,30 @@ describe('backend server', () => {
         success: false,
         error: {
           code: 'UNSUPPORTED_MEDIA_TYPE',
+        },
+      });
+    } finally {
+      await close(server);
+    }
+  });
+
+  it('keeps the enquiry endpoint unavailable for valid JSON submissions', async () => {
+    const { server, origin } = await listen();
+
+    try {
+      const response = await fetch(`${origin}/api/v1/enquiries`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ contactName: 'Example' }),
+      });
+
+      expect(response.status).toBe(404);
+      expect(await response.json()).toMatchObject({
+        success: false,
+        error: {
+          code: 'NOT_FOUND',
         },
       });
     } finally {
@@ -245,6 +270,53 @@ describe('backend server', () => {
         success: false,
         error: {
           code: 'ORIGIN_NOT_ALLOWED',
+        },
+      });
+    } finally {
+      await close(server);
+    }
+  });
+
+  it('returns a safe 429 after the configured enquiry request limit', async () => {
+    const testApp = express();
+    testApp.use(requestIdMiddleware);
+    testApp.use(
+      '/api/v1/enquiries',
+      createEnquiryRateLimitMiddleware({
+        max: 1,
+        windowMs: 60_000,
+      }),
+    );
+    testApp.post('/api/v1/enquiries', (_request, response) => {
+      response.status(204).end();
+    });
+    testApp.use(notFoundMiddleware);
+    testApp.use(errorHandler);
+
+    const { server, origin } = await listen(testApp);
+
+    try {
+      const request = () =>
+        fetch(`${origin}/api/v1/enquiries`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: '{}',
+        });
+
+      expect((await request()).status).toBe(204);
+
+      const limitedResponse = await request();
+
+      expect(limitedResponse.status).toBe(429);
+      expect(getRequestId(limitedResponse)).toBeTruthy();
+      expect(limitedResponse.headers.get('RateLimit-Limit')).toBe('1');
+      expect(await limitedResponse.json()).toMatchObject({
+        success: false,
+        error: {
+          code: 'RATE_LIMITED',
+          message: 'Too many requests. Please try again later.',
         },
       });
     } finally {

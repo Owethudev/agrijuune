@@ -7,6 +7,10 @@ describe('parseEnvironment', () => {
       nodeEnv: 'development',
       port: 3001,
       frontendOrigin: undefined,
+      enquiryRateLimit: {
+        max: 10,
+        windowMs: 900000,
+      },
       supabase: undefined,
       brevo: undefined,
     });
@@ -27,6 +31,32 @@ describe('parseEnvironment', () => {
     );
     expect(() => parseEnvironment({ PORT: '1e3' })).toThrow(
       'PORT must be a valid TCP port number.',
+    );
+  });
+
+  it('accepts bounded enquiry rate-limit configuration', () => {
+    expect(
+      parseEnvironment({
+        ENQUIRY_RATE_LIMIT_MAX: '25',
+        ENQUIRY_RATE_LIMIT_WINDOW_MS: '60000',
+      }).enquiryRateLimit,
+    ).toEqual({
+      max: 25,
+      windowMs: 60000,
+    });
+
+    expect(() =>
+      parseEnvironment({
+        ENQUIRY_RATE_LIMIT_MAX: '0',
+      }),
+    ).toThrow('ENQUIRY_RATE_LIMIT_MAX must be an integer from 1 to 1000.');
+
+    expect(() =>
+      parseEnvironment({
+        ENQUIRY_RATE_LIMIT_WINDOW_MS: '86400001',
+      }),
+    ).toThrow(
+      'ENQUIRY_RATE_LIMIT_WINDOW_MS must be an integer from 1000 to 86400000.',
     );
   });
 
