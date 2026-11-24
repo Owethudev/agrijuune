@@ -200,7 +200,7 @@ describe('public application shell', () => {
       screen.getByText(/business email address is not available yet/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/does not collect personal information/i),
+      screen.getByText(/available on the Home and Services pages/i),
     ).toBeInTheDocument();
     expect(
       document.querySelector('a[href^="mailto:"]'),
@@ -219,9 +219,7 @@ describe('public application shell', () => {
     expect(
       screen.getByText(/not mechanical repair, fault diagnosis/i),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/No enquiry can currently be submitted/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/When the form is enabled/i)).toBeInTheDocument();
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
 
@@ -240,9 +238,7 @@ describe('public application shell', () => {
       screen.getByText('Wat ontwikkel Agrijuune?').closest('summary'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(
-        /Geen navraag kan tans deur hierdie webwerf ingedien word nie/i,
-      ),
+      screen.getByText(/Wanneer die vorm geaktiveer is/i),
     ).toBeInTheDocument();
   });
 

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import type { Ref } from 'react';
 import type { HomePageCopy, Language } from '../content/translations';
 import { GuidedDemo } from '../demo/GuidedDemo';
+import { EnquiryForm } from '../enquiry/EnquiryForm';
+import { enquiryCollectionEnabled } from '../enquiry/config';
 import { DivisionCard } from './DivisionCard';
 import './HomePage.css';
 
@@ -232,9 +234,13 @@ export function HomePage({ copy, headingRef, language }: HomePageProps) {
           <h2 id="home-interest-title">{copy.interest.title}</h2>
           <p className="home-section__intro">{copy.interest.description}</p>
         </div>
-        <p className="home-interest__placeholder">
-          {copy.interest.placeholder}
-        </p>
+        {enquiryCollectionEnabled ? (
+          <EnquiryForm copy={copy.interest.form} />
+        ) : (
+          <p className="home-interest__placeholder">
+            {copy.interest.placeholder}
+          </p>
+        )}
       </section>
     </div>
   );

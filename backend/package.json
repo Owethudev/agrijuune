@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
+    "purge:expired-enquiries": "tsx src/jobs/purge-expired-enquiries.ts",
     "start": "node dist/server.js",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit -p tsconfig.json",

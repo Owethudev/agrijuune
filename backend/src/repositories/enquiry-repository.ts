@@ -15,10 +15,16 @@ export type EnquiryNotificationStatus =
 
 export type EnquiryNotificationUpdateResult = { ok: true } | { ok: false };
 
+export type EnquiryPrivacyAcknowledgement = Readonly<{
+  noticeVersion: string;
+  acknowledgedAt: string;
+}>;
+
 export interface EnquiryRepository {
   create(
     input: EnquiryInput,
     idempotencyKey: IdempotencyKey,
+    acknowledgement: EnquiryPrivacyAcknowledgement,
   ): Promise<EnquiryPersistenceResult>;
   updateNotificationStatus(
     enquiryId: string,

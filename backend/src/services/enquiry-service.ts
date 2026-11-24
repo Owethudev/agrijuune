@@ -1,6 +1,7 @@
 import type {
   EnquiryNotificationStatus,
   EnquiryPersistenceResult,
+  EnquiryPrivacyAcknowledgement,
   EnquiryRepository,
 } from '../repositories/enquiry-repository.js';
 import type { EnquiryInput } from '../validation/enquiry-validation.js';
@@ -28,6 +29,7 @@ export interface EnquiryService {
   submit(
     input: EnquiryInput,
     idempotencyKey: IdempotencyKey,
+    acknowledgement: EnquiryPrivacyAcknowledgement,
   ): Promise<EnquiryPersistenceResult>;
 }
 
@@ -36,8 +38,16 @@ export function createEnquiryService(
   options: EnquiryServiceOptions,
 ): EnquiryService {
   return {
-    async submit(input, idempotencyKey): Promise<EnquiryPersistenceResult> {
-      const persisted = await repository.create(input, idempotencyKey);
+    async submit(
+      input,
+      idempotencyKey,
+      acknowledgement,
+    ): Promise<EnquiryPersistenceResult> {
+      const persisted = await repository.create(
+        input,
+        idempotencyKey,
+        acknowledgement,
+      );
 
       if (
         !persisted.ok ||

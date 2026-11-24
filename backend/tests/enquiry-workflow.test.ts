@@ -15,6 +15,11 @@ const enquiry: EnquiryInput = {
   servicesOfInterest: ['farm_management_technology'],
 };
 
+const acknowledgement = {
+  noticeVersion: '1.0',
+  acknowledgedAt: '2026-11-24T12:00:00.000Z',
+};
+
 const keyResult = validateIdempotencyKey(
   '7e5dfc21-574c-4c33-9f7e-477cb2f79ca3',
 );
@@ -99,7 +104,9 @@ describe('enquiry notification workflow integration', () => {
     const { service, databaseFetch, providerFetch, events } =
       createWorkflow(201);
 
-    await expect(service.submit(enquiry, keyResult.value)).resolves.toEqual({
+    await expect(
+      service.submit(enquiry, keyResult.value, acknowledgement),
+    ).resolves.toEqual({
       ok: true,
       enquiryId,
       replayed: false,
@@ -125,7 +132,9 @@ describe('enquiry notification workflow integration', () => {
   it('keeps persistence successful and records failure when the provider rejects', async () => {
     const { service, events } = createWorkflow(503);
 
-    await expect(service.submit(enquiry, keyResult.value)).resolves.toEqual({
+    await expect(
+      service.submit(enquiry, keyResult.value, acknowledgement),
+    ).resolves.toEqual({
       ok: true,
       enquiryId,
       replayed: false,
@@ -143,7 +152,9 @@ describe('enquiry notification workflow integration', () => {
   it('does not contact the provider when persistence fails', async () => {
     const { service, providerFetch, events } = createWorkflow(201, 500);
 
-    await expect(service.submit(enquiry, keyResult.value)).resolves.toEqual({
+    await expect(
+      service.submit(enquiry, keyResult.value, acknowledgement),
+    ).resolves.toEqual({
       ok: false,
       reason: 'unavailable',
     });
