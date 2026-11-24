@@ -158,6 +158,7 @@ defined by the current npm workspace scripts:
 
 ``` bash
 npm ci
+npm run check:migrations
 npm run lint
 npm run format:check
 npm run typecheck
@@ -168,6 +169,12 @@ npm run check:performance
 
 The root `npm run build` also runs `npm run check:performance` after
 building both workspaces.
+
+The migration check is offline and does not connect to Supabase or
+execute SQL. It verifies timestamped migration names and prevents direct
+data writes to `public.enquiries`; it does not validate PostgreSQL
+syntax. Apply reviewed migrations to the confirmed non-production
+project before any authorized production change.
 
 The GitHub Actions workflow at `.github/workflows/ci.yml` runs these
 commands on pull requests targeting `main` and on pushes to `main`. The

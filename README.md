@@ -189,6 +189,7 @@ npm run dev:backend
 Other project checks:
 
 ```sh
+npm run check:migrations
 npm run build
 npm run lint
 npm run typecheck
@@ -198,3 +199,9 @@ npm test
 Copy the relevant `.env.example` to `.env` in each application directory
 for local configuration. Keep real credentials out of Git; the
 Supabase service-role key belongs only in the backend environment.
+
+Schema changes belong in timestamped files under
+[`supabase/migrations/`](supabase/migrations/). The migration check runs
+offline and does not apply or parse SQL; see the
+[database migration and recovery guide](docs/DATABASE.md) before applying
+a migration to the confirmed non-production project.
