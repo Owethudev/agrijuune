@@ -171,6 +171,15 @@ Editor. Its migration history records version `20261124095323` with the
 five source statements. This environment has no staging API and received
 no enquiry records.
 
+[`20261124203100_create_team_members.sql`](../supabase/migrations/20261124203100_create_team_members.sql)
+was applied through the authenticated Dashboard SQL Editor to both
+production and `juune-phase2-test` on 2026-11-24. The `team_members`
+table, admin seed, role function, RLS enablement and three policies were
+verified in both projects. The migration version and name are recorded
+in each project's migration history. This adds no enquiry access or
+enquiry records; hosted Auth configuration and frontend environment
+variables remain separate rollout steps.
+
 [`20261124141740_add_enquiry_idempotency.sql`](../supabase/migrations/20261124141740_add_enquiry_idempotency.sql)
 adds a nullable key hash, a keyed request fingerprint, a paired-format
 constraint and a partial unique index. It does not insert or update
