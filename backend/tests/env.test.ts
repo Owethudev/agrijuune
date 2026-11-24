@@ -11,6 +11,7 @@ describe('parseEnvironment', () => {
         max: 10,
         windowMs: 900000,
       },
+      enquiryEmailNotificationsEnabled: false,
       supabase: undefined,
       brevo: undefined,
     });
@@ -58,6 +59,26 @@ describe('parseEnvironment', () => {
     ).toThrow(
       'ENQUIRY_RATE_LIMIT_WINDOW_MS must be an integer from 1000 to 86400000.',
     );
+  });
+
+  it('keeps enquiry email disabled by default and requires an explicit boolean', () => {
+    expect(
+      parseEnvironment({
+        ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED: 'true',
+      }).enquiryEmailNotificationsEnabled,
+    ).toBe(true);
+
+    expect(
+      parseEnvironment({
+        ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED: 'false',
+      }).enquiryEmailNotificationsEnabled,
+    ).toBe(false);
+
+    expect(() =>
+      parseEnvironment({
+        ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED: 'yes',
+      }),
+    ).toThrow('ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED must be true or false.');
   });
 
   it('rejects partial integration configuration', () => {

@@ -35,11 +35,15 @@ The browser must not receive the Supabase service-role key. The
 preferred design is for the browser to submit enquiries only to the
 Express API, which validates and persists them.
 
-The backend has a typed, server-only Supabase client factory and an
-enquiry repository behind a service interface. They return only the
-generated enquiry ID or a safe unavailable result. The public route is
-not wired, and repository tests use a mocked HTTP response; no enquiry
-records are created by the test suite.
+The backend has a typed, server-only Supabase enquiry repository behind
+a service interface. It returns the generated enquiry ID, replay flag
+and safe notification status, or a safe unavailable result. When
+explicitly enabled, the service persists `pending` before sending an
+email and then stores the outcome. It does not notify again for an
+idempotent replay. `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` defaults to
+`false`; the public route remains unwired. Repository and service tests
+use mocked dependencies; no enquiry records are created by the test
+suite.
 
 ## 3. Proposed `enquiries` table
 

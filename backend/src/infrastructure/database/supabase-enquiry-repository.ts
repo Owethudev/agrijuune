@@ -1,6 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from './database.types.js';
 import type {
+  EnquiryNotificationStatus,
+  EnquiryNotificationUpdateResult,
   EnquiryPersistenceResult,
   EnquiryRepository,
 } from '../../repositories/enquiry-repository.js';
@@ -59,7 +61,7 @@ async function insertEnquiry(
       response: await client
         .from('enquiries')
         .insert(record)
-        .select('id')
+        .select('id,notification_status')
         .single(),
     };
   } catch {
@@ -76,12 +78,39 @@ async function findExistingEnquiry(
       ok: true as const,
       response: await client
         .from('enquiries')
-        .select('id,idempotency_request_hash')
+        .select('id,idempotency_request_hash,notification_status')
         .eq('idempotency_key_hash', keyHash)
         .maybeSingle(),
     };
   } catch {
     return { ok: false as const };
+  }
+}
+
+async function updateEnquiryNotificationStatus(
+  client: SupabaseClient<Database>,
+  enquiryId: string,
+  status: EnquiryNotificationStatus,
+  attemptedAt: string | null,
+): Promise<EnquiryNotificationUpdateResult> {
+  try {
+    const { data, error } = await client
+      .from('enquiries')
+      .update({
+        notification_status: status,
+        notification_attempted_at: attemptedAt,
+      })
+      .eq('id', enquiryId)
+      .select('id')
+      .maybeSingle();
+
+    if (error || !data?.id) {
+      return { ok: false };
+    }
+
+    return { ok: true };
+  } catch {
+    return { ok: false };
   }
 }
 
@@ -103,8 +132,13 @@ export function createSupabaseEnquiryRepository(
 
       const { data, error } = insert.response;
 
-      if (!error && data?.id) {
-        return { ok: true, enquiryId: data.id, replayed: false };
+      if (!error && data?.id && data.notification_status) {
+        return {
+          ok: true,
+          enquiryId: data.id,
+          replayed: false,
+          notificationStatus: data.notification_status,
+        };
       }
 
       if (error?.code !== '23505') {
@@ -119,7 +153,12 @@ export function createSupabaseEnquiryRepository(
 
       const { data: existing, error: lookupError } = lookup.response;
 
-      if (lookupError || !existing?.id || !existing.idempotency_request_hash) {
+      if (
+        lookupError ||
+        !existing?.id ||
+        !existing.idempotency_request_hash ||
+        !existing.notification_status
+      ) {
         return { ok: false, reason: 'unavailable' };
       }
 
@@ -127,7 +166,14 @@ export function createSupabaseEnquiryRepository(
         return { ok: false, reason: 'conflict' };
       }
 
-      return { ok: true, enquiryId: existing.id, replayed: true };
+      return {
+        ok: true,
+        enquiryId: existing.id,
+        replayed: true,
+        notificationStatus: existing.notification_status,
+      };
     },
+    updateNotificationStatus: (enquiryId, status, attemptedAt) =>
+      updateEnquiryNotificationStatus(client, enquiryId, status, attemptedAt),
   };
 }
