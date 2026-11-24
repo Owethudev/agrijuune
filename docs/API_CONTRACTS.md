@@ -113,37 +113,48 @@ field names use camelCase in JSON and must match the approved form.
   Field                    Type                    Validation
   ------------------------ ----------------------- -----------------------
   `contactName`            string                  Required; trim;
-                                                   sensible maximum length
+                                                   maximum 120 characters
 
   `email`                  string                  Required; valid email;
                                                    maximum 254 characters
 
-  `cellNumber`             string                  Required; length and
-                                                   format bounds
+  `cellNumber`             string                  Required; 7–15 digits,
+                                                   up to 32 characters;
+                                                   +, spaces, parentheses,
+                                                   periods and hyphens
 
-  `farmName`               string                  Optional; length bound
+  `farmName`               string                  Optional; maximum 160
+                                                   characters
 
-  `farmLocation`           string                  Optional; length bound
+  `farmLocation`           string                  Optional; maximum 160
+                                                   characters
 
-  `operationType`          string                  Optional; approved
-                                                   values or bounded text
+  `operationType`          string                  Optional; maximum 100
+                                                   characters
 
-  `machineCountEstimate`   integer                 Optional; zero or
-                                                   greater
+  `machineCountEstimate`   integer                 Optional; zero to
+                                                   2,147,483,647
 
   `servicesOfInterest`     string array            Required; non-empty;
                                                    allowlisted identifiers
 
-  `additionalMessage`      string                  Optional; strict
-                                                   maximum length
+  `additionalMessage`      string                  Optional; maximum
+                                                   2,000 characters
 
   `privacyNoticeVersion`   string                  Conditional on approved
-                                                   privacy design
+                                                   privacy design; set by
+                                                   the server, not the
+                                                   request
   ------------------------------------------------------------------------
 
 The server must set `created_at`, initial lead `status` and notification
 status. Ignore or reject client attempts to set server-controlled
-fields.
+fields. The request validator also rejects other unexpected fields and
+does not echo submitted values in validation details.
+
+The server-side validation module is implemented and tested, but is not
+mounted on a public route. The enquiry endpoint remains unavailable
+until the privacy and deletion prerequisites below are resolved.
 
 The approved required fields are `contactName`, `email`, `cellNumber`
 and a non-empty `servicesOfInterest` containing only
