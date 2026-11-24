@@ -158,9 +158,10 @@ documented lawful-basis grounds according to enquiry context; see the
 The notice still has publication placeholders for the registered
 business name, business address and Information Officer. The owner set
 seven-day database retention from submission and a maximum seven-day
-backup-retention target. The purge and backup behavior remain
-unimplemented or unverified. Each party will retain their email copies
-as communication records, and the database purge will not remove
+backup-retention target, which the product owner confirms is configured
+and verified. The database purge remains unimplemented. Each party will
+retain their email copies as communication records, and the database
+purge will not remove
 mailbox copies; Brevo message/log retention is pending. Do not enable the
 form or endpoint until the publication, deletion, backup and provider
 disclosure gates are resolved. Brevo is selected, and the product owner
