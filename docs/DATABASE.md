@@ -215,6 +215,13 @@ npx supabase db push --remote --dry-run
 npx supabase db push --remote
 ```
 
+CI runs `npm run check:migrations` without database credentials or Docker.
+It checks migration filenames and version uniqueness, rejects empty
+migrations, and blocks direct data writes to `public.enquiries`. This is
+an offline safety check, not a PostgreSQL parser or substitute for
+reviewing and applying a migration to the confirmed non-production
+project first.
+
 Do not pass credentials as command-line arguments or commit local CLI
 state. The linked project reference is stored under the ignored
 `supabase/.temp/` directory. When local Docker-based testing is

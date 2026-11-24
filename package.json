@@ -15,11 +15,12 @@
     "dev:backend": "npm run dev --workspace backend",
     "build": "npm run build --workspaces && npm run check:performance",
     "check:performance": "node scripts/check-performance-budget.mjs",
+    "check:migrations": "node scripts/check-supabase-migrations.mjs",
     "lint": "eslint frontend backend eslint.config.js",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
-    "format": "prettier --write \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"*.{json,js}\"",
-    "format:check": "prettier --check \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"*.{json,js}\""
+    "test": "node --test scripts/check-supabase-migrations.test.mjs && npm run test --workspaces --if-present",
+    "format": "prettier --write \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"scripts/check-supabase-migrations*.mjs\" \"*.{json,js}\"",
+    "format:check": "prettier --check \"frontend/**/*.{ts,tsx,html,css,json}\" \"backend/**/*.{ts,json}\" \"scripts/check-supabase-migrations*.mjs\" \"*.{json,js}\""
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
