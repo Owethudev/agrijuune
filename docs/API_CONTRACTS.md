@@ -70,6 +70,9 @@ hostnames or detailed infrastructure information. If database readiness
 is checked, expose only a safe status and ensure the endpoint does not
 become a data-disclosure channel.
 
+On `SIGINT` or `SIGTERM`, the backend stops accepting new connections and
+allows active requests to finish before shutdown.
+
 ## 4. Endpoint: submit an enquiry
 
 `POST /api/v1/enquiries`
