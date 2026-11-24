@@ -26,9 +26,10 @@
   production environment. Promote changes through a pull request into
   `main`; the Vercel and Render project settings control deployments.
   The owner has specifically authorized the initial prototype enquiry
-  schema to be applied to the live Supabase project. This is a
-  schema-only exception: it does not authorize data writes, enquiry
-  collection, or connecting local and preview environments to production.
+  schema to be applied to the live Supabase project; it was applied on
+  2026-11-24 and recorded in migration history. This is a schema-only
+  exception: it does not authorize data writes, enquiry collection, or
+  connecting local and preview environments to production.
 
 Do not treat a frontend preview as a complete staging environment. Before
 testing API-backed behaviour with non-production data, provision and
