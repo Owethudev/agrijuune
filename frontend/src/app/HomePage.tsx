@@ -194,10 +194,7 @@ export function HomePage({ copy, headingRef, language }: HomePageProps) {
             decoding="async"
           />
           <span className="home-coverage__location">
-            <span
-              className="home-coverage__location-dot"
-              aria-hidden="true"
-            />
+            <span className="home-coverage__location-dot" aria-hidden="true" />
             {copy.coverage.location}
           </span>
         </div>

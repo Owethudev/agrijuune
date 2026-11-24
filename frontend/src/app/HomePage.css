@@ -113,11 +113,7 @@
       var(--color-brand-blue-glow),
       transparent 42%
     ),
-    linear-gradient(
-      135deg,
-      rgb(248 250 252 / 88%),
-      rgb(248 250 252 / 68%)
-    ),
+    linear-gradient(135deg, rgb(248 250 252 / 88%), rgb(248 250 252 / 68%)),
     url('/images/field-machinery.webp') center / cover;
 }
 
