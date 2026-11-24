@@ -35,10 +35,16 @@ Error response:
   "error": {
     "code": "VALIDATION_ERROR",
     "message": "Please review the submitted information.",
-    "details": []
+    "details": [],
+    "requestId": "server-generated-request-id"
   }
 }
 ```
+
+Every handled response includes a server-generated `X-Request-ID` header.
+Error responses include the same ID in `error.requestId`. Unknown routes
+return `404` with code `NOT_FOUND`; unexpected failures return `500` with
+code `INTERNAL_ERROR` and a generic message.
 
 `details` should contain only safe, field-level validation information.
 Do not return stack traces, SQL errors, provider responses, secrets or
