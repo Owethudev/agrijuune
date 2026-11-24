@@ -63,3 +63,13 @@ and can be reused by public pages:
 
 Extend these primitives only when a public-page need is shared; keep
 page-specific layout and content styles scoped to their page.
+
+## Homepage image treatment
+
+The homepage prototype uses locally optimized WebP derivatives of the
+provided farm photography and South Africa map in
+[`frontend/public/images/`](../frontend/public/images/). Low-opacity
+photographic backdrops stay behind content, while the photo carousel uses
+manual controls, translated alt text and no autoplay. The Gauteng marker
+communicates the initial customer focus only; it does not claim confirmed
+service coverage.

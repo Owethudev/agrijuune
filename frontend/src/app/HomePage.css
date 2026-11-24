@@ -3,9 +3,56 @@
 }
 
 .home-section {
+  position: relative;
+  isolation: isolate;
   width: min(100% - 2rem, var(--layout-content-width));
   margin-inline: auto;
   scroll-margin-top: calc(var(--layout-header-wide) + var(--space-2));
+}
+
+.home-section::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: '';
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.home-hero::before {
+  background-image: url('/images/field-machinery.webp');
+  background-position: 70% center;
+  opacity: 0.1;
+}
+
+.home-divisions::before {
+  background-image: url('/images/crop-work.webp');
+  opacity: 0.06;
+}
+
+.home-coverage::before {
+  background-image: url('/images/field-machinery.webp');
+  opacity: 0.05;
+}
+
+.home-gallery::before {
+  background-image: url('/images/tractor.webp');
+  opacity: 0.05;
+}
+
+.home-demo::before {
+  inset: var(--space-3) 0;
+  border-radius: var(--radius-lg);
+  background-image: url('/images/crop-work.webp');
+  opacity: 0.06;
+}
+
+.home-interest::before {
+  background-image: url('/images/field-machinery.webp');
+  opacity: 0.06;
 }
 
 .home-hero {
@@ -66,7 +113,8 @@
       var(--color-brand-blue-glow),
       transparent 42%
     ),
-    var(--color-surface-subtle);
+    linear-gradient(135deg, rgb(248 250 252 / 88%), rgb(248 250 252 / 68%)),
+    url('/images/field-machinery.webp') center / cover;
 }
 
 .home-hero__visual::before,
@@ -106,7 +154,8 @@
   padding: var(--space-2);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
-  background: var(--color-surface);
+  background: rgb(255 255 255 / 94%);
+  backdrop-filter: blur(6px);
   box-shadow: var(--elevation-surface);
   color: var(--agrijuune-navy);
   font-weight: var(--font-weight-bold);
@@ -131,6 +180,7 @@
 
 .home-divisions h2,
 .home-coverage h2,
+.home-gallery h2,
 .home-demo h2,
 .home-interest h2 {
   margin: 0;
@@ -163,39 +213,166 @@
 .home-coverage__visual {
   position: relative;
   display: grid;
-  min-height: 10rem;
+  min-height: 17rem;
   place-items: center;
   overflow: hidden;
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: var(--agrijuune-navy);
-  color: var(--color-surface-subtle);
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      var(--color-brand-blue-glow),
+      transparent 72%
+    ),
+    var(--color-surface-subtle);
 }
 
-.home-coverage__visual::before,
-.home-coverage__visual::after {
-  position: absolute;
-  width: 8rem;
-  height: 8rem;
-  border: 1px solid rgb(248 250 252 / 24%);
-  border-radius: 50%;
-  content: '';
-}
-
-.home-coverage__visual::after {
-  width: 12rem;
-  height: 12rem;
+.home-coverage__visual img {
+  width: min(100%, 16rem);
+  height: 16rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0.5rem 1rem rgb(7 27 51 / 14%));
 }
 
 .home-coverage__location {
-  z-index: 1;
-  font-size: var(--font-size-lg);
+  position: absolute;
+  top: 34%;
+  left: 63%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-half) var(--space-1-5);
+  transform: translate(-8%, -50%);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  box-shadow: var(--elevation-surface);
+  color: var(--agrijuune-navy);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-extrabold);
+  white-space: nowrap;
+}
+
+.home-coverage__location-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--agrijuune-red);
+  box-shadow: 0 0 0 0.25rem rgb(227 6 19 / 16%);
 }
 
 .home-coverage__copy > p:last-child {
   max-width: var(--layout-copy-width);
   margin: var(--space-2) 0 0;
   color: var(--color-text-muted);
+}
+
+.home-gallery {
+  display: grid;
+  gap: var(--space-4);
+  padding-block: var(--space-8);
+}
+
+.home-gallery__carousel {
+  min-width: 0;
+}
+
+.home-gallery__frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  background: var(--agrijuune-navy);
+  box-shadow: var(--elevation-surface);
+}
+
+.home-gallery__frame::after {
+  position: absolute;
+  inset: 38% 0 0;
+  background: linear-gradient(transparent, rgb(7 27 51 / 88%));
+  content: '';
+  pointer-events: none;
+}
+
+.home-gallery__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-gallery__caption {
+  position: absolute;
+  z-index: 1;
+  inset-inline: var(--space-3);
+  bottom: var(--space-3);
+  color: var(--color-surface);
+}
+
+.home-gallery__caption h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.home-gallery__caption p {
+  margin: var(--space-half) 0 0;
+  color: var(--color-text-inverse-muted);
+}
+
+.home-gallery__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+
+.home-gallery__controls .button {
+  flex: 0 0 auto;
+}
+
+.home-gallery__status {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.home-gallery__selectors {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.home-gallery__selectors button {
+  display: grid;
+  min-width: var(--control-min-height);
+  min-height: var(--control-min-height);
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.home-gallery__selectors button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--agrijuune-red);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.home-gallery__selectors button span {
+  width: 0.625rem;
+  height: 0.625rem;
+  border: 1px solid var(--agrijuune-navy);
+  border-radius: 50%;
+}
+
+.home-gallery__selectors button[aria-pressed='true'] span {
+  border-color: var(--agrijuune-red);
+  background: var(--agrijuune-red);
 }
 
 .home-demo {
@@ -245,6 +422,16 @@
 
   .home-coverage {
     grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1fr);
+  }
+
+  .home-gallery {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .home-gallery__frame {
+    aspect-ratio: 16 / 10;
   }
 
   .home-interest {

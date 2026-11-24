@@ -68,6 +68,42 @@ describe('public application shell', () => {
     },
   );
 
+  it('browses the homepage photo carousel and shows the South Africa map', () => {
+    render(<App />);
+
+    const carousel = screen.getByRole('region', {
+      name: 'A closer look at farm life.',
+    });
+    const getCarouselImage = () => within(carousel).getByRole('img');
+
+    expect(getCarouselImage()).toHaveAttribute(
+      'alt',
+      'Agricultural machinery working across rows of crops.',
+    );
+    fireEvent.click(within(carousel).getByRole('button', { name: 'Next' }));
+    expect(getCarouselImage()).toHaveAttribute('src', '/images/tractor.webp');
+    expect(getCarouselImage()).toHaveAttribute(
+      'alt',
+      'A green tractor in a grassy field.',
+    );
+
+    fireEvent.click(
+      within(carousel).getByRole('button', { name: 'Show photo 3' }),
+    );
+    expect(getCarouselImage()).toHaveAttribute('src', '/images/crop-work.webp');
+    fireEvent.click(within(carousel).getByRole('button', { name: 'Next' }));
+    expect(getCarouselImage()).toHaveAttribute(
+      'src',
+      '/images/field-machinery.webp',
+    );
+
+    expect(
+      screen.getByRole('img', {
+        name: 'Illustrative map of South Africa with Gauteng marked as the initial customer focus.',
+      }),
+    ).toHaveAttribute('src', '/images/south-africa-map.webp');
+  });
+
   it('presents both divisions with honest service and availability labels', () => {
     render(<App />);
 

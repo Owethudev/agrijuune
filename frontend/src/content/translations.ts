@@ -27,6 +27,12 @@ export type HomeDivisionCopy = {
   ctaLabel: string;
 };
 
+export type HomeGallerySlideCopy = {
+  title: string;
+  description: string;
+  alt: string;
+};
+
 export type HomePageCopy = {
   hero: {
     eyebrow: string;
@@ -51,6 +57,26 @@ export type HomePageCopy = {
     title: string;
     location: string;
     description: string;
+    mapAlt: string;
+  };
+  gallery: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    controlsLabel: string;
+    previousLabel: string;
+    nextLabel: string;
+    carouselRoleDescription: string;
+    slideSelectorLabel: string;
+    showSlideLabel: string;
+    slideLabel: string;
+    slideRoleDescription: string;
+    ofLabel: string;
+    slides: {
+      fieldMachinery: HomeGallerySlideCopy;
+      tractor: HomeGallerySlideCopy;
+      cropWork: HomeGallerySlideCopy;
+    };
   };
   demo: {
     eyebrow: string;
@@ -267,6 +293,40 @@ export const translations: Record<Language, LanguageContent> = {
         location: 'Gauteng',
         description:
           'The exact travel radius and service availability have not been confirmed. They will be discussed before any work is agreed.',
+        mapAlt:
+          'Illustrative map of South Africa with Gauteng marked as the initial customer focus.',
+      },
+      gallery: {
+        eyebrow: 'From the field',
+        title: 'A closer look at farm life.',
+        description:
+          'A glimpse of the land and machinery behind everyday farm work.',
+        controlsLabel: 'Photo carousel controls',
+        previousLabel: 'Previous',
+        nextLabel: 'Next',
+        carouselRoleDescription: 'carousel',
+        slideSelectorLabel: 'Choose a photo',
+        showSlideLabel: 'Show photo',
+        slideLabel: 'Slide',
+        slideRoleDescription: 'slide',
+        ofLabel: 'of',
+        slides: {
+          fieldMachinery: {
+            title: 'Across the field',
+            description: 'Crop rows and machinery at work.',
+            alt: 'Agricultural machinery working across rows of crops.',
+          },
+          tractor: {
+            title: 'Ready for the next job',
+            description: 'A tractor standing in a green field.',
+            alt: 'A green tractor in a grassy field.',
+          },
+          cropWork: {
+            title: 'A season of work',
+            description: 'Machinery moving through a cultivated field.',
+            alt: 'Farm machinery working in a cultivated crop field.',
+          },
+        },
       },
       demo: {
         eyebrow: 'Illustrative platform demo',
@@ -526,6 +586,40 @@ export const translations: Record<Language, LanguageContent> = {
         location: 'Gauteng',
         description:
           'Die presiese reisafstand en diensbeskikbaarheid is nog nie bevestig nie. Dit sal bespreek word voordat enige werk ooreengekom word.',
+        mapAlt:
+          'Illustratiewe kaart van Suid-Afrika met Gauteng as die aanvanklike kliëntfokus aangedui.',
+      },
+      gallery: {
+        eyebrow: 'Van die plaas af',
+        title: 'Kyk nader na die plaaslewe.',
+        description:
+          '’n Blik op die grond en masjinerie agter alledaagse plaaswerk.',
+        controlsLabel: 'Fotokarouselkontroles',
+        previousLabel: 'Vorige',
+        nextLabel: 'Volgende',
+        carouselRoleDescription: 'fotokarousel',
+        slideSelectorLabel: 'Kies ’n foto',
+        showSlideLabel: 'Wys foto',
+        slideLabel: 'Skyfie',
+        slideRoleDescription: 'skyfie',
+        ofLabel: 'van',
+        slides: {
+          fieldMachinery: {
+            title: 'Oor die land',
+            description: 'Gewasrye en masjinerie aan die werk.',
+            alt: 'Landboumasjinerie wat tussen gewasrye werk.',
+          },
+          tractor: {
+            title: 'Gereed vir die volgende taak',
+            description: '’n Trekker in ’n groen land.',
+            alt: '’n Groen trekker in ’n grasland.',
+          },
+          cropWork: {
+            title: '’n Seisoen se werk',
+            description: 'Masjinerie wat deur ’n bewerkte land beweeg.',
+            alt: 'Plaasmasjinerie wat in ’n bewerkte gewasland werk.',
+          },
+        },
       },
       demo: {
         eyebrow: 'Illustratiewe platformdemo',

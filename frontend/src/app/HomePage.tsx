@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Ref } from 'react';
 import type { HomePageCopy, Language } from '../content/translations';
 import { GuidedDemo } from '../demo/GuidedDemo';
@@ -9,6 +10,113 @@ type HomePageProps = {
   headingRef: Ref<HTMLHeadingElement>;
   language: Language;
 };
+
+function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
+  const slides = [
+    {
+      image: '/images/field-machinery.webp',
+      copy: copy.slides.fieldMachinery,
+    },
+    {
+      image: '/images/tractor.webp',
+      copy: copy.slides.tractor,
+    },
+    {
+      image: '/images/crop-work.webp',
+      copy: copy.slides.cropWork,
+    },
+  ];
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const activeSlide = slides[activeSlideIndex];
+
+  function moveSlide(direction: -1 | 1) {
+    setActiveSlideIndex(
+      (currentIndex) =>
+        (currentIndex + direction + slides.length) % slides.length,
+    );
+  }
+
+  return (
+    <section
+      className="home-gallery home-section"
+      aria-labelledby="home-gallery-title"
+      aria-roledescription={copy.carouselRoleDescription}
+    >
+      <div className="home-gallery__intro">
+        <p className="home-eyebrow">{copy.eyebrow}</p>
+        <h2 id="home-gallery-title">{copy.title}</h2>
+        <p className="home-section__intro">{copy.description}</p>
+      </div>
+
+      <div className="home-gallery__carousel">
+        <figure
+          className="home-gallery__frame"
+          role="group"
+          aria-roledescription={copy.slideRoleDescription}
+          aria-label={`${copy.slideLabel} ${activeSlideIndex + 1} ${copy.ofLabel} ${slides.length}`}
+        >
+          <img
+            src={activeSlide.image}
+            alt={activeSlide.copy.alt}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption className="home-gallery__caption">
+            <h3>{activeSlide.copy.title}</h3>
+            <p>{activeSlide.copy.description}</p>
+          </figcaption>
+        </figure>
+
+        <div
+          className="home-gallery__controls"
+          role="group"
+          aria-label={copy.controlsLabel}
+        >
+          <button
+            className="button button--secondary"
+            type="button"
+            onClick={() => moveSlide(-1)}
+          >
+            {copy.previousLabel}
+          </button>
+          <p
+            className="home-gallery__status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {copy.slideLabel} {activeSlideIndex + 1} {copy.ofLabel}{' '}
+            {slides.length}: {activeSlide.copy.title}
+          </p>
+          <button
+            className="button button--secondary"
+            type="button"
+            onClick={() => moveSlide(1)}
+          >
+            {copy.nextLabel}
+          </button>
+        </div>
+
+        <div
+          className="home-gallery__selectors"
+          role="group"
+          aria-label={copy.slideSelectorLabel}
+        >
+          {slides.map((slide, index) => (
+            <button
+              key={slide.image}
+              type="button"
+              aria-label={`${copy.showSlideLabel} ${index + 1}`}
+              aria-pressed={activeSlideIndex === index}
+              onClick={() => setActiveSlideIndex(index)}
+            >
+              <span aria-hidden="true" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function HomePage({ copy, headingRef, language }: HomePageProps) {
   return (
@@ -78,8 +186,15 @@ export function HomePage({ copy, headingRef, language }: HomePageProps) {
         className="home-coverage home-section"
         aria-labelledby="home-coverage-title"
       >
-        <div className="home-coverage__visual" aria-hidden="true">
+        <div className="home-coverage__visual">
+          <img
+            src="/images/south-africa-map.webp"
+            alt={copy.coverage.mapAlt}
+            loading="lazy"
+            decoding="async"
+          />
           <span className="home-coverage__location">
+            <span className="home-coverage__location-dot" aria-hidden="true" />
             {copy.coverage.location}
           </span>
         </div>
@@ -89,6 +204,8 @@ export function HomePage({ copy, headingRef, language }: HomePageProps) {
           <p>{copy.coverage.description}</p>
         </div>
       </section>
+
+      <HomePhotoCarousel copy={copy.gallery} />
 
       <section
         className="home-demo home-section"
