@@ -2,6 +2,12 @@ type NodeEnvironment = 'development' | 'test' | 'production';
 
 type EnvironmentSource = Record<string, string | undefined>;
 
+export type BrevoConfiguration = Readonly<{
+  apiKey: string;
+  sender: string;
+  recipient: string;
+}>;
+
 const NODE_ENVIRONMENTS = new Set<string>([
   'development',
   'test',
@@ -113,11 +119,11 @@ export function parseEnvironment(source: EnvironmentSource) {
         : undefined,
     brevo:
       brevoApiKey && emailFrom && businessEmail
-        ? {
+        ? ({
             apiKey: brevoApiKey,
             sender: emailFrom,
             recipient: businessEmail,
-          }
+          } satisfies BrevoConfiguration)
         : undefined,
   };
 }

@@ -262,8 +262,10 @@ Set it to the deployed frontend origin in production; an unset value
 fails closed for cross-origin browser requests.
 
 The repository owner manages branch-protection settings in GitHub.
-Package manager and email configuration remain open decisions. Do not
-hard-code assumptions.
+Brevo is the selected email provider, and `emailNotifier` binds the
+server-only adapter to the validated `env.brevo` configuration. The
+adapter sends only when explicitly called; no current enquiry workflow
+invokes it.
 
 ## 11. Performance and accessibility
 

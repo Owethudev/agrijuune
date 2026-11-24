@@ -148,8 +148,9 @@ On submission:
 4.  Return a safe response to the browser.
 5.  If an email provider, sender and exact recipient address are approved
     and configured, attempt notification through a replaceable email
-    adapter. Enquiries are intended to go directly to the product owner;
-    delivery remains disabled until those details are approved.
+    adapter. The Brevo adapter is configured from server-side
+    environment variables but is not called until persistence and the
+    privacy launch gates are complete.
 6.  Record notification status without losing the enquiry if email
     delivery fails.
 
@@ -190,13 +191,13 @@ sensitive credentials on the server.
 The following decisions and implementations require confirmation rather
 than assumptions:
 
--   Package manager.
 -   Brevo is selected, and the product owner reports `BREVO_API_KEY`,
     `EMAIL_FROM` and `BUSINESS_EMAIL` are configured in the deployed
     backend. The product owner approved sender/recipient routing and
     says the Brevo data-location review is okay, but exact provider
-    disclosures remain outstanding. The adapter is not implemented and
-    email delivery is disabled.
+    disclosures remain outstanding. The server-side adapter is
+    implemented and unit-tested, but no enquiry workflow invokes it and
+    no email has been sent.
 -   The owner-approved Privacy Notice and selected lawful-basis grounds
     are recorded in the enquiry decision record. The responsible party
     is named Agrijuune, and public privacy contacts are recorded there.
