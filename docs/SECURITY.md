@@ -78,6 +78,13 @@ FRONTEND_ORIGIN=
 These are names/examples only; do not record real values in source
 control or documentation. Keep `BREVO_API_KEY` server-side.
 
+Set `FRONTEND_ORIGIN` to the exact approved frontend origin
+(`https://agrijuune.vercel.app` in production and
+`http://localhost:5173` for local development). The backend rejects
+requests carrying any other `Origin`; if this setting is absent, it
+fails closed for cross-origin browser requests. CORS does not enable
+credentials and allows only `Content-Type` on preflight requests.
+
 GitHub secret scanning and push protection are enabled for the
 repository. Dependabot dependency graph, alerts and security updates are
 also enabled; `.github/dependabot.yml` schedules weekly npm version
@@ -130,6 +137,12 @@ For the public enquiry endpoint:
 -   Restrict accepted HTTP methods and content types.
 -   Avoid exposing whether a private record exists.
 -   Monitor unusual request volumes and repeated failures.
+
+The API currently limits JSON request bodies to 10 KB, accepts JSON
+content types on `POST`, and allows only `GET`, `HEAD`, `POST` and CORS
+`OPTIONS` preflight requests. It sends restrictive API security headers,
+including HSTS in production. Rate limiting remains a separate control
+and must be in place before an enquiry endpoint is exposed.
 
 Do not invent rate-limit thresholds as permanent policy; choose and
 document values during deployment.

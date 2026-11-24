@@ -197,6 +197,15 @@ to the browser.
   `400`                   `VALIDATION_ERROR`         Invalid or incomplete
                                                      request
 
+  `400`                   `INVALID_JSON`              Malformed JSON request
+
+  `403`                   `ORIGIN_NOT_ALLOWED`        Origin or preflight
+                                                     headers are not
+                                                     allowlisted
+
+  `405`                   `METHOD_NOT_ALLOWED`        HTTP method is not
+                                                     enabled
+
   `413`                   `PAYLOAD_TOO_LARGE`        Request body exceeds
                                                      configured limit
 
@@ -213,6 +222,13 @@ to the browser.
   --------------------------------------------------------------------------
 
 Do not return `201` if persistence failed.
+
+The JSON request-body limit is 10 KB. `POST` requests must use
+`Content-Type: application/json`. The current API only enables `GET`,
+`HEAD`, `POST` and `OPTIONS`; `OPTIONS` is used for allowed CORS
+preflights. CORS allows the exact `FRONTEND_ORIGIN` configured for the
+backend, without credentials, and only the `Content-Type` request header.
+If `FRONTEND_ORIGIN` is unset, cross-origin browser requests are denied.
 
 ### Email notification behaviour
 

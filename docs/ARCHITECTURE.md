@@ -102,6 +102,11 @@ The exact middleware order must be documented in the application setup
 and must ensure request-size limits, security headers, CORS policy, rate
 limiting and validation are applied appropriately.
 
+The current API middleware order is request ID, security headers, exact
+origin allowlist, HTTP method/content-type checks, a 10 KB JSON parser,
+routes, not-found handling and central error handling. Rate limiting and
+enquiry validation are not enabled until their endpoints are implemented.
+
 ### Layer responsibilities
 
   -----------------------------------------------------------------------
@@ -251,6 +256,10 @@ Production hosts, URLs and environment boundaries are recorded in
 `MASTER.md` and
 `decisions/2026-11-23-deployment-and-environments.md`. Vercel pull-request
 previews are frontend-only; no staging API or database is configured.
+
+`FRONTEND_ORIGIN` configures the backend's single allowed browser origin.
+Set it to the deployed frontend origin in production; an unset value
+fails closed for cross-origin browser requests.
 
 The repository owner manages branch-protection settings in GitHub.
 Package manager and email configuration remain open decisions. Do not
