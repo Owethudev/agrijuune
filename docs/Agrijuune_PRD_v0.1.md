@@ -1,12 +1,11 @@
-> **Source note:** This remains a draft derived from the
-> [PDF](Agrijuune_PRD_v0.1.pdf). The approved enquiry fields and service
-> identifiers are recorded in the
+> **Source note:** This remains a working draft derived from the
+> [PDF](Agrijuune_PRD_v0.1.pdf). The approved enquiry fields, service
+> identifiers, owner-approved Privacy Notice text and owner-selected
+> lawful-basis grounds are recorded in the
 > [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-> Lawful-basis, Privacy Notice, deletion/backup and email-delivery
-> approvals remain outstanding. The owner-set one-week retention period
-> and supplied draft acknowledgement are recorded in the decision record;
-> use the [master project brief](MASTER.md) and current decisions for
-> approved requirements.
+> Publication placeholders, deletion/backup verification and exact
+> provider location/retention disclosures remain outstanding; use the
+> [master project brief](MASTER.md) and current decisions for status.
 
 **AGRIJUUNE**
 
@@ -506,7 +505,7 @@ Required or recommended fields:
 
 - Additional message — optional, with length limit and warning not to submit sensitive or confidential farm information.
 
-The form must state that an enquiry is not a booking, quote acceptance or purchase commitment. The owner supplied draft acknowledgement wording, recorded in the enquiry decision record; the complete Privacy Notice and lawful basis still require approval. Do not enable personal-data collection before that review.
+The form must state that an enquiry is not a booking, quote acceptance or purchase commitment. The owner approved the Privacy Notice text and selected the notice's sections 6.1 and 6.2 according to enquiry context; see the enquiry decision record. Complete the notice's business-detail placeholders and verify deletion, backups and provider disclosures before enabling personal-data collection.
 
 **S9 — FAQ**
 
@@ -659,11 +658,11 @@ Maintain approved service-interest options, language strings, FAQ content, navig
 
 ## 11.2 Third-party services
 
-Brevo is the selected email delivery provider. The product owner reports that the deployed backend has `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL` configured; actual values are not recorded here. The owner approved sender/recipient routing and says the Brevo data-location review is okay, but exact location/transfer details for the Privacy Notice have not been supplied. The email adapter is not implemented or tested, and delivery remains disabled until the privacy gate and implementation are complete. Analytics, map and bot-protection providers are not selected. No non-essential analytics is approved at launch. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
+Brevo is the selected email delivery provider. The product owner reports that the deployed backend has `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL` configured; actual values are not recorded here. The owner approved sender/recipient routing. Exact provider locations/transfers and Brevo message/log retention remain pending. The email adapter is not implemented or tested, and delivery remains disabled until the privacy and implementation gates are complete. Analytics, map and bot-protection providers are not selected. No non-essential analytics is approved at launch. Keep paid/key-based integrations to the minimum. Never place secret API keys in frontend code. The Gauteng coverage map may initially be a static illustration if an interactive map is not approved.
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the lawful basis, complete Privacy Notice, seven-day database deletion implementation and database-backup expiry are approved. The responsible-party name is Agrijuune, and public privacy contact details are recorded in the enquiry decision record. The owner specified deletion of database records containing submitted information seven days after submission and wants the purge implemented in code. Each party will retain their email copies as communication records, and the database purge will not remove mailbox copies; database-backup expiry and Brevo message/log retention remain unspecified. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the owner-approved Privacy Notice's publication placeholders are completed, the seven-day database deletion and backup-retention target are verified, and provider locations/transfers and retention are documented. The responsible-party name is Agrijuune, and public privacy contacts are recorded in the enquiry decision record. The owner specified deletion of database records containing submitted information seven days after submission and a maximum seven-day backup-retention target. Each party will retain their email copies as communication records; the database purge will not remove mailbox copies. Brevo message/log retention remains pending. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
@@ -767,7 +766,7 @@ agrijuune-website/ docs/ (PRD.md, decisions/) public/ (images/, models/, icons/)
 
 ## 12.4 Privacy and POPIA
 
-Agrijuune must identify the responsible party and confirm lawful basis, purposes, retention, operator contracts and cross-border processing before launch. This PRD is not legal advice. Publish a Privacy Notice before collecting personal information and have the final notice and consent wording reviewed.
+The product owner identified Agrijuune as the responsible party, selected the Privacy Notice's sections 6.1 and 6.2 according to enquiry context, and approved the notice text. This PRD is not legal advice or an independent legal assessment. Complete the notice's remaining business-detail placeholders and verify retention controls, provider terms and cross-border disclosures before publication or collection.
 
 Personal information collected: contact name, email, phone, farm name, general location, farming operation, approximate machinery count and optional message. Purpose: respond to the enquiry and understand the service interest. Access: authorised Agrijuune handler. Storage provider and country: **to be selected and disclosed** . Retention: **must be decided and justified before launch** . Deletion/access/correction requests: provide a published contact route, subject to legal obligations.
 
@@ -835,7 +834,7 @@ Privacy requirements:
 
 1. Is a database needed, or is a secure form/email service sufficient?
 
-1. What specific lawful basis and complete Privacy Notice are approved? The owner specified deleting submitted database records seven days after submission, while each party retains their email copies. The purge and database-backup expiry remain to be implemented or decided; Brevo message/log retention is unspecified.
+1. The owner-approved Privacy Notice still has registered-business-name, address and Information Officer placeholders. Seven-day database retention and a maximum seven-day backup-retention target are set but not implemented or verified; Brevo message/log retention and provider location/transfer disclosures remain pending.
 
 1. How will enquiries be tracked after delivery? The product owner is the intended follow-up recipient; no CRM/dashboard has been selected.
 
@@ -895,7 +894,7 @@ This is a later-stage workflow, not authorisation to code before open questions 
 
 - Technology stack, hosting and integrations — pending.
 
-- Specific lawful basis, complete Privacy Notice, exact provider location/transfer disclosures, seven-day database purge implementation and database-backup expiry — pending. The owner named Agrijuune as responsible party, supplied public privacy contacts, specified a seven-day database retention period, said each party will retain their email copies, and approved sender/recipient routing; see the enquiry decision record.
+- The owner-approved Privacy Notice and selected lawful-basis grounds are recorded, but its remaining publication placeholders, exact provider location/transfer and retention disclosures, seven-day database purge, and backup-retention verification remain pending. The owner named Agrijuune as responsible party, supplied public privacy contacts, specified seven-day database retention and a maximum seven-day backup-retention target, said each party will retain their email copies, and approved sender/recipient routing; see the enquiry decision record.
 
 - Open questions empty — not complete; see Section 13.3.
 

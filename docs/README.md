@@ -19,6 +19,9 @@ demonstration and enquiry-capture release.
 -   [`decisions/`](decisions/) --- recorded project decisions.
 -   [`decisions/2026-11-23-deployment-and-environments.md`](decisions/2026-11-23-deployment-and-environments.md)
     --- production hosts, preview boundaries and secret handling.
+-   [`PRIVACY_NOTICE.md`](PRIVACY_NOTICE.md) --- owner-approved notice
+    text with publication placeholders and an internal completion
+    checklist.
 
 ## Engineering references
 
@@ -44,17 +47,15 @@ deliberately do not specify a full farm-management application.
 Strict TypeScript is used in both applications, and the frontend keeps
 its existing CSS approach without a styling framework. The current npm
 workspace setup remains unchanged. The production hosts and preview
-boundaries are recorded in the deployment plan. The enquiry field
-contract and one-week retention period are recorded in the
+boundaries are recorded in the deployment plan. The enquiry field contract, owner-approved notice text and both
+owner-selected lawful-basis grounds are recorded in the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-Brevo is selected and sender/recipient routing is approved, but its
-adapter is not implemented or tested. The specific lawful basis,
-complete Privacy Notice, deletion implementation, backup/provider-copy
-handling and exact provider location/transfer disclosures remain open.
-The responsible-party name is Agrijuune. The product owner supplied
-public privacy contacts and specified deletion of submitted database
-records after seven days, to be implemented in code. Each party will
-retain their email copies as communication records; database-backup
-expiry and Brevo message/log retention are unspecified. Do not collect
-personal information until the remaining privacy gate is approved.
+The notice has placeholders for the registered business name, business
+address and Information Officer. The owner set a seven-day database
+retention period and a maximum seven-day backup-retention target; the
+purge and provider behavior have not been verified. Exact provider
+locations/transfers and Brevo message/log retention remain pending.
+Sender/recipient routing is approved, but the Brevo adapter is not
+implemented or tested. Do not publish the notice or collect personal
+information until the outstanding gates are resolved.
 Review all proposed schema and SQL before applying it to a database.
