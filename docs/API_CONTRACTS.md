@@ -152,8 +152,9 @@ status. Ignore or reject client attempts to set server-controlled
 fields. The request validator also rejects other unexpected fields and
 does not echo submitted values in validation details.
 
-The server-side validation module is implemented and tested, but is not
-mounted on a public route. The enquiry endpoint remains unavailable
+The server-side validation module and Supabase persistence repository
+are implemented and tested with a mocked HTTP client, but neither is
+invoked by a public route. The enquiry endpoint remains unavailable
 until the privacy and deletion prerequisites below are resolved.
 
 The approved required fields are `contactName`, `email`, `cellNumber`
