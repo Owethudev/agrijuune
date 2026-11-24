@@ -168,9 +168,11 @@ disclosure gates are resolved. Brevo is selected, and the product owner
 reports that the deployed backend uses
 `BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. They approved
 sender/recipient routing and say the data-location review is okay, but
-the adapter is not implemented or tested and exact provider
-location/transfer disclosures remain outstanding. Email notifications
-remain disabled. No non-essential analytics is approved at launch.
+the server-side adapter is implemented and unit-tested, but no enquiry
+workflow invokes it. Exact provider location/transfer disclosures remain
+outstanding, and no email has been sent. Email notifications remain
+disabled until persistence and the privacy launch gates are complete. No
+non-essential analytics is approved at launch.
 
 ### Success response
 
@@ -234,12 +236,14 @@ If `FRONTEND_ORIGIN` is unset, cross-origin browser requests are denied.
 
 The enquiry must be persisted before notification is attempted.
 
--   Do not attempt email until the privacy gate and adapter
-    implementation are complete and the approved sender and exact
-    authorized recipient are configured. The product owner approved
-    sender/recipient routing, but no email has been sent; until delivery
-    is implemented and approved for launch, record notification status
-    as `not_configured`.
+-   The server-only Brevo adapter uses `BREVO_API_KEY`, `EMAIL_FROM` and
+    `BUSINESS_EMAIL`. It returns `not_configured` when no complete
+    provider configuration is present and safe `failed` outcomes for
+    provider or request errors.
+-   Do not invoke the adapter until persistence succeeds and the privacy
+    launch gate is complete. No current enquiry workflow invokes it, and
+    no email has been sent; notification status remains
+    `not_configured` until integration is approved.
 -   If persistence succeeds and email succeeds, return `201`.
 -   If persistence succeeds but email fails, the enquiry is still
     received; return `201` and record the notification failure for

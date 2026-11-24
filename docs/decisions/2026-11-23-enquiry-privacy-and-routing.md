@@ -41,12 +41,12 @@ uses these environment variable names:
 - **Sender:** `EMAIL_FROM`
 - **Recipient routing:** `BUSINESS_EMAIL`
 
-No values are recorded here or in source control. The email adapter has
-not been implemented or tested, and no email has been sent. The product
-owner confirms that the configured sender and authorised recipient are
-approved for enquiry routing. Keep credentials in server-side
-environment configuration; never put them in chat, documentation or
-source control.
+No values are recorded here or in source control. The server-side
+adapter is implemented and unit-tested, but no enquiry workflow invokes
+it and no email has been sent. The product owner confirms that the
+configured sender and authorised recipient are approved for enquiry
+routing. Keep credentials in server-side environment configuration;
+never put them in chat, documentation or source control.
 
 ## Privacy and analytics gate
 

@@ -22,8 +22,9 @@ message/log retention and exact provider location/transfer disclosures
 remain pending. Brevo is selected, and the
 product owner reports that `BREVO_API_KEY`, `EMAIL_FROM` and
 `BUSINESS_EMAIL` are configured in the deployed backend. They approved
-sender/recipient routing, but the adapter has not been implemented or
-tested and no email has been sent. Do not collect personal information
+sender/recipient routing. The server-only adapter is implemented and
+unit-tested, but no enquiry workflow invokes it and no email has been
+sent. Do not collect personal information or send enquiry notifications
 until the remaining privacy and deletion decisions are actionable. No
 non-essential analytics is approved at launch.
 
