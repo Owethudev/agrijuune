@@ -1,6 +1,7 @@
 import { useRef, useState, type FormEvent } from 'react';
+import { ApiClientError, apiClient } from '../api/client';
 import type { EnquiryFormCopy } from '../content/translations';
-import { enquiryApiBaseUrl, enquiryPrivacyNoticeUrl } from './config';
+import { enquiryPrivacyNoticeUrl } from './config';
 import './EnquiryForm.css';
 
 type EnquiryFormProps = {
@@ -9,18 +10,6 @@ type EnquiryFormProps = {
 
 type SubmissionStatus =
   'idle' | 'submitting' | 'success' | 'validation' | 'error' | 'conflict';
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-function getApiErrorCode(value: unknown) {
-  if (!isRecord(value) || !isRecord(value.error)) {
-    return undefined;
-  }
-
-  return typeof value.error.code === 'string' ? value.error.code : undefined;
-}
 
 export function EnquiryForm({ copy }: EnquiryFormProps) {
   const [status, setStatus] = useState<SubmissionStatus>('idle');
@@ -99,18 +88,19 @@ export function EnquiryForm({ copy }: EnquiryFormProps) {
     setStatus('submitting');
 
     try {
-      const response = await fetch(`${enquiryApiBaseUrl}/enquiries`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Idempotency-Key': idempotencyKey,
-        },
-        body: JSON.stringify(payload),
+      await apiClient.post('/enquiries', payload, {
+        'Idempotency-Key': idempotencyKey,
       });
+      setStatus('success');
+      idempotencyKeyRef.current = null;
+      form.reset();
+    } catch (error) {
+      if (!(error instanceof ApiClientError)) {
+        throw error;
+      }
 
-      if (!response.ok) {
-        const body: unknown = await response.json();
-        const code = getApiErrorCode(body);
+      const code = error.code;
+      if (code) {
         setStatus(
           code === 'IDEMPOTENCY_CONFLICT'
             ? 'conflict'
@@ -118,14 +108,9 @@ export function EnquiryForm({ copy }: EnquiryFormProps) {
               ? 'validation'
               : 'error',
         );
-        return;
+      } else {
+        setStatus('error');
       }
-
-      setStatus('success');
-      idempotencyKeyRef.current = null;
-      form.reset();
-    } catch {
-      setStatus('error');
     }
   }
 
