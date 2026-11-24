@@ -158,7 +158,11 @@ npm run format:check
 npm run typecheck
 npm test
 npm run build
+npm run check:performance
 ```
+
+The root `npm run build` also runs `npm run check:performance` after
+building both workspaces.
 
 The GitHub Actions workflow at `.github/workflows/ci.yml` runs these
 commands on pull requests targeting `main` and on pushes to `main`. The
