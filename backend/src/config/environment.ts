@@ -13,6 +13,11 @@ export type EnquiryRateLimitConfiguration = Readonly<{
   windowMs: number;
 }>;
 
+export type SupabaseConfiguration = Readonly<{
+  url: string;
+  serviceRoleKey: string;
+}>;
+
 const DEFAULT_ENQUIRY_RATE_LIMIT_MAX = 10;
 const DEFAULT_ENQUIRY_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 

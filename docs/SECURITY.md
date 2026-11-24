@@ -83,7 +83,8 @@ Set `FRONTEND_ORIGIN` to the exact approved frontend origin
 `http://localhost:5173` for local development). The backend rejects
 requests carrying any other `Origin`; if this setting is absent, it
 fails closed for cross-origin browser requests. CORS does not enable
-credentials and allows only `Content-Type` on preflight requests.
+credentials and allows only `Content-Type` and `Idempotency-Key` on
+preflight requests.
 
 GitHub secret scanning and push protection are enabled for the
 repository. Dependabot dependency graph, alerts and security updates are

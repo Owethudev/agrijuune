@@ -115,6 +115,10 @@ encourage a duplicate submission when the enquiry was already saved.
 -   Verify the service-role key is absent from frontend build output.
 -   Verify production CORS rejects unapproved origins.
 -   Verify request-size and rate limits.
+-   Verify idempotent retries replay the saved ID, changed content with
+    the same key conflicts, and a new key permits a legitimate repeat.
+-   Verify CORS preflights permit `Idempotency-Key` but reject other
+    unapproved request headers.
 -   Verify errors do not disclose stack traces or provider internals.
 -   Verify logs do not contain full enquiry payloads or secrets.
 
