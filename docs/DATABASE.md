@@ -2,9 +2,9 @@
 
 **Database:** Supabase PostgreSQL\
 **Scope:** First-release public website enquiry capture\
-**Status:** Proposed baseline; required/optional fields and service IDs
-are approved, but privacy approval is still required before collecting
-data or applying a production migration
+**Status:** The owner authorized applying the prototype schema to live
+Supabase. This is schema-only approval; collecting enquiry data remains
+blocked by the privacy and deletion prerequisites below.
 
 ## 1. Database scope
 
@@ -36,12 +36,12 @@ Express API, which validates and persists them.
 
 ## 3. Proposed `enquiries` table
 
-The following is a starting schema, not an instruction to begin
-collection or apply a production migration. The required/optional
-contract below matches the approved form. The owner-approved Privacy
-Notice and lawful-basis choices are recorded, but its publication
-placeholders and the deletion/backup controls remain prerequisites for
-collecting personal information.
+The following is the approved prototype schema baseline. The owner
+authorized applying it to live Supabase, but this does not authorize
+collecting personal information. The required/optional contract below
+matches the approved form. The owner-approved Privacy Notice and
+lawful-basis choices are recorded, but its publication placeholders and
+the deletion/backup controls remain prerequisites for collection.
 
   ----------------------------------------------------------------------------------------
   Column                        Suggested type                Required Notes
@@ -115,46 +115,15 @@ status values. Confirm whether a separate `notification_error_code` or
 attempt history is needed; do not store raw provider responses if they
 may contain sensitive data.
 
-## 4. Illustrative SQL migration
+## 4. Versioned migration
 
-Review and adapt this SQL before applying it. It assumes the final form
-requires name, email and at least one service of interest. Change those
-requirements if the approved form differs.
-
-``` sql
-create table public.enquiries (
-  id uuid primary key default gen_random_uuid(),
-  contact_name text not null check (char_length(trim(contact_name)) between 1 and 120),
-  email text not null check (char_length(email) between 3 and 254),
-  cell_number text not null,
-  farm_name text,
-  farm_location text,
-  operation_type text,
-  machine_count_estimate integer
-    check (machine_count_estimate is null or machine_count_estimate >= 0),
-  services_of_interest text[] not null
-    check (cardinality(services_of_interest) > 0),
-  additional_message text,
-  privacy_notice_version text,
-  privacy_acknowledged_at timestamptz,
-  created_at timestamptz not null default now(),
-  notification_status text not null default 'not_configured'
-    check (notification_status in ('pending', 'sent', 'failed', 'not_configured')),
-  notification_attempted_at timestamptz,
-  status text not null default 'new'
-    check (status in ('new', 'contacted', 'closed'))
-);
-
-create index enquiries_created_at_idx
-  on public.enquiries (created_at desc);
-
-create index enquiries_status_created_at_idx
-  on public.enquiries (status, created_at desc);
-```
-
-Additional checks, normalisation, uniqueness or indexes should be added
-only where justified by real requirements. Do not create a unique email
-constraint: one person may submit more than one enquiry.
+The source of truth is
+[`20261124095323_create_enquiries.sql`](../supabase/migrations/20261124095323_create_enquiries.sql).
+It enforces bounded text lengths, non-negative counts, the approved
+service IDs and controlled status values. It adds only a creation-time
+index; one person may submit more than one enquiry, so email is not
+unique. The migration creates no sample records, triggers, or access
+policies.
 
 ## 5. Row Level Security
 
@@ -169,6 +138,9 @@ For the initial architecture:
 -   Do not create anonymous `SELECT`, `UPDATE` or `DELETE` policies.
 -   Prefer no direct anonymous `INSERT` policy because submissions go
     through the backend.
+-   The migration revokes table privileges from `PUBLIC`, `anon` and
+    `authenticated`, and grants only the CRUD privileges needed by the
+    server-only `service_role`.
 -   Backend access must use a server-only privileged credential and must
     be carefully constrained.
 -   If the project later adopts a non-service database role, grant only
@@ -201,10 +173,34 @@ in depth.
 -   Keep schema changes in version-controlled migration files.
 -   Never make undocumented production schema changes manually.
 -   Review the impact on repository code, API contracts and tests.
--   Test migrations against a non-production database first.
+-   Prefer testing migrations against a non-production database first.
+    No separate project is currently configured; the owner has
+    specifically authorized this initial schema-only migration against
+    the live project. That exception does not authorize data writes or
+    future production schema changes without review and approval.
 -   Use forward migrations and a documented recovery approach.
 -   Update this document when schema, constraints, indexes or RLS
     policies change.
+
+Use the pinned CLI in the repository. Authenticate and link the intended
+project, inspect the pending changes, and only then apply them:
+
+```sh
+npx supabase login
+npx supabase link --project-ref <PROJECT_REF>
+npx supabase db push --dry-run
+npx supabase db push
+```
+
+Do not pass credentials as command-line arguments or commit local CLI
+state. The linked project reference is stored under the ignored
+`supabase/.temp/` directory. When local Docker-based testing is
+available, use `npx supabase start` and `npx supabase db reset`; never
+link a local or preview environment to production data.
+
+If a migration fails or needs correction, use a reviewed forward
+migration; do not drop the table or delete records as an automatic
+rollback.
 
 ## 8. Retention, deletion and backups
 

@@ -91,11 +91,15 @@ Africa or that a particular safeguard is active until provider
 configuration and disclosures are verified.
 
 The approved form fields, acknowledgement, notice text and provider
-selection do not by themselves authorize collection. Do not publish the
-notice, enable an enquiry form or accepting endpoint, apply a production
-enquiry migration, or submit real enquiries until the publication
-placeholders, deletion process, backup handling and provider disclosures
-are resolved and verified.
+selection do not by themselves authorize collection. A later
+product-owner instruction specifically authorizes applying the prototype
+schema to the live Supabase project. This schema-only authorization
+supersedes the earlier prohibition on applying that migration, but does
+not authorize publishing the notice, enabling the form or accepting
+endpoint, inserting test or real enquiries, or sending email. Those
+activities remain blocked until the publication placeholders, deletion
+process, backup handling and provider disclosures are resolved and
+verified.
 
 No non-essential analytics is approved at launch. Any later analytics
 provider or consent approach requires separate approval.

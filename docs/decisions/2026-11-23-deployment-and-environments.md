@@ -25,6 +25,10 @@
 - **Production:** The public frontend, API and Supabase database are the
   production environment. Promote changes through a pull request into
   `main`; the Vercel and Render project settings control deployments.
+  The owner has specifically authorized the initial prototype enquiry
+  schema to be applied to the live Supabase project. This is a
+  schema-only exception: it does not authorize data writes, enquiry
+  collection, or connecting local and preview environments to production.
 
 Do not treat a frontend preview as a complete staging environment. Before
 testing API-backed behaviour with non-production data, provision and
