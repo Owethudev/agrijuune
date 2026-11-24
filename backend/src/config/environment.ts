@@ -8,6 +8,14 @@ export type BrevoConfiguration = Readonly<{
   recipient: string;
 }>;
 
+export type EnquiryRateLimitConfiguration = Readonly<{
+  max: number;
+  windowMs: number;
+}>;
+
+const DEFAULT_ENQUIRY_RATE_LIMIT_MAX = 10;
+const DEFAULT_ENQUIRY_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+
 const NODE_ENVIRONMENTS = new Set<string>([
   'development',
   'test',
@@ -54,6 +62,33 @@ function readOrigin(
   }
 
   return url.origin;
+}
+
+function readBoundedInteger(
+  source: EnvironmentSource,
+  name: string,
+  defaultValue: number,
+  min: number,
+  max: number,
+) {
+  const value = readOptionalValue(source, name);
+
+  if (!value) {
+    return defaultValue;
+  }
+
+  const parsedValue = Number(value);
+
+  if (
+    !/^\d+$/.test(value) ||
+    !Number.isSafeInteger(parsedValue) ||
+    parsedValue < min ||
+    parsedValue > max
+  ) {
+    throw new Error(`${name} must be an integer from ${min} to ${max}.`);
+  }
+
+  return parsedValue;
 }
 
 function isNodeEnvironment(value: string): value is NodeEnvironment {
@@ -113,6 +148,22 @@ export function parseEnvironment(source: EnvironmentSource) {
     nodeEnv: nodeEnvValue,
     port,
     frontendOrigin: readOrigin(source, 'FRONTEND_ORIGIN', requireHttps),
+    enquiryRateLimit: {
+      max: readBoundedInteger(
+        source,
+        'ENQUIRY_RATE_LIMIT_MAX',
+        DEFAULT_ENQUIRY_RATE_LIMIT_MAX,
+        1,
+        1000,
+      ),
+      windowMs: readBoundedInteger(
+        source,
+        'ENQUIRY_RATE_LIMIT_WINDOW_MS',
+        DEFAULT_ENQUIRY_RATE_LIMIT_WINDOW_MS,
+        1000,
+        86_400_000,
+      ),
+    } satisfies EnquiryRateLimitConfiguration,
     supabase:
       supabaseUrl && supabaseServiceRoleKey
         ? { url: supabaseUrl, serviceRoleKey: supabaseServiceRoleKey }

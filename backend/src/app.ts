@@ -1,6 +1,7 @@
 import express from 'express';
 import { env } from './config/env.js';
 import { createCorsMiddleware } from './middleware/cors.js';
+import { createEnquiryRateLimitMiddleware } from './middleware/enquiry-rate-limit.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { notFoundMiddleware } from './middleware/not-found.js';
 import { requestIdMiddleware } from './middleware/request-id.js';
@@ -10,9 +11,15 @@ import { createSecurityHeadersMiddleware } from './middleware/security-headers.j
 export const app = express();
 
 app.disable('x-powered-by');
+// Trust only Render's single ingress proxy so rate limits use the client IP.
+app.set('trust proxy', env.nodeEnv === 'production' ? 1 : false);
 app.use(requestIdMiddleware);
 app.use(createSecurityHeadersMiddleware(env.nodeEnv === 'production'));
 app.use(createCorsMiddleware(env.frontendOrigin));
+app.use(
+  '/api/v1/enquiries',
+  createEnquiryRateLimitMiddleware(env.enquiryRateLimit),
+);
 app.use(requestControlsMiddleware);
 app.use(express.json({ limit: '10kb' }));
 

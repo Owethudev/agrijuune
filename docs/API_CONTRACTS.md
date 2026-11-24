@@ -243,6 +243,18 @@ preflights. CORS allows the exact `FRONTEND_ORIGIN` configured for the
 backend, without credentials, and only the `Content-Type` request header.
 If `FRONTEND_ORIGIN` is unset, cross-origin browser requests are denied.
 
+Enquiry POST requests are limited to 10 requests per IP address in a
+15-minute window by default. Configure `ENQUIRY_RATE_LIMIT_MAX` and
+`ENQUIRY_RATE_LIMIT_WINDOW_MS` on the backend to change the bounded
+threshold; the allowed ranges are 1–1,000 requests and 1,000–86,400,000
+milliseconds. The current limiter uses process-local memory, so a shared
+store is required if the API is scaled across multiple instances.
+
+Do not suppress enquiries based only on matching email addresses or
+request contents. That could reject legitimate repeat enquiries. The
+endpoint remains unavailable; before enabling it, add persistent
+idempotency handling for retried submissions and document its behavior.
+
 ### Email notification behaviour
 
 The enquiry must be persisted before notification is attempted.
