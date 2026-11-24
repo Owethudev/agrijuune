@@ -128,7 +128,13 @@ policies. It was applied through the authenticated Supabase Dashboard SQL
 Editor after the CLI's configured database password failed
 authentication. The same migration version, name and five SQL statements
 were recorded in `supabase_migrations.schema_migrations`. No enquiry
-records were inserted.
+records were inserted in production.
+
+The same migration was applied to the user-confirmed non-production
+`juune-phase2-test` project through the authenticated Dashboard SQL
+Editor. Its migration history records version `20261124095323` with the
+five source statements. This environment has no staging API and received
+no enquiry records.
 
 ## 5. Row Level Security
 
@@ -158,6 +164,12 @@ The service-role key bypasses RLS. Its security therefore depends on
 strict server-side handling, access controls and never exposing it to
 the browser.
 
+Run [`enquiries_rls.sql`](../supabase/tests/enquiries_rls.sql) against a
+non-production database after applying the schema. It checks RLS,
+policies, role privileges and the server role's RLS bypass using
+catalogue metadata only; it does not read or write enquiry records.
+The test passed against `juune-phase2-test` on 2026-11-24.
+
 ## 6. Data validation
 
 Validate at the API boundary and enforce database constraints as defence
@@ -179,10 +191,12 @@ in depth.
 -   Never make undocumented production schema changes manually.
 -   Review the impact on repository code, API contracts and tests.
 -   Prefer testing migrations against a non-production database first.
-    No separate project is currently configured; the owner has
-    specifically authorized this initial schema-only migration against
-    the live project. That exception does not authorize data writes or
-    future production schema changes without review and approval.
+    The user-confirmed `juune-phase2-test` project is designated for
+    isolated schema and RLS verification; it is not a staging API and
+    must not contain production personal data. The initial live migration
+    was a specifically authorized schema-only exception. That exception
+    does not authorize data writes or future production schema changes
+    without review and approval.
 -   The initial live migration was run through the Dashboard SQL Editor
     and its version was recorded in the Supabase migration-history
     table. Correct the local CLI database password before using the
