@@ -1,0 +1,83 @@
+.enquiry-form {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--elevation-surface);
+}
+
+.enquiry-form > label,
+.enquiry-form legend {
+  color: var(--agrijuune-navy);
+  font-weight: var(--font-weight-bold);
+}
+
+.enquiry-form > input,
+.enquiry-form > textarea {
+  width: 100%;
+  min-height: var(--control-min-height);
+  padding: var(--space-1);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.enquiry-form > textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.enquiry-form__services {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-1) 0;
+  padding: var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.enquiry-form__services label,
+.enquiry-form__acknowledgement label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.enquiry-form input[type='checkbox'] {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+  margin: 0.125rem 0 0;
+  accent-color: var(--agrijuune-red);
+}
+
+.enquiry-form__acknowledgement {
+  display: grid;
+  gap: var(--space-1);
+  margin-block: var(--space-1);
+}
+
+.enquiry-form__acknowledgement a {
+  width: fit-content;
+}
+
+.enquiry-form__status {
+  margin: 0;
+  color: var(--agrijuune-navy);
+  font-weight: var(--font-weight-bold);
+}
+
+.enquiry-form__field-error {
+  margin: 0;
+  color: var(--agrijuune-red);
+  font-weight: var(--font-weight-bold);
+}
+
+.enquiry-form button {
+  justify-self: start;
+}

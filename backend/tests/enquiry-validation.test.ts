@@ -6,6 +6,7 @@ const validPayload = {
   email: 'alex.morgan@example.org',
   cellNumber: '+27 (11) 555-0123',
   servicesOfInterest: ['farm_management_technology', 'machinery_detailing'],
+  privacyNoticeAcknowledged: true,
 };
 
 describe('validateEnquiryRequest', () => {
@@ -23,10 +24,13 @@ describe('validateEnquiryRequest', () => {
     expect(result).toEqual({
       valid: true,
       value: {
-        ...validPayload,
         contactName: 'Alex Morgan',
         email: 'alex.morgan@example.org',
         cellNumber: '+27 (11) 555-0123',
+        servicesOfInterest: [
+          'farm_management_technology',
+          'machinery_detailing',
+        ],
         additionalMessage: 'Please contact me.',
         machineCountEstimate: 0,
       },
@@ -54,6 +58,7 @@ describe('validateEnquiryRequest', () => {
       email: 'person@example.org',
       cellNumber: '+27 (11) 555-0123',
       servicesOfInterest: [],
+      privacyNoticeAcknowledged: true,
     });
 
     expect(result).toMatchObject({
@@ -81,6 +86,26 @@ describe('validateEnquiryRequest', () => {
       ],
     });
   });
+
+  it.each([undefined, false, 'true'])(
+    'requires a true Privacy Notice acknowledgement (%s)',
+    (privacyNoticeAcknowledged) => {
+      const payload = {
+        ...validPayload,
+        privacyNoticeAcknowledged,
+      };
+
+      expect(validateEnquiryRequest(payload)).toMatchObject({
+        valid: false,
+        errors: [
+          {
+            field: 'privacyNoticeAcknowledged',
+            code: 'REQUIRED',
+          },
+        ],
+      });
+    },
+  );
 
   it('rejects unapproved services and invalid machine counts', () => {
     const result = validateEnquiryRequest({

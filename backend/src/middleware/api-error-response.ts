@@ -5,6 +5,7 @@ export type ApiErrorCode =
   | 'IDEMPOTENCY_KEY_REQUIRED'
   | 'INTERNAL_ERROR'
   | 'INVALID_IDEMPOTENCY_KEY'
+  | 'INVALID_ENQUIRY'
   | 'INVALID_JSON'
   | 'METHOD_NOT_ALLOWED'
   | 'NOT_FOUND'
@@ -19,13 +20,18 @@ export function sendApiError(
   status: number,
   code: ApiErrorCode,
   message: string,
+  details: readonly Readonly<{
+    field: string;
+    code: string;
+    message: string;
+  }>[] = [],
 ) {
   return response.status(status).json({
     success: false,
     error: {
       code,
       message,
-      details: [],
+      details,
       requestId: response.locals.requestId,
     },
   });

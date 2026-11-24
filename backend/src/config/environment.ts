@@ -69,6 +69,24 @@ function readOrigin(
   return url.origin;
 }
 
+export function parseSupabaseConfiguration(
+  source: EnvironmentSource,
+  requireHttps = false,
+) {
+  const supabaseUrl = readOrigin(source, 'SUPABASE_URL', requireHttps);
+  const serviceRoleKey = readOptionalValue(source, 'SUPABASE_SERVICE_ROLE_KEY');
+
+  if (Boolean(supabaseUrl) !== Boolean(serviceRoleKey)) {
+    throw new Error(
+      'SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be configured together.',
+    );
+  }
+
+  return supabaseUrl && serviceRoleKey
+    ? { url: supabaseUrl, serviceRoleKey }
+    : undefined;
+}
+
 function readBoundedInteger(
   source: EnvironmentSource,
   name: string,
@@ -96,7 +114,7 @@ function readBoundedInteger(
   return parsedValue;
 }
 
-function readBoolean(source: EnvironmentSource, name: string) {
+export function parseBooleanSetting(source: EnvironmentSource, name: string) {
   const value = readOptionalValue(source, name);
 
   if (!value) {
@@ -138,17 +156,7 @@ export function parseEnvironment(source: EnvironmentSource) {
   }
 
   const requireHttps = nodeEnvValue === 'production';
-  const supabaseUrl = readOrigin(source, 'SUPABASE_URL', requireHttps);
-  const supabaseServiceRoleKey = readOptionalValue(
-    source,
-    'SUPABASE_SERVICE_ROLE_KEY',
-  );
-
-  if (Boolean(supabaseUrl) !== Boolean(supabaseServiceRoleKey)) {
-    throw new Error(
-      'SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be configured together.',
-    );
-  }
+  const supabase = parseSupabaseConfiguration(source, requireHttps);
 
   const brevoApiKey = readOptionalValue(source, 'BREVO_API_KEY');
   const emailFrom = readOptionalValue(source, 'EMAIL_FROM');
@@ -183,14 +191,23 @@ export function parseEnvironment(source: EnvironmentSource) {
         86_400_000,
       ),
     } satisfies EnquiryRateLimitConfiguration,
-    enquiryEmailNotificationsEnabled: readBoolean(
+    enquiryCollectionEnabled: parseBooleanSetting(
+      source,
+      'ENQUIRY_COLLECTION_ENABLED',
+    ),
+    enquiryPrivacyGatesVerified: parseBooleanSetting(
+      source,
+      'ENQUIRY_PRIVACY_GATES_VERIFIED',
+    ),
+    enquiryEmailNotificationsEnabled: parseBooleanSetting(
       source,
       'ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED',
     ),
-    supabase:
-      supabaseUrl && supabaseServiceRoleKey
-        ? { url: supabaseUrl, serviceRoleKey: supabaseServiceRoleKey }
-        : undefined,
+    enquiryRetentionPurgeEnabled: parseBooleanSetting(
+      source,
+      'ENQUIRY_RETENTION_PURGE_ENABLED',
+    ),
+    supabase,
     brevo:
       brevoApiKey && emailFrom && businessEmail
         ? ({

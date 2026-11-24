@@ -161,7 +161,7 @@ No electronic storage or transmission method can guarantee absolute security.
 
 Agrijuune will retain personal information only for as long as reasonably necessary to fulfil the purpose for which it was collected, unless a longer period is required or permitted by law.
 
-For website enquiries, the product owner has set a seven-day retention period for database records, starting when the enquiry is submitted. Each party will retain their email copies as communication records. The database purge must be implemented and verified before enquiry collection is enabled. The product owner confirms that the Supabase backup-retention setting is configured and verified for a maximum of seven days; this setting has not been independently inspected in this work. Brevo message and log retention remains to be confirmed.
+For website enquiries, the product owner has set a seven-day retention period for database records, starting when the enquiry is submitted. Each party will retain their email copies as communication records. A bounded purge command is implemented, but no schedule is configured and the retention process has not been verified. Collection must remain disabled until a daily purge schedule is configured and verified. The product owner confirms that the Supabase backup-retention setting is configured and verified for a maximum of seven days; this setting has not been independently inspected in this work. Brevo message and log retention remains to be confirmed.
 
 When personal information is no longer required, it will be securely deleted, destroyed or de-identified where appropriate.
 
@@ -242,5 +242,5 @@ Postal address and other contact details should be verified through the regulato
 - Complete the registered business name, business address and Information Officer placeholders.
 - Confirm actual provider locations, cross-border transfers and safeguards for the services used.
 - Confirm Brevo message and log retention.
-- Implement and verify the seven-day database purge; retain the product owner's confirmation of the no-more-than-seven-day backup-retention setting.
+- Configure and verify the scheduled seven-day database purge; retain the product owner's confirmation of the no-more-than-seven-day backup-retention setting.
 - Do not publish the notice or enable enquiry collection until the outstanding items above are resolved.

@@ -46,6 +46,7 @@ const allowedFields = new Set([
   'machineCountEstimate',
   'servicesOfInterest',
   'additionalMessage',
+  'privacyNoticeAcknowledged',
 ]);
 const serviceIds: readonly string[] = ENQUIRY_SERVICE_IDS;
 
@@ -344,6 +345,15 @@ export function validateEnquiryRequest(
       'body',
       'UNEXPECTED_FIELD',
       'The request contains unsupported fields.',
+    );
+  }
+
+  if (value.privacyNoticeAcknowledged !== true) {
+    addIssue(
+      errors,
+      'privacyNoticeAcknowledged',
+      'REQUIRED',
+      'Acknowledge the Privacy Notice before submitting.',
     );
   }
 

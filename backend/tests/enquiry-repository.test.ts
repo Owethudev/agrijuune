@@ -21,6 +21,11 @@ const enquiry: EnquiryInput = {
   additionalMessage: 'Please contact me about your services.',
 };
 
+const acknowledgement = {
+  noticeVersion: '1.0',
+  acknowledgedAt: '2026-11-24T12:00:00.000Z',
+};
+
 function getIdempotencyKey() {
   const result = validateIdempotencyKey('7e5dfc21-574c-4c33-9f7e-477cb2f79ca3');
 
@@ -68,7 +73,11 @@ describe('Supabase enquiry repository', () => {
     const repository = createSupabaseEnquiryRepository(
       createTestClient(fetchMock),
     );
-    const result = await repository.create(enquiry, idempotencyKey);
+    const result = await repository.create(
+      enquiry,
+      idempotencyKey,
+      acknowledgement,
+    );
 
     expect(result).toEqual({
       ok: true,
@@ -95,6 +104,8 @@ describe('Supabase enquiry repository', () => {
       machine_count_estimate: 12,
       services_of_interest: ['farm_management_technology'],
       additional_message: 'Please contact me about your services.',
+      privacy_notice_version: '1.0',
+      privacy_acknowledged_at: '2026-11-24T12:00:00.000Z',
       notification_status: 'not_configured',
       status: 'new',
       idempotency_key_hash: hashIdempotencyKey(idempotencyKey),
@@ -123,7 +134,11 @@ describe('Supabase enquiry repository', () => {
       createTestClient(fetchMock),
     );
 
-    const result = await repository.create(enquiry, idempotencyKey);
+    const result = await repository.create(
+      enquiry,
+      idempotencyKey,
+      acknowledgement,
+    );
 
     expect(result).toEqual({ ok: false, reason: 'unavailable' });
     expect(JSON.stringify(result)).not.toContain('private database details');
@@ -139,7 +154,11 @@ describe('Supabase enquiry repository', () => {
       createTestClient(fetchMock),
     );
 
-    const result = await repository.create(enquiry, idempotencyKey);
+    const result = await repository.create(
+      enquiry,
+      idempotencyKey,
+      acknowledgement,
+    );
 
     expect(result).toEqual({ ok: false, reason: 'unavailable' });
     expect(JSON.stringify(result)).not.toContain('private transport details');
@@ -181,7 +200,11 @@ describe('Supabase enquiry repository', () => {
       createTestClient(fetchMock),
     );
 
-    const result = await repository.create(enquiry, idempotencyKey);
+    const result = await repository.create(
+      enquiry,
+      idempotencyKey,
+      acknowledgement,
+    );
 
     expect(result).toEqual({
       ok: true,
@@ -242,7 +265,11 @@ describe('Supabase enquiry repository', () => {
       createTestClient(fetchMock),
     );
 
-    const result = await repository.create(changedEnquiry, idempotencyKey);
+    const result = await repository.create(
+      changedEnquiry,
+      idempotencyKey,
+      acknowledgement,
+    );
 
     expect(result).toEqual({ ok: false, reason: 'conflict' });
   });
@@ -287,10 +314,15 @@ describe('Supabase enquiry repository', () => {
       createTestClient(fetchMock),
     );
 
-    const firstResult = await repository.create(enquiry, firstKey);
+    const firstResult = await repository.create(
+      enquiry,
+      firstKey,
+      acknowledgement,
+    );
     const secondResult = await repository.create(
       enquiry,
       secondKeyResult.value,
+      acknowledgement,
     );
 
     expect(firstResult).toEqual({

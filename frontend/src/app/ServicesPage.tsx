@@ -1,6 +1,8 @@
 import type { MouseEvent, Ref } from 'react';
 import type { HomePageCopy, ServicesPageCopy } from '../content/translations';
 import type { RoutePath } from '../routing/routes';
+import { EnquiryForm } from '../enquiry/EnquiryForm';
+import { enquiryCollectionEnabled } from '../enquiry/config';
 import { DivisionCard } from './DivisionCard';
 import './ServicesPage.css';
 
@@ -135,9 +137,13 @@ export function ServicesPage({
           <h2 id="services-enquiry-title">{copy.enquiry.title}</h2>
           <p>{copy.enquiry.description}</p>
         </div>
-        <p className="services-enquiry__placeholder">
-          {copy.enquiry.placeholder}
-        </p>
+        {enquiryCollectionEnabled ? (
+          <EnquiryForm copy={copy.enquiry.form} />
+        ) : (
+          <p className="services-enquiry__placeholder">
+            {copy.enquiry.placeholder}
+          </p>
+        )}
       </section>
     </div>
   );

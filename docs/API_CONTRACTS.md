@@ -100,14 +100,15 @@ Purpose: validate and persist an enquiry from the public website.
     "farm_management_technology",
     "machinery_detailing"
   ],
-  "additionalMessage": "Please contact me about your services."
+  "additionalMessage": "Please contact me about your services.",
+  "privacyNoticeAcknowledged": true
 }
 ```
 
 This is illustrative sample data, not real contact information. Final
 field names use camelCase in JSON and must match the approved form.
 
-Once the endpoint is wired, every POST must also include an
+Every POST must also include an
 `Idempotency-Key` header containing a UUID v4 generated for that user
 submission. Reuse that key only for retries of the same submission.
 
@@ -145,10 +146,10 @@ submission. Reuse that key only for retries of the same submission.
   `additionalMessage`      string                  Optional; maximum
                                                    2,000 characters
 
-  `privacyNoticeVersion`   string                  Conditional on approved
-                                                   privacy design; set by
-                                                   the server, not the
-                                                   request
+  `privacyNoticeAcknowledged` boolean               Required; must be
+                                                   `true`; notice version
+                                                   and timestamp are set
+                                                   by the server
   ------------------------------------------------------------------------
 
 The server must set `created_at`, initial lead `status` and notification
@@ -156,10 +157,9 @@ status. Ignore or reject client attempts to set server-controlled
 fields. The request validator also rejects other unexpected fields and
 does not echo submitted values in validation details.
 
-The server-side validation module and Supabase persistence repository
-are implemented and tested with a mocked HTTP client, but neither is
-invoked by a public route. The enquiry endpoint remains unavailable
-until the privacy and deletion prerequisites below are resolved.
+The server validates the acknowledgement but does not trust a
+client-supplied notice version or timestamp. It records version `1.0`
+and the server receipt time with the enquiry.
 
 The approved required fields are `contactName`, `email`, `cellNumber`
 and a non-empty `servicesOfInterest` containing only
@@ -172,52 +172,55 @@ product owner approved the Privacy Notice text and selected both
 documented lawful-basis grounds according to enquiry context; see the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
 The notice still has publication placeholders for the registered
-business name, business address and Information Officer. The owner set
-seven-day database retention from submission and a maximum seven-day
-backup-retention target, which the product owner confirms is configured
-and verified. The database purge remains unimplemented. Each party will
-retain their email copies as communication records, and the database
-purge will not remove
-mailbox copies; Brevo message/log retention is pending. Do not enable the
-form or endpoint until the publication, deletion, backup and provider
-disclosure gates are resolved. Brevo is selected, and the product owner
-reports that the deployed backend uses
-`BREVO_API_KEY`, `EMAIL_FROM` and `BUSINESS_EMAIL`. They approved
-sender/recipient routing and say the data-location review is okay. The
-adapter is implemented and the service contains the gated notification
-flow, but the public route does not invoke that service. Exact provider
-location/transfer disclosures remain outstanding, and no email has been
-sent. Email notifications remain
-disabled by default through the backend-only
-`ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` setting. The service integration
-persists notification status and avoids sending again on an idempotent
-replay, but the public route remains unwired. Keep the setting unset or
-`false` until the privacy and deletion gates are complete. No
-non-essential analytics is approved at launch.
+business name, business address and Information Officer. The product
+owner set seven-day database retention from submission and confirms the
+Supabase backup-retention setting is configured for a maximum of seven
+days. A bounded purge command now deletes records older than seven days,
+but no schedule has been configured and the retention process has not
+been verified. Each party retains their email copies as communication
+records; database deletion does not remove mailbox copies. Brevo
+message/log retention and exact provider location/transfer disclosures
+remain outstanding. Do not enable the form or endpoint until all
+publication, scheduled-deletion, backup and provider-disclosure gates
+are resolved and verified.
+
+The route is implemented but is not mounted unless
+`ENQUIRY_COLLECTION_ENABLED=true`, `ENQUIRY_PRIVACY_GATES_VERIFIED=true`
+and server-side Supabase settings are all present. The idempotency
+migration must also be applied through the reviewed database workflow
+before enabling the route. All gates default to disabled. The frontend additionally requires
+`VITE_ENQUIRY_COLLECTION_ENABLED=true` and a configured HTTPS
+`VITE_ENQUIRY_PRIVACY_NOTICE_URL`. These are deployment gates, not
+evidence that the outstanding privacy work is complete. No production
+settings have been changed, no enquiry records have been inserted and
+no email has been sent. Brevo notifications additionally require
+`ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED=true` and complete server-side
+Brevo configuration. No non-essential analytics is approved.
 
 ### Success response
 
-Return `201 Created` once the enquiry has been successfully persisted.
+Return `201 Created` for a new enquiry successfully persisted and
+`200 OK` for an idempotent replay.
 
 ``` json
 {
   "success": true,
   "data": {
-    "enquiryId": "00000000-0000-0000-0000-000000000000"
-  },
-  "message": "Your enquiry has been received. Agrijuune will follow up."
+    "enquiryId": "00000000-0000-0000-0000-000000000000",
+    "notificationStatus": "not_configured"
+  }
 }
 ```
 
 The example UUID is a placeholder. Do not return the full enquiry record
-to the browser.
+or provider details to the browser.
 
 ### Error responses
 
   --------------------------------------------------------------------------
   HTTP status             Error code                 Meaning
   ----------------------- -------------------------- -----------------------
-  `400`                   `VALIDATION_ERROR`         Invalid or incomplete
+  `400`                   `INVALID_ENQUIRY`           Invalid or incomplete
                                                      request
 
   `400`                   `INVALID_JSON`              Malformed JSON request
@@ -281,10 +284,10 @@ and does not create another enquiry. A new intentional submission must
 use a new key. The key hashes are deleted with their enquiry, so they do
 not outlive the enquiry retention period.
 
-The route remains unavailable and does not accept or persist enquiries.
-Do not enable it until the privacy and deletion prerequisites below are
-resolved and the controller is wired to validate the key and map replay,
-conflict and persistence results safely.
+The route remains unavailable under the default configuration.
+Persistence failures return `503 SERVICE_UNAVAILABLE`; key conflicts
+return `409 IDEMPOTENCY_CONFLICT`. Do not enable the route until the
+privacy and deletion prerequisites above are resolved.
 
 ### Email notification behaviour
 
@@ -298,11 +301,13 @@ The enquiry must be persisted before notification is attempted.
     before attempting notification, then records `sent`, `failed` or
     `not_configured`. If the final status update fails, `pending` remains
     for manual follow-up. Idempotent replays do not send another email.
--   The public route remains unwired, so no current request invokes this
-    integration and no email has been sent. The
+-   The public route invokes this integration only when collection and
+    privacy gates are explicitly enabled. The
     `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` backend setting defaults to
     `false`; do not enable it until the privacy launch gate is complete.
--   If persistence succeeds and email succeeds, return `201`.
+-   If persistence succeeds for a new enquiry, return `201`; an
+    idempotent replay returns `200`, regardless of the previous
+    notification outcome.
 -   If persistence succeeds but email fails, the enquiry is still
     received; return `201` and record the notification failure for
     operational follow-up.
@@ -320,7 +325,7 @@ public API unless separately approved.
 -   Accept JSON for the enquiry endpoint.
 -   Apply request-size limits and rate limiting.
 -   Reassess whether a honeypot or other bot control is justified before
-    exposing a public enquiry form or route; neither is exposed now.
+    enabling the enquiry form or route; both remain disabled by default.
 -   Use HTTPS in production.
 -   Do not enable credentials unless the endpoint genuinely needs them.
 
@@ -333,10 +338,10 @@ The frontend API client should:
 -   Generate one UUID v4 idempotency key per deliberate submission and
     preserve it across retries of that submission.
 -   Handle network failures and non-2xx responses.
--   Map safe validation messages to the relevant form fields.
+-   Show localized, safe feedback for server-side validation failures.
 -   Avoid logging personal form data.
--   Do not automatically retry enquiry POST requests until the route is
-    wired to the idempotency contract.
+-   Preserve the key only when the submitted fields are unchanged; do
+    not automatically retry.
 -   Never reuse an idempotency key for a changed submission.
 
 ## 7. Contract change process

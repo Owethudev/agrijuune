@@ -200,6 +200,14 @@ Copy the relevant `.env.example` to `.env` in each application directory
 for local configuration. Keep real credentials out of Git; the
 Supabase service-role key belongs only in the backend environment.
 
+Enquiry collection and email notifications are disabled by default.
+Do not enable their environment flags until the publication, provider,
+retention scheduling and verification gates in the
+[privacy decision](docs/decisions/2026-11-23-enquiry-privacy-and-routing.md)
+are complete. The bounded one-shot retention command is
+`npm run purge:expired-enquiries --workspace backend`; it requires
+`ENQUIRY_RETENTION_PURGE_ENABLED=true` and is not scheduled automatically.
+
 Schema changes belong in timestamped files under
 [`supabase/migrations/`](supabase/migrations/). The migration check runs
 offline and does not apply or parse SQL; see the

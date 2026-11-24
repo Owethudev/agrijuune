@@ -11,7 +11,10 @@ describe('parseEnvironment', () => {
         max: 10,
         windowMs: 900000,
       },
+      enquiryCollectionEnabled: false,
+      enquiryPrivacyGatesVerified: false,
       enquiryEmailNotificationsEnabled: false,
+      enquiryRetentionPurgeEnabled: false,
       supabase: undefined,
       brevo: undefined,
     });
@@ -79,6 +82,44 @@ describe('parseEnvironment', () => {
         ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED: 'yes',
       }),
     ).toThrow('ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED must be true or false.');
+  });
+
+  it('keeps collection and privacy-release gates disabled unless explicitly enabled', () => {
+    expect(
+      parseEnvironment({
+        ENQUIRY_COLLECTION_ENABLED: 'true',
+        ENQUIRY_PRIVACY_GATES_VERIFIED: 'true',
+      }),
+    ).toMatchObject({
+      enquiryCollectionEnabled: true,
+      enquiryPrivacyGatesVerified: true,
+    });
+
+    expect(() =>
+      parseEnvironment({
+        ENQUIRY_COLLECTION_ENABLED: 'enabled',
+      }),
+    ).toThrow('ENQUIRY_COLLECTION_ENABLED must be true or false.');
+
+    expect(() =>
+      parseEnvironment({
+        ENQUIRY_PRIVACY_GATES_VERIFIED: 'enabled',
+      }),
+    ).toThrow('ENQUIRY_PRIVACY_GATES_VERIFIED must be true or false.');
+  });
+
+  it('keeps the retention purge command disabled unless explicitly enabled', () => {
+    expect(
+      parseEnvironment({
+        ENQUIRY_RETENTION_PURGE_ENABLED: 'true',
+      }).enquiryRetentionPurgeEnabled,
+    ).toBe(true);
+
+    expect(() =>
+      parseEnvironment({
+        ENQUIRY_RETENTION_PURGE_ENABLED: 'yes',
+      }),
+    ).toThrow('ENQUIRY_RETENTION_PURGE_ENABLED must be true or false.');
   });
 
   it('rejects partial integration configuration', () => {

@@ -4,6 +4,7 @@ import type {
   EnquiryNotificationStatus,
   EnquiryNotificationUpdateResult,
   EnquiryPersistenceResult,
+  EnquiryPrivacyAcknowledgement,
   EnquiryRepository,
 } from '../../repositories/enquiry-repository.js';
 import {
@@ -16,12 +17,15 @@ function toEnquiryInsert(
   input: EnquiryInput,
   keyHash: string,
   requestHash: string,
+  acknowledgement: EnquiryPrivacyAcknowledgement,
 ) {
   const record: Database['public']['Tables']['enquiries']['Insert'] = {
     contact_name: input.contactName,
     email: input.email,
     cell_number: input.cellNumber,
     services_of_interest: input.servicesOfInterest,
+    privacy_notice_version: acknowledgement.noticeVersion,
+    privacy_acknowledged_at: acknowledgement.acknowledgedAt,
     notification_status: 'not_configured',
     status: 'new',
     idempotency_key_hash: keyHash,
@@ -118,12 +122,16 @@ export function createSupabaseEnquiryRepository(
   client: SupabaseClient<Database>,
 ): EnquiryRepository {
   return {
-    async create(input, idempotencyKey): Promise<EnquiryPersistenceResult> {
+    async create(
+      input,
+      idempotencyKey,
+      acknowledgement,
+    ): Promise<EnquiryPersistenceResult> {
       const keyHash = hashIdempotencyKey(idempotencyKey);
       const requestHash = hashIdempotencyRequest(input, idempotencyKey);
       const insert = await insertEnquiry(
         client,
-        toEnquiryInsert(input, keyHash, requestHash),
+        toEnquiryInsert(input, keyHash, requestHash, acknowledgement),
       );
 
       if (!insert.ok) {

@@ -33,6 +33,30 @@ export type HomeGallerySlideCopy = {
   alt: string;
 };
 
+export type EnquiryFormCopy = {
+  contactNameLabel: string;
+  emailLabel: string;
+  cellNumberLabel: string;
+  farmNameLabel: string;
+  farmLocationLabel: string;
+  operationTypeLabel: string;
+  machineCountEstimateLabel: string;
+  servicesLabel: string;
+  servicesRequiredMessage: string;
+  technologyOptionLabel: string;
+  detailingOptionLabel: string;
+  additionalMessageLabel: string;
+  privacyAcknowledgement: string;
+  privacyNoticePrompt: string;
+  privacyNoticeLinkLabel: string;
+  submitLabel: string;
+  submittingLabel: string;
+  successMessage: string;
+  validationErrorMessage: string;
+  conflictMessage: string;
+  errorMessage: string;
+};
+
 export type HomePageCopy = {
   hero: {
     eyebrow: string;
@@ -104,6 +128,7 @@ export type HomePageCopy = {
     title: string;
     description: string;
     placeholder: string;
+    form: EnquiryFormCopy;
   };
 };
 
@@ -145,6 +170,7 @@ export type ServicesPageCopy = {
     title: string;
     description: string;
     placeholder: string;
+    form: EnquiryFormCopy;
   };
 };
 
@@ -355,9 +381,39 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Next steps',
         title: 'Express interest',
         description:
-          'Contact details and an enquiry route are still being prepared.',
+          'Use this section to express interest in Agrijuune’s potential services. The online form appears only when privacy requirements have been completed.',
         placeholder:
           'Placeholder: approved contact information will be added later. This page does not collect personal information.',
+        form: {
+          contactNameLabel: 'Your name',
+          emailLabel: 'Email address',
+          cellNumberLabel: 'Cell number',
+          farmNameLabel: 'Farm or business name (optional)',
+          farmLocationLabel: 'Farm location (optional)',
+          operationTypeLabel: 'Operation type (optional)',
+          machineCountEstimateLabel: 'Approximate machinery count (optional)',
+          servicesLabel: 'Services you are interested in',
+          servicesRequiredMessage: 'Select at least one service.',
+          technologyOptionLabel: 'Farm Management Technology',
+          detailingOptionLabel: 'Agricultural Machinery Detailing',
+          additionalMessageLabel: 'Additional message (optional)',
+          privacyAcknowledgement:
+            "By submitting this enquiry, you acknowledge that Agrijuune will process the personal information you provide to respond to your enquiry, communicate with you about requested services and maintain an appropriate record of the communication, in accordance with applicable data protection laws, including South Africa's Protection of Personal Information Act (POPIA).",
+          privacyNoticePrompt:
+            'For more information about how your information is collected, used, stored and protected, please read our Privacy Notice.',
+          privacyNoticeLinkLabel:
+            'Read the Privacy Notice (opens in a new tab)',
+          submitLabel: 'Send enquiry',
+          submittingLabel: 'Sending…',
+          successMessage:
+            'Your enquiry has been received. Thank you for contacting Agrijuune.',
+          validationErrorMessage:
+            'Check your details and make sure at least one service is selected, then try again.',
+          conflictMessage:
+            'This submission could not be retried safely. Please refresh the form and try again.',
+          errorMessage:
+            'We could not submit your enquiry. Please try again later.',
+        },
       },
     },
     services: {
@@ -418,9 +474,39 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Next steps',
         title: 'Express interest',
         description:
-          'Contact details and an enquiry route are still being prepared.',
+          'Use this section to express interest in Agrijuune’s potential services. The online form appears only when privacy requirements have been completed.',
         placeholder:
           'Placeholder: no form is available and this page does not collect personal information.',
+        form: {
+          contactNameLabel: 'Your name',
+          emailLabel: 'Email address',
+          cellNumberLabel: 'Cell number',
+          farmNameLabel: 'Farm or business name (optional)',
+          farmLocationLabel: 'Farm location (optional)',
+          operationTypeLabel: 'Operation type (optional)',
+          machineCountEstimateLabel: 'Approximate machinery count (optional)',
+          servicesLabel: 'Services you are interested in',
+          servicesRequiredMessage: 'Select at least one service.',
+          technologyOptionLabel: 'Farm Management Technology',
+          detailingOptionLabel: 'Agricultural Machinery Detailing',
+          additionalMessageLabel: 'Additional message (optional)',
+          privacyAcknowledgement:
+            "By submitting this enquiry, you acknowledge that Agrijuune will process the personal information you provide to respond to your enquiry, communicate with you about requested services and maintain an appropriate record of the communication, in accordance with applicable data protection laws, including South Africa's Protection of Personal Information Act (POPIA).",
+          privacyNoticePrompt:
+            'For more information about how your information is collected, used, stored and protected, please read our Privacy Notice.',
+          privacyNoticeLinkLabel:
+            'Read the Privacy Notice (opens in a new tab)',
+          submitLabel: 'Send enquiry',
+          submittingLabel: 'Sending…',
+          successMessage:
+            'Your enquiry has been received. Thank you for contacting Agrijuune.',
+          validationErrorMessage:
+            'Check your details and make sure at least one service is selected, then try again.',
+          conflictMessage:
+            'This submission could not be retried safely. Please refresh the form and try again.',
+          errorMessage:
+            'We could not submit your enquiry. Please try again later.',
+        },
       },
     },
     about: {
@@ -458,7 +544,7 @@ export const translations: Record<Language, LanguageContent> = {
         emailPlaceholder:
           'Placeholder: an approved business email address will be added when confirmed.',
         enquiryPlaceholder:
-          'No online enquiry form is available, and this website does not collect personal information.',
+          'The online enquiry form, when enabled, is available on the Home and Services pages. This contact page does not collect personal information.',
         servicesLinkLabel: 'Explore services',
         faqLinkLabel: 'Read the FAQs',
       },
@@ -497,7 +583,7 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'Can I book machinery detailing online?',
           answer:
-            'No. Online booking is not available. The contact details and enquiry route are still being prepared.',
+            'No. Online booking is not available. When enabled, the enquiry form is for discussion and does not create a booking.',
         },
         {
           question: 'Can I view a demonstration?',
@@ -507,12 +593,12 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'How can I express interest?',
           answer:
-            'The enquiry route is not available yet, and the business email address is pending. No form is available on this website, and it does not collect personal information.',
+            'When online enquiry collection is enabled, use the form on the Home or Services page. No response time is promised.',
         },
         {
           question: 'What happens after I submit an enquiry?',
           answer:
-            'No enquiry can currently be submitted through this website. Once an approved enquiry route is available, Agrijuune intends to follow up manually to understand requirements before discussing a proposal or customer-specific arrangement. No response time is promised.',
+            'When the form is enabled, Agrijuune intends to follow up manually to understand requirements before discussing a proposal or customer-specific arrangement. No response time is promised.',
         },
       ],
     },
@@ -648,9 +734,39 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Volgende stappe',
         title: 'Stel belang',
         description:
-          'Kontakbesonderhede en ’n navraagroete word nog voorberei.',
+          'Gebruik hierdie afdeling om belangstelling in Agrijuune se moontlike dienste te toon. Die aanlyn vorm verskyn slegs wanneer die privaatheidsvereistes afgehandel is.',
         placeholder:
           'Plekhouer: goedgekeurde kontakbesonderhede sal later bygevoeg word. Hierdie bladsy versamel nie persoonlike inligting nie.',
+        form: {
+          contactNameLabel: 'Jou naam',
+          emailLabel: 'E-posadres',
+          cellNumberLabel: 'Selfoonnommer',
+          farmNameLabel: 'Plaas- of besigheidsnaam (opsioneel)',
+          farmLocationLabel: 'Plaasligging (opsioneel)',
+          operationTypeLabel: 'Tipe onderneming (opsioneel)',
+          machineCountEstimateLabel: 'Geskatte aantal masjiene (opsioneel)',
+          servicesLabel: 'Dienste waarin jy belangstel',
+          servicesRequiredMessage: 'Kies ten minste een diens.',
+          technologyOptionLabel: 'Plaasbestuurstegnologie',
+          detailingOptionLabel: 'Versorging van landboumasjinerie',
+          additionalMessageLabel: 'Bykomende boodskap (opsioneel)',
+          privacyAcknowledgement:
+            'Deur hierdie navraag in te dien, erken jy dat Agrijuune die persoonlike inligting wat jy verskaf sal verwerk om op jou navraag te reageer, met jou oor aangevraagde dienste te kommunikeer en ’n toepaslike rekord van die kommunikasie te hou, in ooreenstemming met toepaslike databeskermingswette, insluitend Suid-Afrika se Wet op die Beskerming van Persoonlike Inligting (POPIA).',
+          privacyNoticePrompt:
+            'Lees ons Privaatheidskennisgewing vir meer inligting oor hoe jou inligting ingesamel, gebruik, gestoor en beskerm word.',
+          privacyNoticeLinkLabel:
+            'Lees die Privaatheidskennisgewing (maak in ’n nuwe oortjie oop)',
+          submitLabel: 'Stuur navraag',
+          submittingLabel: 'Word gestuur…',
+          successMessage:
+            'Jou navraag is ontvang. Dankie dat jy Agrijuune kontak.',
+          validationErrorMessage:
+            'Kontroleer jou besonderhede, kies ten minste een diens en probeer weer.',
+          conflictMessage:
+            'Hierdie indiening kon nie veilig herhaal word nie. Verfris die vorm en probeer weer.',
+          errorMessage:
+            'Ons kon nie jou navraag indien nie. Probeer asseblief later weer.',
+        },
       },
     },
     services: {
@@ -711,9 +827,39 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Volgende stappe',
         title: 'Stel belang',
         description:
-          'Kontakbesonderhede en ’n navraagroete word nog voorberei.',
+          'Gebruik hierdie afdeling om belangstelling in Agrijuune se moontlike dienste te toon. Die aanlyn vorm verskyn slegs wanneer die privaatheidsvereistes afgehandel is.',
         placeholder:
           'Plekhouer: geen vorm is beskikbaar nie en hierdie bladsy versamel nie persoonlike inligting nie.',
+        form: {
+          contactNameLabel: 'Jou naam',
+          emailLabel: 'E-posadres',
+          cellNumberLabel: 'Selfoonnommer',
+          farmNameLabel: 'Plaas- of besigheidsnaam (opsioneel)',
+          farmLocationLabel: 'Plaasligging (opsioneel)',
+          operationTypeLabel: 'Tipe onderneming (opsioneel)',
+          machineCountEstimateLabel: 'Geskatte aantal masjiene (opsioneel)',
+          servicesLabel: 'Dienste waarin jy belangstel',
+          servicesRequiredMessage: 'Kies ten minste een diens.',
+          technologyOptionLabel: 'Plaasbestuurstegnologie',
+          detailingOptionLabel: 'Versorging van landboumasjinerie',
+          additionalMessageLabel: 'Bykomende boodskap (opsioneel)',
+          privacyAcknowledgement:
+            'Deur hierdie navraag in te dien, erken jy dat Agrijuune die persoonlike inligting wat jy verskaf sal verwerk om op jou navraag te reageer, met jou oor aangevraagde dienste te kommunikeer en ’n toepaslike rekord van die kommunikasie te hou, in ooreenstemming met toepaslike databeskermingswette, insluitend Suid-Afrika se Wet op die Beskerming van Persoonlike Inligting (POPIA).',
+          privacyNoticePrompt:
+            'Lees ons Privaatheidskennisgewing vir meer inligting oor hoe jou inligting ingesamel, gebruik, gestoor en beskerm word.',
+          privacyNoticeLinkLabel:
+            'Lees die Privaatheidskennisgewing (maak in ’n nuwe oortjie oop)',
+          submitLabel: 'Stuur navraag',
+          submittingLabel: 'Word gestuur…',
+          successMessage:
+            'Jou navraag is ontvang. Dankie dat jy Agrijuune kontak.',
+          validationErrorMessage:
+            'Kontroleer jou besonderhede, kies ten minste een diens en probeer weer.',
+          conflictMessage:
+            'Hierdie indiening kon nie veilig herhaal word nie. Verfris die vorm en probeer weer.',
+          errorMessage:
+            'Ons kon nie jou navraag indien nie. Probeer asseblief later weer.',
+        },
       },
     },
     routes: {
@@ -777,7 +923,7 @@ export const translations: Record<Language, LanguageContent> = {
         emailPlaceholder:
           'Plekhouer: ’n goedgekeurde besigheids-e-posadres sal bygevoeg word wanneer dit bevestig is.',
         enquiryPlaceholder:
-          'Geen aanlyn navraagvorm is beskikbaar nie, en hierdie webwerf versamel nie persoonlike inligting nie.',
+          'Die aanlyn navraagvorm sal, wanneer dit geaktiveer is, op die Tuis- en Dienste-bladsye beskikbaar wees. Hierdie kontakblad versamel nie persoonlike inligting nie.',
         servicesLinkLabel: 'Verken dienste',
         faqLinkLabel: 'Lees die algemene vrae',
       },
@@ -817,7 +963,7 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'Kan ek masjienversorging aanlyn bespreek?',
           answer:
-            'Nee. Aanlyn bespreking is nie beskikbaar nie. Kontakbesonderhede en ’n navraagroete word nog voorberei.',
+            'Nee. Aanlyn bespreking is nie beskikbaar nie. Wanneer dit geaktiveer is, is die navraagvorm vir bespreking en skep dit nie ’n bespreking nie.',
         },
         {
           question: 'Kan ek ’n demonstrasie sien?',
@@ -827,12 +973,12 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'Hoe kan ek belangstelling toon?',
           answer:
-            'Die navraagroete is nog nie beskikbaar nie, en die besigheids-e-posadres is nog nie bevestig nie. Geen vorm is op hierdie webwerf beskikbaar nie, en dit versamel nie persoonlike inligting nie.',
+            'Wanneer aanlyn navraaginsameling geaktiveer is, gebruik die vorm op die Tuis- of Dienste-bladsy. Geen reaksietyd word belowe nie.',
         },
         {
           question: 'Wat gebeur nadat ek ’n navraag indien?',
           answer:
-            'Geen navraag kan tans deur hierdie webwerf ingedien word nie. Sodra ’n goedgekeurde navraagroete beskikbaar is, beoog Agrijuune om die klant met die hand op te volg om vereistes te verstaan voordat ’n voorstel of klantspesifieke reëling bespreek word. Geen reaksietyd word belowe nie.',
+            'Wanneer die vorm geaktiveer is, beoog Agrijuune om die klant met die hand op te volg om vereistes te verstaan voordat ’n voorstel of klantspesifieke reëling bespreek word. Geen reaksietyd word belowe nie.',
         },
       ],
     },

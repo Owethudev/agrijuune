@@ -41,9 +41,11 @@ and safe notification status, or a safe unavailable result. When
 explicitly enabled, the service persists `pending` before sending an
 email and then stores the outcome. It does not notify again for an
 idempotent replay. `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` defaults to
-`false`; the public route remains unwired. Repository and service tests
-use mocked dependencies; no enquiry records are created by the test
-suite.
+`false`. The collection route is mounted only when both
+`ENQUIRY_COLLECTION_ENABLED` and `ENQUIRY_PRIVACY_GATES_VERIFIED` are
+true and Supabase is configured; these settings default to false.
+Repository, service and route tests use mocked dependencies; no enquiry
+records are created by the test suite.
 
 ## 3. Proposed `enquiries` table
 
@@ -165,7 +167,7 @@ constraint and a partial unique index. It does not insert or update
 enquiry data and has not been applied to any database. The key and
 fingerprint are stored on the enquiry row so the existing retention
 deletion removes them together; do not enable collection until the
-documented deletion process is implemented and verified.
+documented deletion process is scheduled and verified.
 
 ## 5. Row Level Security
 
@@ -271,14 +273,27 @@ The product owner set a seven-day retention period for enquiry database
 records, starting at submission, and a maximum seven-day target for
 stored backups. The product owner confirms that the Supabase backup
 setting is configured and verified for this target; this work has not
-independently inspected the setting. The application purge is not
-implemented or verified and must be completed before collection. This
-retention decision alone does not authorize collection.
+independently inspected the setting. The backend now provides
+`npm run purge:expired-enquiries --workspace backend`, which deletes
+records whose `created_at` is earlier than the seven-day cutoff and
+reports only the deleted count. It also requires the explicit
+`ENQUIRY_RETENTION_PURGE_ENABLED=true` opt-in. The command has mocked
+tests, but no
+scheduled execution is configured and the retention process has not
+been verified in a database. Keep collection disabled until an
+appropriate daily schedule and verification process are configured.
+This retention decision alone does not authorize collection.
 
-Before launch, define:
+The idempotency migration is still unapplied to databases. Apply and
+verify it through the reviewed migration process before enabling the
+public API; do not treat successful application as authorization to
+collect enquiry data.
+
+Before launch, define and verify:
 
 -   Who may access enquiry records.
--   How the seven-day retention period is measured and enforced.
+-   The daily schedule and monitoring for
+    `purge:expired-enquiries`, including verification that it succeeds.
 -   How deletion requests are assessed and actioned.
 -   Whether backups retain deleted records and whether the seven-day
     maximum is enforced by the configured provider.

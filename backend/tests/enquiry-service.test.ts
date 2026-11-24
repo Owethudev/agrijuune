@@ -16,6 +16,11 @@ const enquiry: EnquiryInput = {
   additionalMessage: 'Do not include message details',
 };
 
+const acknowledgement = {
+  noticeVersion: '1.0',
+  acknowledgedAt: '2026-11-24T12:00:00.000Z',
+};
+
 const idempotencyKey = validateIdempotencyKey(
   '7e5dfc21-574c-4c33-9f7e-477cb2f79ca3',
 );
@@ -60,7 +65,7 @@ describe('enquiry notification service', () => {
     });
 
     await expect(
-      service.submit(enquiry, idempotencyKey.value),
+      service.submit(enquiry, idempotencyKey.value, acknowledgement),
     ).resolves.toEqual(persistedEnquiry);
 
     expect(notifier.send).not.toHaveBeenCalled();
@@ -79,7 +84,7 @@ describe('enquiry notification service', () => {
     });
 
     await expect(
-      service.submit(enquiry, idempotencyKey.value),
+      service.submit(enquiry, idempotencyKey.value, acknowledgement),
     ).resolves.toEqual({ ok: false, reason: 'unavailable' });
 
     expect(notifier.send).not.toHaveBeenCalled();
@@ -111,7 +116,11 @@ describe('enquiry notification service', () => {
       notificationsEnabled: true,
     });
 
-    const result = await service.submit(enquiry, idempotencyKey.value);
+    const result = await service.submit(
+      enquiry,
+      idempotencyKey.value,
+      acknowledgement,
+    );
 
     expect(result).toEqual({
       ...persistedEnquiry,
@@ -123,6 +132,11 @@ describe('enquiry notification service', () => {
       'send',
       'status:sent',
     ]);
+    expect(repository.create).toHaveBeenCalledWith(
+      enquiry,
+      idempotencyKey.value,
+      acknowledgement,
+    );
     expect(repository.updateNotificationStatus).toHaveBeenNthCalledWith(
       2,
       persistedEnquiry.enquiryId,
@@ -142,7 +156,7 @@ describe('enquiry notification service', () => {
     });
 
     await expect(
-      service.submit(enquiry, idempotencyKey.value),
+      service.submit(enquiry, idempotencyKey.value, acknowledgement),
     ).resolves.toEqual({
       ...persistedEnquiry,
       notificationStatus: 'failed',
@@ -168,7 +182,7 @@ describe('enquiry notification service', () => {
 
     try {
       await expect(
-        service.submit(enquiry, idempotencyKey.value),
+        service.submit(enquiry, idempotencyKey.value, acknowledgement),
       ).resolves.toEqual({
         ...persistedEnquiry,
         notificationStatus: 'failed',
@@ -203,7 +217,7 @@ describe('enquiry notification service', () => {
 
     try {
       await expect(
-        service.submit(enquiry, idempotencyKey.value),
+        service.submit(enquiry, idempotencyKey.value, acknowledgement),
       ).resolves.toEqual({
         ...persistedEnquiry,
         notificationStatus: 'pending',
@@ -228,7 +242,7 @@ describe('enquiry notification service', () => {
     });
 
     await expect(
-      service.submit(enquiry, idempotencyKey.value),
+      service.submit(enquiry, idempotencyKey.value, acknowledgement),
     ).resolves.toEqual(replayed);
 
     expect(notifier.send).not.toHaveBeenCalled();
@@ -246,7 +260,7 @@ describe('enquiry notification service', () => {
 
     try {
       await expect(
-        service.submit(enquiry, idempotencyKey.value),
+        service.submit(enquiry, idempotencyKey.value, acknowledgement),
       ).resolves.toEqual(persistedEnquiry);
       expect(notifier.send).not.toHaveBeenCalled();
       expect(errorLog.mock.calls.flat().join(' ')).not.toContain(enquiry.email);
