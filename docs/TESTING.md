@@ -164,15 +164,23 @@ defined by the current npm workspace scripts:
 
 ``` bash
 npm ci
+npx playwright install chromium
 npm run check:migrations
 npm run lint
 npm run format:check
 npm run typecheck
 npm test
+npm run test:e2e --workspace frontend
 npm audit --audit-level=high
 npm run build
 npm run check:performance
 ```
+
+The Playwright suite starts the frontend locally, enables the gated form
+only for that test process, and intercepts enquiry API requests with
+fictional responses. It never submits data to a backend or sends email.
+These local end-to-end checks do not replace staging database, provider,
+or release smoke tests.
 
 The root `npm run build` scans the frontend output for server-only
 credentials and runs `npm run check:performance` after building both
@@ -185,8 +193,9 @@ syntax. Apply reviewed migrations to the confirmed non-production
 project before any authorized production change.
 
 The GitHub Actions workflow at `.github/workflows/ci.yml` runs these
-commands on pull requests targeting `main` and on pushes to `main`. The
-`quality` job is required by the active `main` ruleset.
+checks, including Chromium-based Playwright tests, on pull requests
+targeting `main` and on pushes to `main`. The `quality` job is required
+by the active `main` ruleset.
 The workflow uses no production credentials or personal data.
 
 Dependabot dependency alerts/security updates are enabled in repository
