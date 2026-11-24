@@ -12,14 +12,14 @@ The team-members migration has been applied to the production
 The seeded administrator was invited through production Supabase Auth;
 the recipient must accept the invitation and set a new password.
 
-Email authentication and email confirmation are enabled, but public
-signups are still enabled in the hosted Auth settings. The dashboard
-settings controls were disabled during rollout, so signup restrictions,
-password requirements and allowed redirect URLs are not yet verified.
-The Vercel project also lacks the Vite-specific
-`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` variables, so the
-deployed sign-in UI is not fully configured. Do not treat hosted team
-sign-in as ready until these steps are completed.
+Email authentication and email confirmation are enabled in both hosted
+projects. Public signups are disabled and the minimum password length is
+12 characters. Production Auth uses `https://agrijuune.vercel.app/` as
+its site URL and allows that URL plus `/team/sign-in` as redirects. The
+Vercel project still lacks the Vite-specific production variables
+`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, so the deployed sign-in
+UI is not fully configured. Do not treat hosted team sign-in as ready
+until those variables are set and staging acceptance tests pass.
 
 ## Initial setup
 
@@ -28,14 +28,14 @@ sign-in as ready until these steps are completed.
    RLS policies and seeds the admin role for `jezvestptyltd@gmail.com`.
    It does not create an Auth user or set a password. For the current
    rollout, it has been applied to production and `juune-phase2-test`.
-2. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the frontend
-   environment. The anon key is public; never put the service-role key
-   or a password in a `VITE_*` variable.
-3. Configure the hosted Supabase Auth project to disable public signups,
-   enable email confirmations, require at least 12-character passwords,
-   and allow the production site URL and `/team/sign-in` redirect. Add
-   local development URLs only to local configuration. These settings
-   are not applied by the database migration.
+2. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the Vercel
+   Production environment. The anon/publishable key is public; never put
+   the service-role/secret key or a password in a `VITE_*` variable.
+3. Keep hosted Auth invite-only, with email confirmations enabled and a
+   minimum 12-character password. These settings are applied in both
+   hosted projects. Production's site URL and team sign-in redirect are
+   configured; add local development URLs only to local configuration.
+   These settings are not applied by the database migration.
 4. Invite the seeded admin email from the Supabase Auth dashboard. The
    production invitation has been sent; the recipient should use the
    invitation flow to set a new strong password. Never reuse a password
@@ -74,10 +74,11 @@ role check protects it.
 
 Configure production and preview environments deliberately. Use the
 production Supabase project only for the production deployment, and
-never place private credentials in preview builds. Keep public signup
-disabled in hosted Supabase settings, verify the allowed redirect URLs,
-and test admin and team-role access against a non-production project
-before enabling the feature in production.
+never place private credentials in preview builds. Public signup is
+disabled and production redirects are configured, but the production
+Vite variables and staging acceptance tests remain outstanding. Test
+admin and team-role access against a non-production project before
+considering the rollout complete.
 
 The repository's local Supabase config disables signup and requires
 email confirmation. It is local development configuration only.
