@@ -9,6 +9,7 @@ coverage/
 # Environment variables and secrets
 .env
 .env.*
+!.env.example
 
 # Logs and debug files
 *.log
