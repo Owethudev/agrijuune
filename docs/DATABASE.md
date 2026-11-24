@@ -188,15 +188,17 @@ project, inspect the pending changes, and only then apply them:
 ```sh
 npx supabase login
 npx supabase link --project-ref <PROJECT_REF>
-npx supabase db push --dry-run
-npx supabase db push
+npx supabase db push --remote --dry-run
+npx supabase db push --remote
 ```
 
 Do not pass credentials as command-line arguments or commit local CLI
 state. The linked project reference is stored under the ignored
 `supabase/.temp/` directory. When local Docker-based testing is
 available, use `npx supabase start` and `npx supabase db reset`; never
-link a local or preview environment to production data.
+link a local or preview environment to production data. The CLI targets
+the local database by default; always include `--remote` when applying
+migrations to the explicitly linked project.
 
 If a migration fails or needs correction, use a reviewed forward
 migration; do not drop the table or delete records as an automatic
