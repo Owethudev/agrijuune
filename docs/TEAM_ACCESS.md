@@ -5,12 +5,29 @@ use **Team sign in** in the menu to reach the private team workspace.
 Supabase Auth handles passwords and sessions; `team_members` stores the
 allow-listed email and its `admin` or `team` role.
 
+## Current hosted rollout status (2026-11-24)
+
+The team-members migration has been applied to the production
+`agrijuune` and non-production `juune-phase2-test` Supabase projects.
+The seeded administrator was invited through production Supabase Auth;
+the recipient must accept the invitation and set a new password.
+
+Email authentication and email confirmation are enabled, but public
+signups are still enabled in the hosted Auth settings. The dashboard
+settings controls were disabled during rollout, so signup restrictions,
+password requirements and allowed redirect URLs are not yet verified.
+The Vercel project also lacks the Vite-specific
+`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` variables, so the
+deployed sign-in UI is not fully configured. Do not treat hosted team
+sign-in as ready until these steps are completed.
+
 ## Initial setup
 
 1. Apply the `create_team_members` migration to the intended Supabase
    project after reviewing the target. It creates the role table and
    RLS policies and seeds the admin role for `jezvestptyltd@gmail.com`.
-   It does not create an Auth user or set a password.
+   It does not create an Auth user or set a password. For the current
+   rollout, it has been applied to production and `juune-phase2-test`.
 2. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the frontend
    environment. The anon key is public; never put the service-role key
    or a password in a `VITE_*` variable.
@@ -20,9 +37,9 @@ allow-listed email and its `admin` or `team` role.
    local development URLs only to local configuration. These settings
    are not applied by the database migration.
 4. Invite the seeded admin email from the Supabase Auth dashboard. The
-   recipient should use the invitation flow to set a new strong
-   password. Never reuse a password shared in chat or store credentials
-   in this repository.
+   production invitation has been sent; the recipient should use the
+   invitation flow to set a new strong password. Never reuse a password
+   shared in chat or store credentials in this repository.
 5. After signing in, an admin can add team-role email addresses in the
    workspace. Then invite each same address through Supabase Auth.
    Remove team access from the workspace when it is no longer needed.
@@ -34,8 +51,11 @@ allow-listed email and its `admin` or `team` role.
    other private application data.
 
 The Supabase Auth user and `team_members` row must use the same email.
-Email addresses are normalized to lowercase. Public account creation is
-disabled; a valid password alone does not grant workspace access.
+Email addresses are normalized to lowercase. The application allows
+only listed team members into the workspace, but hosted public signup
+is currently enabled and must be disabled before the rollout is
+considered invite-only. A valid password alone does not grant workspace
+access.
 
 ## Authorization boundary
 
