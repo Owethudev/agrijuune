@@ -662,7 +662,7 @@ Brevo is the selected email delivery provider. The product owner reports that th
 
 ## 11.3 How the parts connect
 
-A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the owner-approved Privacy Notice's publication placeholders are completed, the seven-day database deletion and backup-retention target are verified, and provider locations/transfers and retention are documented. The responsible-party name is Agrijuune, and public privacy contacts are recorded in the enquiry decision record. The owner specified deletion of database records containing submitted information seven days after submission and a maximum seven-day backup-retention target. Each party will retain their email copies as communication records; the database purge will not remove mailbox copies. Brevo message/log retention remains pending. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
+A visitor's browser loads the public website and static demo content. Enquiry collection must not be enabled until the owner-approved Privacy Notice's publication placeholders are completed, the seven-day database deletion is implemented and provider locations/transfers and retention are documented. The owner confirms Supabase backup retention is configured and verified for a seven-day maximum. The responsible-party name is Agrijuune, and public privacy contacts are recorded in the enquiry decision record. The owner specified deletion of database records containing submitted information seven days after submission. Each party will retain their email copies as communication records; the database purge will not remove mailbox copies. Brevo message/log retention remains pending. Once approved, the browser may send validated form data to a server-side endpoint. That service validates the request, applies abuse controls and persists the enquiry; email delivery is a separate, disabled step until the Brevo adapter is implemented and the privacy gate is approved. No non-essential analytics runs at launch.
 
 ## 11.4 Permissions
 
@@ -834,7 +834,7 @@ Privacy requirements:
 
 1. Is a database needed, or is a secure form/email service sufficient?
 
-1. The owner-approved Privacy Notice still has registered-business-name, address and Information Officer placeholders. Seven-day database retention and a maximum seven-day backup-retention target are set but not implemented or verified; Brevo message/log retention and provider location/transfer disclosures remain pending.
+1. The owner-approved Privacy Notice still has registered-business-name, address and Information Officer placeholders. Seven-day database retention is set but the purge is not implemented; the owner confirms the maximum seven-day Supabase backup setting is configured and verified. Brevo message/log retention and provider location/transfer disclosures remain pending.
 
 1. How will enquiries be tracked after delivery? The product owner is the intended follow-up recipient; no CRM/dashboard has been selected.
 
@@ -894,7 +894,7 @@ This is a later-stage workflow, not authorisation to code before open questions 
 
 - Technology stack, hosting and integrations — pending.
 
-- The owner-approved Privacy Notice and selected lawful-basis grounds are recorded, but its remaining publication placeholders, exact provider location/transfer and retention disclosures, seven-day database purge, and backup-retention verification remain pending. The owner named Agrijuune as responsible party, supplied public privacy contacts, specified seven-day database retention and a maximum seven-day backup-retention target, said each party will retain their email copies, and approved sender/recipient routing; see the enquiry decision record.
+- The owner-approved Privacy Notice and selected lawful-basis grounds are recorded, but its remaining publication placeholders, exact provider location/transfer and retention disclosures, and seven-day database purge remain pending. The owner named Agrijuune as responsible party, supplied public privacy contacts, specified seven-day database retention, confirmed the maximum seven-day Supabase backup setting is configured and verified, said each party will retain their email copies, and approved sender/recipient routing; see the enquiry decision record.
 
 - Open questions empty — not complete; see Section 13.3.
 

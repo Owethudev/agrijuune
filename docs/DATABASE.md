@@ -210,10 +210,11 @@ in depth.
 
 The product owner set a seven-day retention period for enquiry database
 records, starting at submission, and a maximum seven-day target for
-stored backups. The application purge is not implemented or verified,
-and backup provider configuration and deletion behavior must be checked
-before collection. This retention decision alone does not authorize
-collection.
+stored backups. The product owner confirms that the Supabase backup
+setting is configured and verified for this target; this work has not
+independently inspected the setting. The application purge is not
+implemented or verified and must be completed before collection. This
+retention decision alone does not authorize collection.
 
 Before launch, define:
 

@@ -78,8 +78,9 @@ publication.
 The product owner set seven-day retention for database records, starting
 when the enquiry is submitted, and wants all form-submitted information
 deleted from the database. The purge is not implemented or verified.
-The backup-retention target is no more than seven days, but provider
-configuration and deletion behavior are not verified. Each party will
+The product owner confirmed that the Supabase backup-retention setting
+is configured and verified for a maximum of seven days; this setting
+has not been independently inspected in this work. Each party will
 retain their email copies as communication records; the application
 purge will not remove mailbox-held copies. Brevo message and log
 retention remains pending.
@@ -102,8 +103,8 @@ provider or consent approach requires separate approval.
 ## Follow-up
 
 Issue #3 remains open until the publication placeholders, seven-day
-database deletion, backup-retention behavior, Brevo message/log
-retention, and exact provider location/transfer disclosures are
-resolved. The owner-provided notice and lawful-basis choices are
-recorded, but are not an independent legal assessment or authorization
-to begin collecting personal data.
+database deletion, Brevo message/log retention, and exact provider
+location/transfer disclosures are resolved. The owner-provided notice,
+lawful-basis choices and backup-retention confirmation are recorded, but
+are not an independent legal assessment or authorization to begin
+collecting personal data.
