@@ -143,6 +143,12 @@ Check:
 -   Alternative text for meaningful images.
 -   No essential information conveyed only by colour or animation.
 
+The Playwright accessibility suite runs axe-core WCAG 2.2 AA checks on
+public routes and representative menu, demo and form-error states. It
+also checks keyboard focus, skip navigation, Escape handling, and
+keyboard-operated controls with reduced motion enabled. Automated checks
+supplement, but do not replace, manual assistive-technology testing.
+
 ## 7. Performance checks
 
 Measure the built production site, not only the development server.
