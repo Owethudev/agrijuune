@@ -1,13 +1,10 @@
 import type { RequestHandler } from 'express';
+import { sendApiError } from './api-error-response.js';
 
-export const notFoundMiddleware: RequestHandler = (_request, response) => {
-  response.status(404).json({
-    success: false,
-    error: {
-      code: 'NOT_FOUND',
-      message: 'The requested resource was not found.',
-      details: [],
-      requestId: response.locals.requestId,
-    },
-  });
-};
+export const notFoundMiddleware: RequestHandler = (_request, response) =>
+  sendApiError(
+    response,
+    404,
+    'NOT_FOUND',
+    'The requested resource was not found.',
+  );
