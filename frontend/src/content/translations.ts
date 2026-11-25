@@ -329,7 +329,7 @@ const englishRoutes: Record<RoutePath, RouteCopy> = {
     label: 'Privacy',
     title: 'Privacy and demo data',
     description:
-      'How the Agrijuune educational prototype handles demo, team-account and technical data.',
+      'How Agrijuune handles sample demo data, team-account and technical data.',
   },
 };
 
@@ -416,10 +416,10 @@ export const translations: Record<Language, LanguageContent> = {
     },
     home: {
       hero: {
-        eyebrow: 'School-project prototype',
+        eyebrow: 'Farm technology & machinery care',
         title: 'Practical farm support, in one place.',
         description:
-          'Agrijuune is a school-project concept exploring potential farm technology and machinery-care services. It is not currently offering live services or accepting public enquiries.',
+          'Agrijuune brings together farm management technology and agricultural machinery detailing for farms in Gauteng. It is not currently offering live services or accepting public enquiries.',
         servicesCta: 'Explore services',
         demoCta: 'Explore the demo',
         interestCta: 'Project information',
@@ -528,7 +528,7 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Project information',
         title: 'Demo and data limits',
         description:
-          'This school-project prototype demonstrates proposed services. Public enquiries are not accepted.',
+          'Explore our proposed services. Public enquiries are not accepted.',
         placeholder:
           'Do not enter real personal, farm or business information. See Privacy and demo data in the footer.',
         form: {
@@ -621,7 +621,7 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Project information',
         title: 'Demo and data limits',
         description:
-          'This school-project prototype demonstrates proposed services. Public enquiries are not accepted.',
+          'Explore our proposed services. Public enquiries are not accepted.',
         placeholder:
           'No form is available. Do not send real personal, farm or business information.',
         form: {
@@ -661,7 +661,7 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Purpose and vision',
         title: 'About Agrijuune',
         description:
-          'Agrijuune is a school-project prototype exploring potential agricultural services for farms in Gauteng.',
+          'Agrijuune explores practical agricultural services for farms in Gauteng.',
       },
       purpose: {
         title: 'Our purpose',
@@ -685,13 +685,11 @@ export const translations: Record<Language, LanguageContent> = {
       },
       contact: {
         title: 'Contact Agrijuune',
-        description:
-          'This educational prototype does not accept public business enquiries.',
+        description: 'Agrijuune does not accept public business enquiries.',
         emailLabel: 'Email',
         emailPlaceholder:
-          'For project privacy questions, use the contact on the Privacy and Demo Data page.',
-        enquiryPlaceholder:
-          'This contact page displays the project concept only; no public enquiry form is available.',
+          'For privacy questions, use the contact on the Privacy and Demo Data page.',
+        enquiryPlaceholder: 'No public enquiry form is available.',
         servicesLinkLabel: 'Explore services',
         faqLinkLabel: 'Read the FAQs',
       },
@@ -705,7 +703,7 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'What is Agrijuune developing?',
           answer:
-            'Agrijuune is a school-project prototype presenting two potential agricultural-service concepts: Farm Management Technology and Agricultural Machinery Detailing.',
+            'Agrijuune presents two agricultural-service concepts: Farm Management Technology and Agricultural Machinery Detailing.',
         },
         {
           question: 'What could Farm Management Technology include?',
@@ -740,7 +738,7 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'How can I express interest?',
           answer:
-            'This school-project prototype does not accept public enquiries or create customer requests.',
+            'Agrijuune does not currently accept public enquiries or create customer requests.',
         },
         {
           question: 'What happens after I submit an enquiry?',
@@ -750,10 +748,10 @@ export const translations: Record<Language, LanguageContent> = {
       ],
     },
     privacy: {
-      eyebrow: 'Educational prototype',
+      eyebrow: 'Privacy and data notice',
       title: 'Privacy and demo data',
       description:
-        'This school project demonstrates a proposed agricultural service. It is not currently accepting public enquiries, orders or marketing sign-ups.',
+        'Agrijuune is not currently accepting public enquiries, orders or marketing sign-ups.',
       sections: [
         {
           title: 'Use fictional data only',
@@ -765,15 +763,15 @@ export const translations: Record<Language, LanguageContent> = {
         },
         {
           title: 'Storage and retention limits',
-          body: 'The seven-day database purge is configured for enquiry records, but its first scheduled run has not yet been verified. The current Supabase plan does not include project backups. This prototype is not a place to store real enquiries, and it does not promise deletion or recovery of provider-held logs or account data.',
+          body: 'The seven-day database purge is configured for enquiry records, but its first scheduled run has not yet been verified. The current Supabase plan does not include project backups. This site is not a place to store real enquiries, and it does not promise deletion or recovery of provider-held logs or account data.',
         },
       ],
       contactTitle: 'Privacy questions',
       contactDescription:
-        'For a project privacy question or a request about an invited team account, contact the project owner:',
+        'For a privacy question or a request about an invited team account, contact the site owner:',
       contactEmail: 'jezvestptyltd@gmail.com',
       disclaimer:
-        'This notice describes the current school-project prototype; it is not legal advice or a claim of legal compliance. A school-project label does not automatically exempt personal-data processing from applicable privacy laws.',
+        'This notice describes how data is handled on this site; it is not legal advice or a claim of legal compliance.',
     },
     routes: englishRoutes,
     notFound: {
@@ -868,10 +866,10 @@ export const translations: Record<Language, LanguageContent> = {
     },
     home: {
       hero: {
-        eyebrow: 'Skoolprojekprototipe',
+        eyebrow: 'Plaastegnologie & masjienversorging',
         title: 'Praktiese ondersteuning vir plaasbedrywighede.',
         description:
-          'Agrijuune is ’n skoolprojekkonsep wat moontlike plaasbestuurstegnologie en masjienversorging verken. Dit bied tans nie regstreekse dienste aan nie en aanvaar nie openbare navrae nie.',
+          'Agrijuune bring plaasbestuurstegnologie en skoonmaak en versorging van landboumasjinerie vir plase in Gauteng saam. Dit bied tans nie regstreekse dienste aan nie en aanvaar nie openbare navrae nie.',
         servicesCta: 'Verken die dienste',
         demoCta: 'Verken die demo',
         interestCta: 'Projekinligting',
@@ -981,7 +979,7 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Projekinligting',
         title: 'Demonstrasie- en databeperkings',
         description:
-          'Hierdie skoolprojekprototipe demonstreer voorgestelde dienste. Openbare navrae word nie aanvaar nie.',
+          'Verken ons voorgestelde dienste. Openbare navrae word nie aanvaar nie.',
         placeholder:
           'Moenie regte persoonlike, plaas- of besigheidsinligting invoer nie. Sien Privaatheid en demodata in die voetskrif.',
         form: {
@@ -1074,7 +1072,7 @@ export const translations: Record<Language, LanguageContent> = {
         eyebrow: 'Projekinligting',
         title: 'Demonstrasie- en databeperkings',
         description:
-          'Hierdie skoolprojekprototipe demonstreer voorgestelde dienste. Openbare navrae word nie aanvaar nie.',
+          'Verken ons voorgestelde dienste. Openbare navrae word nie aanvaar nie.',
         placeholder:
           'Geen vorm is beskikbaar nie. Moenie regte persoonlike, plaas- of besigheidsinligting stuur nie.',
         form: {
@@ -1138,14 +1136,14 @@ export const translations: Record<Language, LanguageContent> = {
         label: 'Privaatheid',
         title: 'Privaatheid en demodata',
         description:
-          'Hoe die Agrijuune-opvoedkundige prototipe demo-, spanrekening- en tegniese data hanteer.',
+          'Hoe Agrijuune voorbeelddemodata, spanrekeninge en tegniese data hanteer.',
       },
     },
     privacy: {
-      eyebrow: 'Opvoedkundige prototipe',
+      eyebrow: 'Privaatheid- en datakennisgewing',
       title: 'Privaatheid en demodata',
       description:
-        'Hierdie skoolprojek demonstreer ’n voorgestelde landboudiens. Dit aanvaar tans nie openbare navrae, bestellings of bemarkingsintekeninge nie.',
+        'Agrijuune aanvaar tans nie openbare navrae, bestellings of bemarkingsintekeninge nie.',
       sections: [
         {
           title: 'Gebruik slegs fiktiewe data',
@@ -1157,22 +1155,22 @@ export const translations: Record<Language, LanguageContent> = {
         },
         {
           title: 'Berging en bewaringsbeperkings',
-          body: 'Die sewedag-databasisverwydering is vir navraagrekords opgestel, maar die eerste geskeduleerde uitvoering is nog nie bevestig nie. Die huidige Supabase-plan sluit nie projekrugsteune in nie. Hierdie prototipe is nie bedoel om regte navrae te stoor nie en waarborg nie die verwydering of herstel van verskafferlogboeke of rekeningdata nie.',
+          body: 'Die sewedag-databasisverwydering is vir navraagrekords opgestel, maar die eerste geskeduleerde uitvoering is nog nie bevestig nie. Die huidige Supabase-plan sluit nie projekrugsteune in nie. Hierdie webwerf is nie bedoel om regte navrae te stoor nie en waarborg nie die verwydering of herstel van verskafferlogboeke of rekeningdata nie.',
         },
       ],
       contactTitle: 'Privaatheidsvrae',
       contactDescription:
-        'Vir ’n projekprivaatheidsvraag of ’n versoek oor ’n genooide spanrekening, kontak die projekeienaar:',
+        'Vir ’n privaatheidsvraag of ’n versoek oor ’n genooide spanrekening, kontak die webwerfeienaar:',
       contactEmail: 'jezvestptyltd@gmail.com',
       disclaimer:
-        'Hierdie kennisgewing beskryf die huidige skoolprojekprototipe; dit is nie regsadvies of ’n bewering van wetlike nakoming nie. ’n Skoolprojekstatus stel verwerking van persoonlike data nie outomaties vry van toepaslike privaatheidswette nie.',
+        'Hierdie kennisgewing beskryf hoe data op hierdie webwerf hanteer word; dit is nie regsadvies of ’n bewering van wetlike nakoming nie.',
     },
     about: {
       hero: {
         eyebrow: 'Doel en visie',
         title: 'Oor Agrijuune',
         description:
-          'Agrijuune is ’n skoolprojekprototipe wat moontlike landboudienste vir plase in Gauteng verken.',
+          'Agrijuune verken praktiese landboudienste vir plase in Gauteng.',
       },
       purpose: {
         title: 'Ons doel',
@@ -1196,13 +1194,11 @@ export const translations: Record<Language, LanguageContent> = {
       },
       contact: {
         title: 'Kontak Agrijuune',
-        description:
-          'Hierdie opvoedkundige prototipe aanvaar nie openbare besigheidsnavrae nie.',
+        description: 'Agrijuune aanvaar nie openbare besigheidsnavrae nie.',
         emailLabel: 'E-pos',
         emailPlaceholder:
-          'Vir projekprivaatheidsvrae, gebruik die kontak op die Privaatheid- en demodatablad.',
-        enquiryPlaceholder:
-          'Hierdie kontakblad wys slegs die projekkonsep; geen openbare navraagvorm is beskikbaar nie.',
+          'Vir privaatheidsvrae, gebruik die kontak op die Privaatheid- en demodatablad.',
+        enquiryPlaceholder: 'Geen openbare navraagvorm is beskikbaar nie.',
         servicesLinkLabel: 'Verken dienste',
         faqLinkLabel: 'Lees die algemene vrae',
       },
@@ -1216,7 +1212,7 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'Wat ontwikkel Agrijuune?',
           answer:
-            'Agrijuune is ’n skoolprojekprototipe wat twee moontlike landboudienskonsepte voorstel: Plaasbestuurstegnologie en skoonmaak en versorging van landboumasjinerie.',
+            'Agrijuune stel twee landboudienskonsepte voor: Plaasbestuurstegnologie en skoonmaak en versorging van landboumasjinerie.',
         },
         {
           question: 'Wat kan plaasbestuurstegnologie insluit?',
@@ -1252,7 +1248,7 @@ export const translations: Record<Language, LanguageContent> = {
         {
           question: 'Hoe kan ek belangstelling toon?',
           answer:
-            'Hierdie skoolprojekprototipe aanvaar nie openbare navrae of skep klantversoeke nie.',
+            'Agrijuune aanvaar tans nie openbare navrae of skep klantversoeke nie.',
         },
         {
           question: 'Wat gebeur nadat ek ’n navraag indien?',
