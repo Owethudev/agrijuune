@@ -54,11 +54,13 @@ The notice has placeholders for the registered business name, business
 address and Information Officer. The owner set seven-day database
 retention. The Supabase dashboard checked on 2026-11-25 shows that
 production and staging use the Free Plan, which does not include project
-backups; the seven-day backup-retention target is not met. A purge
-command exists but is not scheduled or verified. Exact provider
-locations/transfers and Brevo
-message/log retention remain pending.
-Sender/recipient routing is approved, but the Brevo adapter is not
-implemented or tested. Do not publish the notice or collect personal
-information until the outstanding gates are resolved.
+backups; the seven-day backup-retention target is not met. One active
+production purge job is configured daily at 02:00 GMT for rows older
+than seven days. Its first successful execution has not yet been
+verified, and daily runs may occur up to 24 hours after the cutoff.
+Exact provider locations/transfers and Brevo message/log retention
+remain pending. Sender/recipient routing is approved, and the Brevo
+adapter is implemented and unit-tested, but no enquiry email has been
+sent. Do not publish the notice or collect personal information until
+the outstanding gates are resolved.
 Review all proposed schema and SQL before applying it to a database.

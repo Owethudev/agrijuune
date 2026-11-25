@@ -77,7 +77,12 @@ publication.
 
 The product owner set seven-day retention for database records, starting
 when the enquiry is submitted, and wants all form-submitted information
-deleted from the database. The bounded purge command exists but is not scheduled or verified.
+deleted from the database. A production `pg_cron` job now runs daily at
+02:00 GMT and deletes rows older than seven days. The active job and
+command were verified in `cron.job`, but its first successful execution
+has not yet been verified; a daily run may occur up to 24 hours after
+the seven-day cutoff. The production table contained no rows when the
+schedule was configured. Staging has no purge schedule.
 The Supabase dashboard was checked on 2026-11-25 and shows that
 production and staging use the Free Plan, which does not include project
 backups. This contradicts the earlier owner-reported confirmation, and
@@ -127,13 +132,15 @@ behind explicit opt-in flags. The route is not mounted unless
 `ENQUIRY_PRIVACY_GATES_VERIFIED=true` and Supabase is configured. The
 frontend additionally requires `VITE_ENQUIRY_COLLECTION_ENABLED=true`
 and a public HTTPS URL for the completed Privacy Notice. These settings
-remain disabled; no production environment was changed, no enquiry data
-was inserted and no email was sent.
+remain disabled; no production enquiry-collection or notification
+settings were enabled, no enquiry data was inserted and no email was
+sent.
 
 The backend provides a one-shot seven-day purge command,
 `npm run purge:expired-enquiries --workspace backend`, which requires
-`ENQUIRY_RETENTION_PURGE_ENABLED=true`. No production or staging
-schedule has been configured, and the purge has not been verified
-against a database. The launch blockers above remain open;
+`ENQUIRY_RETENTION_PURGE_ENABLED=true`. The production schedule has
+been configured and catalog-verified, but no successful scheduled purge
+has yet been verified against production. The launch blockers above
+remain open;
 the idempotency migration also remains unapplied. This code change does
 not authorize collection or publication.

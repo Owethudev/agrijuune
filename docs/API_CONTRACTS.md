@@ -176,14 +176,17 @@ business name, business address and Information Officer. The product
 owner set seven-day database retention from submission. The Supabase
 dashboard was checked on 2026-11-25 and shows that production and staging
 use the Free Plan, which does not include project backups; the
-seven-day backup-retention target is not met. A bounded purge command
-deletes records older than seven days, but no schedule has been
-configured and the retention process has not been verified. Each party retains their email copies as communication
-records; database deletion does not remove mailbox copies. Brevo
-message/log retention and exact provider location/transfer disclosures
-remain outstanding. Do not enable the form or endpoint until all
-publication, scheduled-deletion, backup and provider-disclosure gates
-are resolved and verified.
+seven-day backup-retention target is not met. Production has one active
+daily `pg_cron` purge job at 02:00 GMT for rows older than seven days.
+The schedule is catalog-verified, but its first successful execution
+has not yet been verified; daily execution may occur up to 24 hours
+after a record crosses the cutoff. The production table had zero rows
+when checked, and staging has no purge schedule. Each party retains
+their email copies as communication records; database deletion does not
+remove mailbox copies. Brevo message/log retention and exact provider
+location/transfer disclosures remain outstanding. Do not enable the
+form or endpoint until all publication, successful-deletion, backup
+and provider-disclosure gates are resolved and verified.
 
 The route is implemented but is not mounted unless
 `ENQUIRY_COLLECTION_ENABLED=true`, `ENQUIRY_PRIVACY_GATES_VERIFIED=true`
@@ -193,8 +196,9 @@ before enabling the route. All gates default to disabled. The frontend additiona
 `VITE_ENQUIRY_COLLECTION_ENABLED=true` and a configured HTTPS
 `VITE_ENQUIRY_PRIVACY_NOTICE_URL`. These are deployment gates, not
 evidence that the outstanding privacy work is complete. No production
-settings have been changed, no enquiry records have been inserted and
-no email has been sent. Brevo notifications additionally require
+enquiry-collection or notification settings have been enabled, no
+enquiry records have been inserted and no email has been sent. Brevo
+notifications additionally require
 `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED=true` and complete server-side
 Brevo configuration. No non-essential analytics is approved.
 

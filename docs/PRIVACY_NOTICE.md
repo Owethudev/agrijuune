@@ -161,7 +161,7 @@ No electronic storage or transmission method can guarantee absolute security.
 
 Agrijuune will retain personal information only for as long as reasonably necessary to fulfil the purpose for which it was collected, unless a longer period is required or permitted by law.
 
-For website enquiries, the product owner has set a seven-day retention period for database records, starting when the enquiry is submitted. Each party will retain their email copies as communication records. A bounded purge command is implemented, but no schedule is configured and the retention process has not been verified. The Supabase dashboard was checked on 2026-11-25 and shows that both production and staging use the Free Plan, which does not include project backups; the seven-day backup-retention target is not met. Collection must remain disabled until a daily purge schedule is configured and verified, adequate backup retention is available, and provider details are confirmed. Brevo message and log retention remains to be confirmed.
+For website enquiries, the product owner has set a seven-day retention period for database records, starting when the enquiry is submitted. Each party will retain their email copies as communication records. A daily production purge is configured for 02:00 GMT and deletes records older than seven days; because it runs daily, deletion may occur up to 24 hours after a record crosses the seven-day cutoff. The Supabase schedule is active, but its first successful execution has not yet been verified. The production enquiry table contained no records when the schedule was configured. The Supabase dashboard was checked on 2026-11-25 and shows that both production and staging use the Free Plan, which does not include project backups; the seven-day backup-retention target is not met. Collection must remain disabled until a successful purge execution is verified, adequate backup retention is available, and provider details are confirmed. Brevo message and log retention remains to be confirmed.
 
 When personal information is no longer required, it will be securely deleted, destroyed or de-identified where appropriate.
 
@@ -242,5 +242,5 @@ Postal address and other contact details should be verified through the regulato
 - Complete the registered business name, business address and Information Officer placeholders.
 - Confirm actual provider locations, cross-border transfers and safeguards for the services used.
 - Confirm Brevo message and log retention.
-- Configure and verify the scheduled seven-day database purge; select and verify an available backup-retention approach that meets the seven-day target.
+- Verify a successful execution of the scheduled seven-day database purge; select and verify an available backup-retention approach that meets the seven-day target.
 - Do not publish the notice or enable enquiry collection until the outstanding items above are resolved.

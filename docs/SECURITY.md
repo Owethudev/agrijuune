@@ -15,9 +15,12 @@ Information Officer. The owner set seven-day retention for database
 records from submission and a maximum seven-day backup-retention target.
 The Supabase dashboard was checked on 2026-11-25 and shows that
 production and staging use the Free Plan, which does not include project
-backups; the backup-retention target is not met. The application purge
-command exists, but no schedule is configured and it has not been
-verified against a database.
+backups; the backup-retention target is not met. One active production
+`pg_cron` job now runs the seven-day purge daily at 02:00 GMT. Its
+configuration and deletion command are verified in `cron.job`, but a
+successful scheduled execution has not yet been verified. Daily runs
+may occur up to 24 hours after the seven-day cutoff; staging has no
+purge schedule.
 Each party will retain their email copies as communication records; the
 application purge will not remove those mailbox copies. Brevo
 message/log retention and exact provider location/transfer disclosures

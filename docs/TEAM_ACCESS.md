@@ -16,13 +16,14 @@ Email authentication and email confirmation are enabled in both hosted
 projects. Public signups are disabled and the minimum password length is
 12 characters. Production Auth uses `https://agrijuune.vercel.app/` as
 its site URL and allows that URL plus `/team/sign-in` as redirects. The
-Vercel Production environment now has `VITE_SUPABASE_URL` and
+Vercel Production has `VITE_SUPABASE_URL` and
 `VITE_SUPABASE_ANON_KEY`, using the production project URL and public
-publishable key. These variables only take effect in a new deployment;
-the currently served deployment has not yet been redeployed or verified.
-Staging acceptance tests also remain outstanding. Do not treat hosted
-team sign-in as ready until a new production deployment and sign-in
-acceptance test are verified.
+publishable key. A production deployment is live, and the `/team/sign-in`
+route displays an enabled form. A successful invited-user login has not
+been verified because the administrator must accept the invitation and
+set a password. Staging acceptance tests also remain outstanding. Do
+not treat hosted team sign-in as fully accepted until invited-user
+authentication and staging checks pass.
 
 ## Initial setup
 
@@ -32,8 +33,9 @@ acceptance test are verified.
    It does not create an Auth user or set a password. For the current
    rollout, it has been applied to production and `juune-phase2-test`.
 2. The production `VITE_SUPABASE_URL` and
-   `VITE_SUPABASE_ANON_KEY` variables have been added in Vercel. Trigger
-   a new deployment and verify the served sign-in flow. The
+   `VITE_SUPABASE_ANON_KEY` variables have been added in Vercel and the
+   served sign-in route was verified. Complete an invited-user login
+   test after the administrator accepts the invitation. The
    anon/publishable key is public; never put the service-role/secret key
    or a password in a `VITE_*` variable.
 3. Keep hosted Auth invite-only, with email confirmations enabled and a
@@ -81,10 +83,10 @@ role check protects it.
 Configure production and preview environments deliberately. Use the
 production Supabase project only for the production deployment, and
 never place private credentials in preview builds. Public signup is
-disabled and production redirects are configured, but the production
-Vite variables and staging acceptance tests remain outstanding. Test
-admin and team-role access against a non-production project before
-considering the rollout complete.
+disabled and production redirects and public Vite variables are
+configured. Staging acceptance tests and a successful invited-user login
+remain outstanding. Test admin and team-role access against a
+non-production project before considering the rollout complete.
 
 The repository's local Supabase config disables signup and requires
 email confirmation. It is local development configuration only.

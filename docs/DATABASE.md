@@ -300,12 +300,16 @@ owner-reported confirmation was contradicted by the dashboard. The backend provi
 `npm run purge:expired-enquiries --workspace backend`, which deletes
 records whose `created_at` is earlier than the seven-day cutoff and
 reports only the deleted count. It also requires the explicit
-`ENQUIRY_RETENTION_PURGE_ENABLED=true` opt-in. The command has mocked
-tests, but no scheduled execution is configured and the retention
-process has not been verified in a database. Keep collection disabled
-until an appropriate daily schedule and verification process are
-configured and adequate backup retention is available. This retention
-decision alone does not authorize collection.
+`ENQUIRY_RETENTION_PURGE_ENABLED=true` opt-in. Production now has one
+active `pg_cron` job, `purge-expired-enquiries`, scheduled daily at
+02:00 GMT to delete rows older than seven days. The job and its command
+were verified in `cron.job`; the production enquiry table contained zero
+rows when checked. Since the schedule runs daily, deletion may occur up
+to 24 hours after a record crosses the seven-day cutoff. A successful
+scheduled execution has not yet been observed, and no staging purge
+schedule is configured. Keep collection disabled until a successful
+production execution is verified and adequate backup retention is
+available. This retention decision alone does not authorize collection.
 
 The idempotency migration is still unapplied to databases. Apply and
 verify it through the reviewed migration process before enabling the
@@ -315,8 +319,9 @@ collect enquiry data.
 Before launch, define and verify:
 
 -   Who may access enquiry records.
--   The daily schedule and monitoring for
-    `purge:expired-enquiries`, including verification that it succeeds.
+-   Successful execution monitoring for the production
+    `purge-expired-enquiries` schedule, plus a decision on whether staging
+    needs its own schedule.
 -   How deletion requests are assessed and actioned.
 -   Whether backups retain deleted records and how the seven-day
     maximum will be enforced once an eligible plan or alternative is
