@@ -1,13 +1,20 @@
 # Agrijuune Release Operations Runbook
 
-**Status:** Partial; monitoring alerts, staging API, backup retention and
-the first scheduled purge execution remain unverified.
-**Last checked:** 25 November 2026 06:36 UTC
+**Status:** Partial; staging API health is verified, but staging data/email
+acceptance, monitoring alerts, backup retention and the first scheduled
+purge execution remain unverified.
+**Last checked:** 25 November 2026 08:08 UTC
 
 ## Current release state
 
 - Production frontend: `https://agrijuune.vercel.app/`.
 - Production API health check: `https://agrijuune.onrender.com/api/health`.
+- A free Render service, `https://agrijuune-staging-api.onrender.com`, is
+  live from commit `e5998b0`. It is health-only: enquiry, notification,
+  privacy and retention switches are explicitly disabled, and no
+  Supabase, Brevo or test-inbox credentials are configured. Its
+  `/api/health` endpoint returned HTTP 200 on 25 November; this does not
+  verify staging persistence or email delivery.
 - Production Supabase runs an active `purge-expired-enquiries` job daily
   at 02:00 GMT. It deletes rows older than seven days. The configuration
   is verified in `cron.job`; as of 25 November 2026 06:13 UTC,
@@ -19,20 +26,22 @@ the first scheduled purge execution remain unverified.
   configured. Enquiry collection and email notifications remain
   disabled.
 - Server-only Supabase and Postgres environment variables were removed
-  from Vercel Production. The public `VITE_SUPABASE_URL` and
-  `VITE_SUPABASE_ANON_KEY` names remain configured, but their values
-  could not be independently verified. The production deployment for
-  commit `63ee4ea` completed at 06:36 UTC after the environment-variable
-  cleanup and publication of the demo notice. Do not assume the public
-  Supabase values are correct until they are verified.
+  from Vercel Production. The Production `VITE_SUPABASE_URL` matches the
+  intended project, and its publishable `VITE_SUPABASE_ANON_KEY` was
+  accepted by that project's Auth settings endpoint; neither key value is
+  reproduced here. `VITE_API_BASE_URL` points to the production API and is
+  now scoped to Production only.
 - The school-project privacy and demo-data notice is published at
   `/privacy`. Public enquiries, orders, marketing sign-ups and enquiry
   notifications remain disabled. The notice does not claim a legal
   exemption; review applicable obligations before enabling any public
   personal-data collection.
-- Vercel pull-request previews are frontend-only. There is no staging
-  API, and the non-production Supabase project is designated for schema
-  and RLS verification only.
+- Vercel pull-request previews remain frontend-only. Their Supabase
+  variables and `VITE_API_BASE_URL` are not scoped to Preview. Existing
+  previews built before the scope change were not redeployed or verified;
+  Vercel environment changes apply to new deployments. The
+  non-production Supabase project remains designated for schema and RLS
+  verification only.
 - On 25 November 2026, migration `20261124141740_add_enquiry_idempotency`
   was applied to the non-production Supabase project after confirming the
   enquiries table was empty; its version is recorded in migration history.
@@ -54,7 +63,8 @@ The following checks were performed on 25 November 2026:
 | Public `/privacy` page | Loaded after production deployment `63ee4ea`; it states that public collection is disabled and the site is an educational prototype. |
 | Fictional-data demo | Started successfully and displayed step 1 of 6. |
 | Team sign-in page | Loaded with an enabled form; successful invited-user authentication remains unverified. |
-| Express API `/api/health` | Returned `{"success":true,"data":{"status":"ok"}}`. |
+| Production and staging Express API `/api/health` | Both returned `{"success":true,"data":{"status":"ok"}}` on 25 November. The staging service is health-only and has no database or email credentials. |
+| Vercel Production configuration | Supabase URL and publishable key were verified against the production project. `VITE_API_BASE_URL` is scoped to Production only; pre-existing previews have not been redeployed. |
 | Enquiry persistence, notification and thank-you flow | Not tested in production. Collection is intentionally disabled; do not submit test personal information. |
 | Scheduled purge execution | Not yet observed; wait for and verify the first scheduled run. |
 | Backup restore | Not available to verify on the current Free Plan. |
@@ -73,8 +83,10 @@ name, and do not log the request body. Notification failures are logged
 with an enquiry identifier and error name; never copy enquiry content
 into logs, tickets or chat.
 
-Automated alert delivery is not configured or verified. The service
-owner must configure and test alerts for:
+Automated alert delivery to a monitored owner is not verified. The
+staging Render service inherits the workspace default of failure-only
+notifications, but the receiving owner and successful delivery have not
+been confirmed. The service owner must configure and test alerts for:
 
 - Repeated API health-check failures, elevated 5xx responses and
   abnormal latency in the Render service.
@@ -151,9 +163,12 @@ test enquiries or run a manual production deletion to prove the job.
 
 ## Staging and launch completion
 
-Staging requires a separately provisioned API, non-production Supabase
-credentials, a test inbox and restricted secrets. Do not connect a
-preview deployment to production or use production personal data.
+The free Render staging API currently verifies only build, start and
+health. It has no database or email credentials and cannot run the
+required data-path acceptance checks. Full staging requires non-production
+Supabase credentials, an authorized test inbox and restricted secrets.
+Do not connect a preview deployment to production or use production
+personal data.
 
 Before closing launch blockers, record staging migration and rollback
 results, test-only persistence and notification outcomes, an invited
