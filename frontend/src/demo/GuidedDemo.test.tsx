@@ -59,7 +59,9 @@ describe('GuidedDemo', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Back' }));
     expect(screen.getByText('Step 1 of 6')).toBeInTheDocument();
-    expect(screen.getByText('Tractor A-01')).toBeInTheDocument();
+    expect(screen.getAllByText('Tractor A-01').length).toBeGreaterThanOrEqual(
+      1,
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Restart demo' }));
     expect(
@@ -77,6 +79,31 @@ describe('GuidedDemo', () => {
     expect(
       screen.getByRole('heading', { level: 3, name: 'Masjinerieregister' }),
     ).toBeInTheDocument();
-    expect(screen.getByText('Trekker A-01')).toBeInTheDocument();
+    expect(screen.getAllByText('Trekker A-01').length).toBeGreaterThanOrEqual(
+      1,
+    );
+  });
+
+  it('pops up the mini dashboard preview, switches tabs, and closes on Escape', () => {
+    render(<GuidedDemo copy={translations.en.home.demo} language="en" />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Start demo' }));
+
+    const dialog = screen.getByRole('dialog', {
+      name: 'Your Farm Operations Dashboard',
+    });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getByText('North Block')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Fleet & tools' }));
+    expect(screen.getByText('Hydraulic Jack 20T')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Schedule' }));
+    expect(screen.getByText(/500h oil & filter service/i)).toBeInTheDocument();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(
+      screen.queryByRole('dialog', { name: 'Your Farm Operations Dashboard' }),
+    ).not.toBeInTheDocument();
   });
 });

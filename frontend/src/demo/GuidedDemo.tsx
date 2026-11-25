@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { HomePageCopy, Language } from '../content/translations';
+import { DashboardPreview } from './DashboardPreview';
 import {
   DEMO_CAPABILITY_RECORDS,
   DEMO_DATA_NOTICE,
@@ -14,6 +15,8 @@ type GuidedDemoProps = {
 
 export function GuidedDemo({ copy, language }: GuidedDemoProps) {
   const [currentStep, setCurrentStep] = useState<number | null>(null);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const startButtonRef = useRef<HTMLButtonElement>(null);
   const activeStepIndex =
     currentStep !== null && currentStep < DEMO_CAPABILITY_RECORDS.length
       ? currentStep
@@ -24,6 +27,16 @@ export function GuidedDemo({ copy, language }: GuidedDemoProps) {
 
   if (activeStepIndex !== null && !activeCapability) {
     throw new Error(`Missing demo capability for step ${activeStepIndex}.`);
+  }
+
+  function startDemo() {
+    setCurrentStep(0);
+    setIsDashboardOpen(true);
+  }
+
+  function closeDashboard() {
+    setIsDashboardOpen(false);
+    startButtonRef.current?.focus();
   }
 
   function showNextStep() {
@@ -40,6 +53,7 @@ export function GuidedDemo({ copy, language }: GuidedDemoProps) {
 
   function restartDemo() {
     setCurrentStep(null);
+    setIsDashboardOpen(false);
   }
 
   return (
@@ -52,9 +66,10 @@ export function GuidedDemo({ copy, language }: GuidedDemoProps) {
       {currentStep === null && (
         <div className="guided-demo__intro">
           <button
+            ref={startButtonRef}
             className="button button--primary"
             type="button"
-            onClick={() => setCurrentStep(0)}
+            onClick={startDemo}
           >
             {copy.startButton}
           </button>
@@ -132,6 +147,13 @@ export function GuidedDemo({ copy, language }: GuidedDemoProps) {
             >
               {copy.restartButton}
             </button>
+            <button
+              className="button button--secondary"
+              type="button"
+              onClick={() => setIsDashboardOpen(true)}
+            >
+              {copy.dashboard.eyebrow}
+            </button>
           </nav>
         </div>
       )}
@@ -148,6 +170,14 @@ export function GuidedDemo({ copy, language }: GuidedDemoProps) {
             {copy.restartButton}
           </button>
         </div>
+      )}
+
+      {isDashboardOpen && (
+        <DashboardPreview
+          copy={copy.dashboard}
+          language={language}
+          onClose={closeDashboard}
+        />
       )}
     </div>
   );

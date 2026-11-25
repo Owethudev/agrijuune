@@ -50,6 +50,15 @@ test('completes the Home, Services, demo and enquiry journey without a login', a
   await page.getByRole('link', { name: 'Explore the demo' }).click();
   await expect(page).toHaveURL(/#platform-demo$/);
   await page.getByRole('button', { name: 'Start demo' }).click();
+  await expect(
+    page.getByRole('dialog', { name: 'Your Farm Operations Dashboard' }),
+  ).toBeVisible();
+  await page.getByRole('tab', { name: 'Schedule' }).click();
+  await expect(page.getByText(/500h oil & filter service/i)).toBeVisible();
+  await page
+    .getByRole('button', { name: 'Close dashboard preview' })
+    .first()
+    .click();
   await expect(page.getByText('Step 1 of 6')).toBeVisible();
 
   await page
