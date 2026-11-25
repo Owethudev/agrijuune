@@ -24,8 +24,11 @@ publishable key. A production deployment is live, and the `/team/sign-in`
 route displays an enabled form. On 25 November, the Supabase Auth Site
 URL was corrected to the canonical production origin after an invite
 redirected to a stale Vercel alias that returned 404. Staging acceptance
-tests also remain outstanding. Do not treat hosted team sign-in as fully
-accepted until app authentication and staging checks pass.
+tests also remain outstanding. The team sign-in page now supports a
+password setup/reset flow for invited users using the existing
+`/team/sign-in` redirect. This does not enable public signup. Do not
+treat hosted team sign-in as fully accepted until app authentication
+and staging checks pass.
 
 ## Initial setup
 
@@ -45,7 +48,9 @@ accepted until app authentication and staging checks pass.
    These settings are not applied by the database migration.
 4. Invite the seeded admin email from the Supabase Auth dashboard. The
    production invitation was accepted on 25 November, but app sign-in
-   still needs verification at `/team/sign-in`. Never reuse a password
+   still needs verification at `/team/sign-in`. If the invitee has not
+   set a password, choose **Need to set or reset your password?** and
+   follow the secure link sent by Supabase Auth. Never reuse a password
    shared in chat or store credentials in this repository.
 5. After signing in, an admin can add team-role email addresses in the
    workspace. Then invite each same address through Supabase Auth.

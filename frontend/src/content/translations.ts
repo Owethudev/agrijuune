@@ -29,6 +29,8 @@ export type TeamCopy = {
   addMemberError: string;
   addMemberSuccess: string;
   adminRole: string;
+  backToSignIn: string;
+  confirmPasswordLabel: string;
   emailLabel: string;
   invitationInstructions: string;
   loadMembersError: string;
@@ -53,6 +55,22 @@ export type TeamCopy = {
   teamRole: string;
   passwordLabel: string;
   authError: string;
+  passwordMinimumLength: string;
+  passwordMismatch: string;
+  passwordResetDescription: string;
+  passwordResetLink: string;
+  passwordResetRequestError: string;
+  passwordResetRequestSuccess: string;
+  passwordResetSend: string;
+  passwordResetSending: string;
+  passwordResetTitle: string;
+  passwordUpdateButton: string;
+  passwordUpdateDescription: string;
+  passwordUpdateError: string;
+  passwordUpdateLinkExpired: string;
+  passwordUpdateSuccess: string;
+  passwordUpdateTitle: string;
+  passwordUpdating: string;
 };
 
 export type HomeDivisionCopy = {
@@ -339,6 +357,8 @@ export const translations: Record<Language, LanguageContent> = {
       addMemberSuccess:
         'Team access added. Invite this email from Supabase Auth to let them sign in.',
       adminRole: 'Administrator',
+      backToSignIn: 'Back to team sign in',
+      confirmPasswordLabel: 'Confirm new password',
       emailLabel: 'Email address',
       invitationInstructions:
         'Add a team email here, then invite that same address from Supabase Auth. Only invited accounts with a matching role can sign in.',
@@ -368,6 +388,29 @@ export const translations: Record<Language, LanguageContent> = {
       teamRole: 'Team member',
       passwordLabel: 'Password',
       authError: 'Sign-in failed. Check your details and try again.',
+      passwordMinimumLength: 'Password must be at least 12 characters.',
+      passwordMismatch: 'Passwords do not match.',
+      passwordResetDescription:
+        'Enter the email address for your invited team account. If an account matches, we will send a secure password link.',
+      passwordResetLink: 'Need to set or reset your password?',
+      passwordResetRequestError:
+        'The password link could not be sent. Try again later.',
+      passwordResetRequestSuccess:
+        'If an invited account matches that email, a password link has been sent.',
+      passwordResetSend: 'Send password link',
+      passwordResetSending: 'Sending…',
+      passwordResetTitle: 'Set or reset your team password',
+      passwordUpdateButton: 'Save password',
+      passwordUpdateDescription:
+        'Choose a new password with at least 12 characters.',
+      passwordUpdateError:
+        'The password could not be saved. Request a new link and try again.',
+      passwordUpdateLinkExpired:
+        'This password link is invalid or expired. Request a new one to continue.',
+      passwordUpdateSuccess:
+        'Password saved. Open the team portal to continue.',
+      passwordUpdateTitle: 'Set your team password',
+      passwordUpdating: 'Saving…',
     },
     home: {
       hero: {
@@ -760,6 +803,8 @@ export const translations: Record<Language, LanguageContent> = {
       addMemberSuccess:
         'Spantoegang is bygevoeg. Nooi hierdie e-posadres via Supabase Auth sodat hulle kan aanmeld.',
       adminRole: 'Administrateur',
+      backToSignIn: 'Terug na span-aanmelding',
+      confirmPasswordLabel: 'Bevestig nuwe wagwoord',
       emailLabel: 'E-posadres',
       invitationInstructions:
         'Voeg eers ’n span-e-posadres hier by en nooi dan dieselfde adres via Supabase Auth. Slegs genooide rekeninge met ’n ooreenstemmende rol kan aanmeld.',
@@ -792,6 +837,30 @@ export const translations: Record<Language, LanguageContent> = {
       passwordLabel: 'Wagwoord',
       authError:
         'Aanmelding het misluk. Kontroleer jou besonderhede en probeer weer.',
+      passwordMinimumLength:
+        'Die wagwoord moet minstens 12 karakters lank wees.',
+      passwordMismatch: 'Wagwoorde stem nie ooreen nie.',
+      passwordResetDescription:
+        'Voer die e-posadres van jou genooide spanrekening in. Indien ’n rekening daarmee ooreenstem, stuur ons ’n veilige wagwoordskakel.',
+      passwordResetLink: 'Moet jy jou wagwoord stel of terugstel?',
+      passwordResetRequestError:
+        'Die wagwoordskakel kon nie gestuur word nie. Probeer later weer.',
+      passwordResetRequestSuccess:
+        'Indien ’n genooide rekening met daardie e-posadres bestaan, is ’n wagwoordskakel gestuur.',
+      passwordResetSend: 'Stuur wagwoordskakel',
+      passwordResetSending: 'Stuur tans…',
+      passwordResetTitle: 'Stel of herstel jou spanwagwoord',
+      passwordUpdateButton: 'Stoor wagwoord',
+      passwordUpdateDescription:
+        'Kies ’n nuwe wagwoord van minstens 12 karakters.',
+      passwordUpdateError:
+        'Die wagwoord kon nie gestoor word nie. Vra ’n nuwe skakel aan en probeer weer.',
+      passwordUpdateLinkExpired:
+        'Hierdie wagwoordskakel is ongeldig of het verval. Vra ’n nuwe een aan om voort te gaan.',
+      passwordUpdateSuccess:
+        'Wagwoord gestoor. Maak die spanportaal oop om voort te gaan.',
+      passwordUpdateTitle: 'Stel jou spanwagwoord',
+      passwordUpdating: 'Stoor tans…',
     },
     home: {
       hero: {

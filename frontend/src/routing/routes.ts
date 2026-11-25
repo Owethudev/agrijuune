@@ -13,6 +13,21 @@ export const teamPaths = {
   portal: '/team',
 } as const;
 
+export function isTeamAuthCallbackUrl(
+  location: Pick<Location, 'hash' | 'search'>,
+) {
+  const hashType = new URLSearchParams(location.hash.slice(1)).get('type');
+  const search = new URLSearchParams(location.search);
+  const authType = hashType ?? search.get('type');
+
+  return (
+    authType === 'invite' ||
+    authType === 'recovery' ||
+    search.has('code') ||
+    search.has('error')
+  );
+}
+
 export type AppPath = RoutePath | (typeof teamPaths)[keyof typeof teamPaths];
 
 export function normalizePath(pathname: string) {
