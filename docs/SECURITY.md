@@ -13,9 +13,11 @@ The responsible-party name is Agrijuune. The notice still has
 placeholders for the registered business name, business address and
 Information Officer. The owner set seven-day retention for database
 records from submission and a maximum seven-day backup-retention target.
-The product owner confirms that the Supabase backup setting is configured
-and verified; this work has not independently inspected the setting.
-The application purge is not implemented or verified.
+The Supabase dashboard was checked on 2026-11-25 and shows that
+production and staging use the Free Plan, which does not include project
+backups; the backup-retention target is not met. The application purge
+command exists, but no schedule is configured and it has not been
+verified against a database.
 Each party will retain their email copies as communication records; the
 application purge will not remove those mailbox copies. Brevo
 message/log retention and exact provider location/transfer disclosures
@@ -180,8 +182,8 @@ Before launch:
 -   Obtain and record any required consent or acknowledgement
     accurately; do not use a checkbox as a substitute for identifying
     the lawful basis.
--   Implement and verify the seven-day database purge and backup-retention
-    target before collection.
+-   Schedule and verify the seven-day database purge, and meet the
+    backup-retention target before collection.
 -   Restrict access to enquiry records to authorised personnel.
 -   Establish a process for access, correction, objection and deletion
     requests where applicable.

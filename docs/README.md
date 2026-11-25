@@ -52,9 +52,11 @@ owner-selected lawful-basis grounds are recorded in the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
 The notice has placeholders for the registered business name, business
 address and Information Officer. The owner set seven-day database
-retention and confirmed that the Supabase backup-retention setting is
-configured and verified for a seven-day maximum. The application purge
-is not implemented. Exact provider locations/transfers and Brevo
+retention. The Supabase dashboard checked on 2026-11-25 shows that
+production and staging use the Free Plan, which does not include project
+backups; the seven-day backup-retention target is not met. A purge
+command exists but is not scheduled or verified. Exact provider
+locations/transfers and Brevo
 message/log retention remain pending.
 Sender/recipient routing is approved, but the Brevo adapter is not
 implemented or tested. Do not publish the notice or collect personal

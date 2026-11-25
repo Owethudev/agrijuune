@@ -5,8 +5,11 @@
 **Status:** The owner authorized and the prototype schema was applied to
 live Supabase on 2026-11-24. This is schema-only approval; collecting
 enquiry data remains blocked by the privacy and deletion prerequisites
-below. The team-membership migration has not been applied to a hosted
-project.
+below. The team-membership migration was applied to both production and
+the confirmed non-production `juune-phase2-test` project on 2026-11-24.
+Hosted Auth is configured for invite-only access, but production team
+sign-in is not ready until the Vercel Vite Supabase variables are set and
+staging acceptance tests pass.
 
 ## 1. Database scope
 
@@ -290,18 +293,19 @@ rollback.
 
 The product owner set a seven-day retention period for enquiry database
 records, starting at submission, and a maximum seven-day target for
-stored backups. The product owner confirms that the Supabase backup
-setting is configured and verified for this target; this work has not
-independently inspected the setting. The backend now provides
+stored backups. The Supabase dashboard was checked on 2026-11-25: both
+production and staging use the Free Plan, which does not include project
+backups. The backup-retention target is therefore not met; the earlier
+owner-reported confirmation was contradicted by the dashboard. The backend provides
 `npm run purge:expired-enquiries --workspace backend`, which deletes
 records whose `created_at` is earlier than the seven-day cutoff and
 reports only the deleted count. It also requires the explicit
 `ENQUIRY_RETENTION_PURGE_ENABLED=true` opt-in. The command has mocked
-tests, but no
-scheduled execution is configured and the retention process has not
-been verified in a database. Keep collection disabled until an
-appropriate daily schedule and verification process are configured.
-This retention decision alone does not authorize collection.
+tests, but no scheduled execution is configured and the retention
+process has not been verified in a database. Keep collection disabled
+until an appropriate daily schedule and verification process are
+configured and adequate backup retention is available. This retention
+decision alone does not authorize collection.
 
 The idempotency migration is still unapplied to databases. Apply and
 verify it through the reviewed migration process before enabling the
@@ -314,8 +318,9 @@ Before launch, define and verify:
 -   The daily schedule and monitoring for
     `purge:expired-enquiries`, including verification that it succeeds.
 -   How deletion requests are assessed and actioned.
--   Whether backups retain deleted records and whether the seven-day
-    maximum is enforced by the configured provider.
+-   Whether backups retain deleted records and how the seven-day
+    maximum will be enforced once an eligible plan or alternative is
+    selected.
 -   How database backups and restoration are tested.
 -   Whether exports are needed and how they are protected.
 

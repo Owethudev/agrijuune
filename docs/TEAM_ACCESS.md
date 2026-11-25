@@ -5,7 +5,7 @@ use **Team sign in** in the menu to reach the private team workspace.
 Supabase Auth handles passwords and sessions; `team_members` stores the
 allow-listed email and its `admin` or `team` role.
 
-## Current hosted rollout status (2026-11-24)
+## Current hosted rollout status (2026-11-25)
 
 The team-members migration has been applied to the production
 `agrijuune` and non-production `juune-phase2-test` Supabase projects.
@@ -16,10 +16,13 @@ Email authentication and email confirmation are enabled in both hosted
 projects. Public signups are disabled and the minimum password length is
 12 characters. Production Auth uses `https://agrijuune.vercel.app/` as
 its site URL and allows that URL plus `/team/sign-in` as redirects. The
-Vercel project still lacks the Vite-specific production variables
-`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, so the deployed sign-in
-UI is not fully configured. Do not treat hosted team sign-in as ready
-until those variables are set and staging acceptance tests pass.
+Vercel Production environment now has `VITE_SUPABASE_URL` and
+`VITE_SUPABASE_ANON_KEY`, using the production project URL and public
+publishable key. These variables only take effect in a new deployment;
+the currently served deployment has not yet been redeployed or verified.
+Staging acceptance tests also remain outstanding. Do not treat hosted
+team sign-in as ready until a new production deployment and sign-in
+acceptance test are verified.
 
 ## Initial setup
 
@@ -28,9 +31,11 @@ until those variables are set and staging acceptance tests pass.
    RLS policies and seeds the admin role for `jezvestptyltd@gmail.com`.
    It does not create an Auth user or set a password. For the current
    rollout, it has been applied to production and `juune-phase2-test`.
-2. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the Vercel
-   Production environment. The anon/publishable key is public; never put
-   the service-role/secret key or a password in a `VITE_*` variable.
+2. The production `VITE_SUPABASE_URL` and
+   `VITE_SUPABASE_ANON_KEY` variables have been added in Vercel. Trigger
+   a new deployment and verify the served sign-in flow. The
+   anon/publishable key is public; never put the service-role/secret key
+   or a password in a `VITE_*` variable.
 3. Keep hosted Auth invite-only, with email confirmations enabled and a
    minimum 12-character password. These settings are applied in both
    hosted projects. Production's site URL and team sign-in redirect are
@@ -48,14 +53,15 @@ until those variables are set and staging acceptance tests pass.
    queries, but does not revoke an existing Supabase Auth session. For
    immediate account termination, also disable the user in the Supabase
    Auth dashboard. This workspace currently contains no enquiry access or
-   other private application data.
+   other private application data. Public signups are disabled in both
+   hosted projects; invite-only access is configured at Supabase Auth.
 
 The Supabase Auth user and `team_members` row must use the same email.
 Email addresses are normalized to lowercase. The application allows
-only listed team members into the workspace, but hosted public signup
-is currently enabled and must be disabled before the rollout is
-considered invite-only. A valid password alone does not grant workspace
-access.
+only listed team members into the workspace, and hosted public signup
+is disabled in both projects. A valid password alone does not grant workspace access. Production
+sign-in remains unverified until a new Vercel deployment uses the
+variables and the sign-in flow is tested.
 
 ## Authorization boundary
 

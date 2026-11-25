@@ -132,9 +132,11 @@ both documented lawful-basis grounds according to the enquiry context;
 see the [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md)
 and [Privacy Notice](PRIVACY_NOTICE.md). The notice still contains
 placeholders for the registered business name, business address and
-Information Officer. The owner set seven-day database retention and
-confirmed that Supabase backup retention is configured and verified for
-a seven-day maximum; the database purge is not implemented. Exact
+Information Officer. the owner set seven-day database retention. The Supabase dashboard was
+checked on 2026-11-25 and shows that production and staging use the Free
+Plan, which does not include project backups; the seven-day
+backup-retention target is not met. The database purge command exists
+but is not scheduled or verified. Exact
 provider locations/transfers and Brevo message/log retention are
 pending. Do not publish the notice or
 enable an enquiry form or endpoint that collects personal information
@@ -204,9 +206,10 @@ than assumptions:
     The notice's registered-name, address and Information Officer
     placeholders remain. The owner specified deletion of database
     records containing submitted form information after seven days and
-    a maximum seven-day backup-retention target, which the owner
-    confirms is configured and verified. The purge must be implemented
-    and verified. Each party will retain email copies as communication
+    a maximum seven-day backup-retention target. The Supabase dashboard
+    shows the current Free Plan does not include project backups, and
+    the purge command is not scheduled or verified. Each party will
+    retain email copies as communication
     records; Brevo message/log retention and exact provider
     location/transfer disclosures remain pending.
 -   Brand logo, photography, video and final design assets.
