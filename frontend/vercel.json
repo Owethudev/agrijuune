@@ -13,6 +13,10 @@
       "destination": "/faq/index.html"
     },
     {
+      "source": "/privacy",
+      "destination": "/privacy/index.html"
+    },
+    {
       "source": "/contact",
       "destination": "/about/index.html"
     },

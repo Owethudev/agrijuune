@@ -38,6 +38,11 @@ const publicPages = [
     heading: 'Frequently asked questions',
     documentTitle: 'Frequently asked questions | Agrijuune',
   },
+  {
+    path: '/privacy',
+    heading: 'Privacy and demo data',
+    documentTitle: 'Privacy and demo data | Agrijuune',
+  },
 ];
 
 beforeEach(() => {
@@ -63,6 +68,10 @@ describe('public application shell', () => {
         name: 'Practical farm support, in one place.',
       }),
     ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Privacy' })).toHaveAttribute(
+      'href',
+      '/privacy',
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Menu' }));
     expect(screen.getByRole('link', { name: 'Team sign in' })).toHaveAttribute(
@@ -80,6 +89,22 @@ describe('public application shell', () => {
     ).toBeInTheDocument();
     expect(screen.getByLabelText('Email address')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
+  });
+
+  it('explains the demo-only data rules and provides the privacy contact', () => {
+    window.history.replaceState(null, '', '/privacy');
+    render(<App />);
+
+    expect(
+      screen.getByText(/not currently accepting public enquiries/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/do not enter real names/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'jezvestptyltd@gmail.com' }),
+    ).toHaveAttribute('href', 'mailto:jezvestptyltd@gmail.com');
+    expect(screen.getByText(/not legal advice/i)).toBeInTheDocument();
   });
 
   it('offers sign-in when a signed-out visitor opens the team portal', () => {
@@ -174,7 +199,7 @@ describe('public application shell', () => {
       screen.getByRole('link', { name: 'Explore the demo' }),
     ).toHaveAttribute('href', '#platform-demo');
     expect(
-      screen.getByRole('link', { name: 'Express interest' }),
+      screen.getByRole('link', { name: 'Project information' }),
     ).toHaveAttribute('href', '#interest');
     expect(document.querySelector('#platform-demo')).toBeInTheDocument();
     expect(
@@ -185,7 +210,7 @@ describe('public application shell', () => {
     ).toBeInTheDocument();
     expect(document.querySelector('#interest')).toBeInTheDocument();
     expect(
-      screen.getByText(/This page does not collect personal information/),
+      screen.getByText(/Do not enter real personal, farm or business information/i),
     ).toBeInTheDocument();
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
@@ -214,16 +239,18 @@ describe('public application shell', () => {
     expect(
       screen.getByText(/not represented as food-safe sanitation/i),
     ).toBeInTheDocument();
-    const interestLink = screen.getByRole('link', { name: 'Express interest' });
+    const interestLink = screen.getByRole('link', {
+      name: 'Project information',
+    });
     expect(interestLink).toHaveAttribute('href', '#services-enquiry');
     expect(document.querySelector('#services-enquiry')).toBeInTheDocument();
     expect(
-      screen.getByText(/does not collect personal information/i),
+      screen.getByText(/No form is available. Do not send real personal/i),
     ).toBeInTheDocument();
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
 
-  it('shows only confirmed About details and leaves contact as a placeholder', () => {
+  it('identifies the About page as a prototype with no business contact', () => {
     window.history.replaceState(null, '', '/about');
     render(<App />);
 
@@ -237,10 +264,10 @@ describe('public application shell', () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/business email address is not available yet/i),
+      screen.getByText(/does not accept public business enquiries/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/available on the Home and Services pages/i),
+      screen.getByText(/no public enquiry form is available/i),
     ).toBeInTheDocument();
     expect(
       document.querySelector('a[href^="mailto:"]'),
@@ -259,7 +286,9 @@ describe('public application shell', () => {
     expect(
       screen.getByText(/not mechanical repair, fault diagnosis/i),
     ).toBeInTheDocument();
-    expect(screen.getByText(/When the form is enabled/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/There is no public enquiry form/i),
+    ).toBeInTheDocument();
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
 
@@ -278,7 +307,7 @@ describe('public application shell', () => {
       screen.getByText('Wat ontwikkel Agrijuune?').closest('summary'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Wanneer die vorm geaktiveer is/i),
+      screen.getByText(/Hierdie skoolprojekprototipe aanvaar nie openbare navrae/i),
     ).toBeInTheDocument();
   });
 
@@ -320,7 +349,7 @@ describe('public application shell', () => {
     ).toHaveFocus();
   });
 
-  it('localizes the Services page and its contact placeholders into Afrikaans', () => {
+  it('localizes the Services page and demo-data notice into Afrikaans', () => {
     window.history.replaceState(null, '', '/services');
     render(<App />);
     fireEvent.change(screen.getByRole('combobox', { name: 'Language' }), {
@@ -338,7 +367,7 @@ describe('public application shell', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        /hierdie bladsy versamel nie persoonlike inligting nie/i,
+        /Geen vorm is beskikbaar nie. Moenie regte persoonlike/i,
       ),
     ).toBeInTheDocument();
   });

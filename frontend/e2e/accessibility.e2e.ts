@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const publicRoutes = ['/', '/services', '/about', '/faq'] as const;
+const publicRoutes = ['/', '/services', '/about', '/faq', '/privacy'] as const;
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
 test('/team/sign-in has no automated WCAG 2.2 AA violations', async ({
@@ -37,7 +37,7 @@ test('menu, demo and enquiry validation states remain accessible', async ({
   await page.getByRole('button', { name: 'Start demo' }).focus();
   await page.keyboard.press('Enter');
   await page
-    .getByRole('heading', { name: 'Express interest' })
+    .getByRole('heading', { name: 'Demo and data limits' })
     .scrollIntoViewIfNeeded();
 
   await page.getByLabel('Your name').fill('Test Visitor');

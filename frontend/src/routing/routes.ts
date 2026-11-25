@@ -3,6 +3,7 @@ export const routes = [
   { path: '/services' },
   { path: '/about' },
   { path: '/faq' },
+  { path: '/privacy' },
 ] as const;
 
 export type RoutePath = (typeof routes)[number]['path'];

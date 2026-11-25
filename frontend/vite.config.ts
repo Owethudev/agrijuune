@@ -14,6 +14,7 @@ export default defineConfig({
         services: resolve(frontendRoot, 'services/index.html'),
         about: resolve(frontendRoot, 'about/index.html'),
         faq: resolve(frontendRoot, 'faq/index.html'),
+        privacy: resolve(frontendRoot, 'privacy/index.html'),
       },
     },
   },

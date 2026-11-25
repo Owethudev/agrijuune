@@ -144,3 +144,25 @@ has yet been verified against production. The launch blockers above
 remain open;
 the idempotency migration also remains unapplied. This code change does
 not authorize collection or publication.
+
+## Product owner scope update (2026-11-25)
+
+The product owner clarified that the current public deployment is a
+school-project prototype, not a live customer enquiry service. This
+supersedes the earlier plan to accept public commercial enquiries for
+the current deployment. Keep the public enquiry form and enquiry email
+notifications disabled; use fictional demo content only.
+
+The site now provides a concise demo-data notice at `/privacy`. It
+discloses invite-only Supabase team authentication and possible hosting
+provider technical logs, and directs project privacy questions to the
+owner-provided email. The notice does not claim legal compliance or that
+school-project status exempts personal-data processing from applicable
+law. Team authentication can still process account data.
+
+The production purge and backup limitations remain accurately disclosed.
+Provider log locations/retention and a successful purge run are not
+verified; these are not represented as completed. If public personal-data
+collection is proposed later, the owner must re-evaluate the data flow,
+legal requirements, provider terms, deletion and recovery before enabling
+it. This scope update does not enable enquiry collection or email.

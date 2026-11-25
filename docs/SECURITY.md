@@ -5,35 +5,22 @@ invite-only team access\
 **Status:** Engineering baseline; not a legal certification or
 substitute for legal advice
 
-**Current enquiry gate:** The product owner approved the enquiry field
-set, confirmed responsibility for enquiry data, approved the notice text
-and selected both documented lawful-basis grounds according to enquiry
-context; see the [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-The responsible-party name is Agrijuune. The notice still has
-placeholders for the registered business name, business address and
-Information Officer. The owner set seven-day retention for database
-records from submission and a maximum seven-day backup-retention target.
-The Supabase dashboard was checked on 2026-11-25 and shows that
-production and staging use the Free Plan, which does not include project
-backups; the backup-retention target is not met. One active production
-`pg_cron` job now runs the seven-day purge daily at 02:00 GMT. Its
-configuration and deletion command are verified in `cron.job`, but a
-successful scheduled execution has not yet been verified. Daily runs
-may occur up to 24 hours after the seven-day cutoff; staging has no
-purge schedule.
-Each party will retain their email copies as communication records; the
-application purge will not remove those mailbox copies. Brevo
-message/log retention and exact provider location/transfer disclosures
-remain pending. Brevo is selected, and the
-product owner reports that `BREVO_API_KEY`, `EMAIL_FROM` and
-`BUSINESS_EMAIL` are configured in the deployed backend. They approved
-sender/recipient routing. The server-only adapter is implemented and
-unit-tested, and the enquiry service now persists notification outcomes;
-the public route remains unwired and no email has been sent. The
-backend-only `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED` setting defaults to
-`false`. Do not collect personal information or enable notifications
-until the remaining privacy and deletion decisions are actionable. No
-non-essential analytics is approved at launch.
+**Current data boundary:** The owner clarified on 2026-11-25 that the
+public deployment is a school-project prototype, not a live customer
+enquiry service. Public enquiry collection and enquiry email
+notifications remain disabled; use fictional demo content only. The
+public `/privacy` page describes this limited scope and invite-only
+Supabase team authentication. This scope does not claim legal compliance
+or exempt any personal-data processing from applicable law.
+
+The production seven-day enquiry purge is configured for 02:00 GMT but
+its first scheduled execution has not yet been verified. The current
+Supabase Free Plan does not include project backups, and provider log
+locations and retention periods have not been independently confirmed.
+Do not enable public data collection or notifications without a new
+owner-approved review of actual data flows and safeguards. See the
+[enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md)
+for the scope change and prior design decisions.
 
 ## 1. Security objectives
 
@@ -168,34 +155,27 @@ and must be in place before an enquiry endpoint is exposed.
 Do not invent rate-limit thresholds as permanent policy; choose and
 document values during deployment.
 
-## 6. Personal information and POPIA readiness
+## 6. Future public personal-data collection
 
-The enquiry form may collect names, email addresses, phone numbers, farm
-names, locations and service interests. Collect only what is necessary
-for responding to the enquiry.
+The current school-project deployment does not accept public enquiries.
+This section applies only if a future release proposes collecting
+personal information:
 
-Before launch:
-
--   Identify and document the responsible party and contact details.
--   Complete the owner-approved notice's registered-name, address and
-    Information Officer placeholders before publication.
--   Record the owner's selected lawful-basis grounds in the
-    [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md);
-    this is not an independent legal assessment.
+-   Review applicable privacy requirements and the actual data flow;
+    do not assume school-project status is an exemption.
+-   Identify an accurate project contact and explain the actual purpose
+    and providers to visitors.
 -   Obtain and record any required consent or acknowledgement
     accurately; do not use a checkbox as a substitute for identifying
     the lawful basis.
--   Schedule and verify the seven-day database purge, and meet the
-    backup-retention target before collection.
--   Restrict access to enquiry records to authorised personnel.
+-   Verify deletion, retention, access controls, provider processing and
+    recovery before enabling collection.
 -   Establish a process for access, correction, objection and deletion
     requests where applicable.
--   Verify provider retention, locations and cross-border safeguards;
-    keep exact disclosures pending until confirmed.
--   Avoid collecting sensitive personal information in the enquiry form.
+-   Avoid collecting sensitive personal information.
 
-Do not invent the privacy notice version, retention period or legal
-contact details. They must be approved by the business.
+Do not invent privacy details or claim legal compliance without
+verification.
 
 ## 7. Email notification
 

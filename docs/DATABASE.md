@@ -3,13 +3,13 @@
 **Database:** Supabase PostgreSQL\
 **Scope:** First-release enquiry capture and invite-only team access\
 **Status:** The owner authorized and the prototype schema was applied to
-live Supabase on 2026-11-24. This is schema-only approval; collecting
-enquiry data remains blocked by the privacy and deletion prerequisites
-below. The team-membership migration was applied to both production and
-the confirmed non-production `juune-phase2-test` project on 2026-11-24.
-Hosted Auth is configured for invite-only access, but production team
-sign-in is not ready until the Vercel Vite Supabase variables are set and
-staging acceptance tests pass.
+live Supabase on 2026-11-24. The current public deployment is an
+educational prototype and does not accept public enquiries. The
+team-membership migration was applied to both production and the
+confirmed non-production `juune-phase2-test` project on 2026-11-24.
+Hosted Auth is invite-only; invited team accounts still involve
+authentication data. The earlier public-enquiry schema remains for a
+possible future release and must not be enabled without a new review.
 
 ## 1. Database scope
 
@@ -64,10 +64,10 @@ records are created by the test suite.
 
 The following is the approved prototype schema baseline. The owner
 authorized applying it to live Supabase, but this does not authorize
-collecting personal information. The required/optional contract below
-matches the approved form. The owner-approved Privacy Notice and
-lawful-basis choices are recorded, but its publication placeholders and
-the deletion/backup controls remain prerequisites for collection.
+collecting public enquiry information. The required/optional contract
+below is retained for a possible future feature. The current public
+deployment is an educational prototype; invite-only team authentication
+is the only application data flow that uses personal account information.
 
   ----------------------------------------------------------------------------------------
   Column                        Suggested type                Required Notes
