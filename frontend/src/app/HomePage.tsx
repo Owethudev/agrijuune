@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { Ref } from 'react';
 import type { HomePageCopy, Language } from '../content/translations';
 import { GuidedDemo } from '../demo/GuidedDemo';
@@ -28,16 +27,6 @@ function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
       copy: copy.slides.cropWork,
     },
   ];
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const activeSlide = slides[activeSlideIndex];
-
-  function moveSlide(direction: -1 | 1) {
-    setActiveSlideIndex(
-      (currentIndex) =>
-        (currentIndex + direction + slides.length) % slides.length,
-    );
-  }
 
   const repeatedSlides = [
     ...slides.map((s) => ({ ...s, isDuplicate: false })),
@@ -59,19 +48,15 @@ function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
       </div>
 
       <div className="home-gallery__carousel">
-        <div
-          className={`home-gallery__conveyor${isPaused ? ' home-gallery__conveyor--paused' : ''}`}
-          aria-live="off"
-        >
+        <div className="home-gallery__conveyor" aria-live="off">
           <div className="home-gallery__conveyor-track">
             {repeatedSlides.map((slide, index) => {
               const originalIndex = index % slides.length;
-              const isActive = activeSlideIndex === originalIndex;
 
               return (
                 <figure
                   key={`${slide.image}-${index}`}
-                  className={`home-gallery__card home-gallery__frame${isActive ? ' home-gallery__card--active' : ''}`}
+                  className="home-gallery__card home-gallery__frame"
                   role={slide.isDuplicate ? undefined : 'group'}
                   aria-roledescription={
                     slide.isDuplicate ? undefined : copy.slideRoleDescription
@@ -97,61 +82,6 @@ function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
               );
             })}
           </div>
-        </div>
-
-        <div
-          className="home-gallery__controls"
-          role="group"
-          aria-label={copy.controlsLabel}
-        >
-          <button
-            className="button button--secondary"
-            type="button"
-            onClick={() => moveSlide(-1)}
-          >
-            {copy.previousLabel}
-          </button>
-          <button
-            className="button button--secondary"
-            type="button"
-            onClick={() => setIsPaused((paused) => !paused)}
-            aria-pressed={isPaused}
-          >
-            {isPaused ? copy.playLabel : copy.pauseLabel}
-          </button>
-          <p
-            className="home-gallery__status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {copy.slideLabel} {activeSlideIndex + 1} {copy.ofLabel}{' '}
-            {slides.length}: {activeSlide.copy.title}
-          </p>
-          <button
-            className="button button--secondary"
-            type="button"
-            onClick={() => moveSlide(1)}
-          >
-            {copy.nextLabel}
-          </button>
-        </div>
-
-        <div
-          className="home-gallery__selectors"
-          role="group"
-          aria-label={copy.slideSelectorLabel}
-        >
-          {slides.map((slide, index) => (
-            <button
-              key={slide.image}
-              type="button"
-              aria-label={`${copy.showSlideLabel} ${index + 1}`}
-              aria-pressed={activeSlideIndex === index}
-              onClick={() => setActiveSlideIndex(index)}
-            >
-              <span aria-hidden="true" />
-            </button>
-          ))}
         </div>
       </div>
     </section>

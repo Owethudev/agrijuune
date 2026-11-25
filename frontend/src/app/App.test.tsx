@@ -162,7 +162,7 @@ describe('public application shell', () => {
     },
   );
 
-  it('browses the homepage photo carousel conveyor belt and shows the South Africa map', () => {
+  it('displays the nonstop photo conveyor belt and shows the South Africa map', () => {
     render(<App />);
 
     const carousel = screen.getByRole('region', {
@@ -187,30 +187,15 @@ describe('public application shell', () => {
       'Farm machinery working in a cultivated crop field.',
     );
 
-    const pauseButton = within(carousel).getByRole('button', {
-      name: 'Pause conveyor belt',
-    });
-    fireEvent.click(pauseButton);
     expect(
-      within(carousel).getByRole('button', { name: 'Start conveyor belt' }),
-    ).toBeInTheDocument();
-
-    fireEvent.click(within(carousel).getByRole('button', { name: 'Next' }));
+      within(carousel).queryByRole('button', { name: 'Next' }),
+    ).not.toBeInTheDocument();
     expect(
-      within(carousel).getByText(/Slide 2 of 3: Ready for the next job/i),
-    ).toBeInTheDocument();
-
-    fireEvent.click(
-      within(carousel).getByRole('button', { name: 'Show photo 3' }),
-    );
+      within(carousel).queryByRole('button', { name: 'Previous' }),
+    ).not.toBeInTheDocument();
     expect(
-      within(carousel).getByText(/Slide 3 of 3: A season of work/i),
-    ).toBeInTheDocument();
-
-    fireEvent.click(within(carousel).getByRole('button', { name: 'Next' }));
-    expect(
-      within(carousel).getByText(/Slide 1 of 3: Across the field/i),
-    ).toBeInTheDocument();
+      within(carousel).queryByRole('button', { name: /pause/i }),
+    ).not.toBeInTheDocument();
 
     expect(
       screen.getByRole('img', {
