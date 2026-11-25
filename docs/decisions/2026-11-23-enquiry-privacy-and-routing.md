@@ -132,8 +132,9 @@ behind explicit opt-in flags. The route is not mounted unless
 `ENQUIRY_PRIVACY_GATES_VERIFIED=true` and Supabase is configured. The
 frontend additionally requires `VITE_ENQUIRY_COLLECTION_ENABLED=true`
 and a public HTTPS URL for the completed Privacy Notice. These settings
-remain disabled; no production environment was changed, no enquiry data
-was inserted and no email was sent.
+remain disabled; no production enquiry-collection or notification
+settings were enabled, no enquiry data was inserted and no email was
+sent.
 
 The backend provides a one-shot seven-day purge command,
 `npm run purge:expired-enquiries --workspace backend`, which requires

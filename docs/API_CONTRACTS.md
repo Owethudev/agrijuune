@@ -196,8 +196,9 @@ before enabling the route. All gates default to disabled. The frontend additiona
 `VITE_ENQUIRY_COLLECTION_ENABLED=true` and a configured HTTPS
 `VITE_ENQUIRY_PRIVACY_NOTICE_URL`. These are deployment gates, not
 evidence that the outstanding privacy work is complete. No production
-settings have been changed, no enquiry records have been inserted and
-no email has been sent. Brevo notifications additionally require
+enquiry-collection or notification settings have been enabled, no
+enquiry records have been inserted and no email has been sent. Brevo
+notifications additionally require
 `ENQUIRY_EMAIL_NOTIFICATIONS_ENABLED=true` and complete server-side
 Brevo configuration. No non-essential analytics is approved.
 

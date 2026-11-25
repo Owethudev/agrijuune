@@ -83,10 +83,10 @@ role check protects it.
 Configure production and preview environments deliberately. Use the
 production Supabase project only for the production deployment, and
 never place private credentials in preview builds. Public signup is
-disabled and production redirects are configured, but the production
-Vite variables and staging acceptance tests remain outstanding. Test
-admin and team-role access against a non-production project before
-considering the rollout complete.
+disabled and production redirects and public Vite variables are
+configured. Staging acceptance tests and a successful invited-user login
+remain outstanding. Test admin and team-role access against a
+non-production project before considering the rollout complete.
 
 The repository's local Supabase config disables signup and requires
 email confirmation. It is local development configuration only.
