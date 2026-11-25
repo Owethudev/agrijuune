@@ -29,6 +29,7 @@ function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
     },
   ];
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const activeSlide = slides[activeSlideIndex];
 
   function moveSlide(direction: -1 | 1) {
@@ -37,6 +38,13 @@ function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
         (currentIndex + direction + slides.length) % slides.length,
     );
   }
+
+  const repeatedSlides = [
+    ...slides.map((s) => ({ ...s, isDuplicate: false })),
+    ...slides.map((s) => ({ ...s, isDuplicate: true })),
+    ...slides.map((s) => ({ ...s, isDuplicate: true })),
+    ...slides.map((s) => ({ ...s, isDuplicate: true })),
+  ];
 
   return (
     <section
@@ -51,23 +59,45 @@ function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
       </div>
 
       <div className="home-gallery__carousel">
-        <figure
-          className="home-gallery__frame"
-          role="group"
-          aria-roledescription={copy.slideRoleDescription}
-          aria-label={`${copy.slideLabel} ${activeSlideIndex + 1} ${copy.ofLabel} ${slides.length}`}
+        <div
+          className={`home-gallery__conveyor${isPaused ? ' home-gallery__conveyor--paused' : ''}`}
+          aria-live="off"
         >
-          <img
-            src={activeSlide.image}
-            alt={activeSlide.copy.alt}
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption className="home-gallery__caption">
-            <h3>{activeSlide.copy.title}</h3>
-            <p>{activeSlide.copy.description}</p>
-          </figcaption>
-        </figure>
+          <div className="home-gallery__conveyor-track">
+            {repeatedSlides.map((slide, index) => {
+              const originalIndex = index % slides.length;
+              const isActive = activeSlideIndex === originalIndex;
+
+              return (
+                <figure
+                  key={`${slide.image}-${index}`}
+                  className={`home-gallery__card home-gallery__frame${isActive ? ' home-gallery__card--active' : ''}`}
+                  role={slide.isDuplicate ? undefined : 'group'}
+                  aria-roledescription={
+                    slide.isDuplicate ? undefined : copy.slideRoleDescription
+                  }
+                  aria-label={
+                    slide.isDuplicate
+                      ? undefined
+                      : `${copy.slideLabel} ${originalIndex + 1} ${copy.ofLabel} ${slides.length}`
+                  }
+                  aria-hidden={slide.isDuplicate ? true : undefined}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.isDuplicate ? '' : slide.copy.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption className="home-gallery__caption">
+                    <h3>{slide.copy.title}</h3>
+                    <p>{slide.copy.description}</p>
+                  </figcaption>
+                </figure>
+              );
+            })}
+          </div>
+        </div>
 
         <div
           className="home-gallery__controls"
@@ -80,6 +110,14 @@ function HomePhotoCarousel({ copy }: { copy: HomePageCopy['gallery'] }) {
             onClick={() => moveSlide(-1)}
           >
             {copy.previousLabel}
+          </button>
+          <button
+            className="button button--secondary"
+            type="button"
+            onClick={() => setIsPaused((paused) => !paused)}
+            aria-pressed={isPaused}
+          >
+            {isPaused ? copy.playLabel : copy.pauseLabel}
           </button>
           <p
             className="home-gallery__status"

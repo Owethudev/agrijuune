@@ -144,6 +144,8 @@ export type HomePageCopy = {
     controlsLabel: string;
     previousLabel: string;
     nextLabel: string;
+    pauseLabel: string;
+    playLabel: string;
     carouselRoleDescription: string;
     slideSelectorLabel: string;
     showSlideLabel: string;
@@ -473,6 +475,8 @@ export const translations: Record<Language, LanguageContent> = {
         controlsLabel: 'Photo carousel controls',
         previousLabel: 'Previous',
         nextLabel: 'Next',
+        pauseLabel: 'Pause conveyor belt',
+        playLabel: 'Start conveyor belt',
         carouselRoleDescription: 'carousel',
         slideSelectorLabel: 'Choose a photo',
         showSlideLabel: 'Show photo',
@@ -924,6 +928,8 @@ export const translations: Record<Language, LanguageContent> = {
         controlsLabel: 'Fotokarouselkontroles',
         previousLabel: 'Vorige',
         nextLabel: 'Volgende',
+        pauseLabel: 'Onderbreek vervoerband',
+        playLabel: 'Begin vervoerband',
         carouselRoleDescription: 'fotokarousel',
         slideSelectorLabel: 'Kies ’n foto',
         showSlideLabel: 'Wys foto',

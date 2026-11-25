@@ -276,18 +276,95 @@
 
 .home-gallery__carousel {
   min-width: 0;
+  position: relative;
 }
 
+.home-gallery__conveyor {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding-block: var(--space-2);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+.home-gallery__conveyor-track {
+  display: flex;
+  gap: var(--space-4);
+  width: max-content;
+  animation: home-gallery-conveyor-left 32s linear infinite;
+  will-change: transform;
+}
+
+@keyframes home-gallery-conveyor-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.home-gallery__conveyor:hover .home-gallery__conveyor-track,
+.home-gallery__conveyor:focus-within .home-gallery__conveyor-track,
+.home-gallery__conveyor--paused .home-gallery__conveyor-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-gallery__conveyor {
+    mask-image: none;
+    -webkit-mask-image: none;
+    overflow-x: auto;
+  }
+
+  .home-gallery__conveyor-track {
+    animation: none;
+  }
+}
+
+.home-gallery__card,
 .home-gallery__frame {
   position: relative;
+  flex: 0 0 320px;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   margin: 0;
   border-radius: var(--radius-lg);
   background: var(--agrijuune-navy);
   box-shadow: var(--elevation-surface);
+  transition:
+    transform var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
 }
 
+@media (min-width: 768px) {
+  .home-gallery__card,
+  .home-gallery__frame {
+    flex: 0 0 380px;
+  }
+}
+
+.home-gallery__card--active {
+  box-shadow:
+    0 0 0 3px var(--agrijuune-red),
+    var(--elevation-surface);
+}
+
+.home-gallery__card::after,
 .home-gallery__frame::after {
   position: absolute;
   inset: 38% 0 0;
@@ -296,6 +373,7 @@
   pointer-events: none;
 }
 
+.home-gallery__card img,
 .home-gallery__frame img {
   display: block;
   width: 100%;
@@ -323,10 +401,11 @@
 
 .home-gallery__controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-1);
-  margin-top: var(--space-2);
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
 }
 
 .home-gallery__controls .button {
