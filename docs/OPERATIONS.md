@@ -2,7 +2,7 @@
 
 **Status:** Partial; monitoring alerts, staging API, backup retention and
 the first scheduled purge execution remain unverified.
-**Last checked:** 25 November 2026
+**Last checked:** 25 November 2026 06:36 UTC
 
 ## Current release state
 
@@ -10,7 +10,7 @@ the first scheduled purge execution remain unverified.
 - Production API health check: `https://agrijuune.onrender.com/api/health`.
 - Production Supabase runs an active `purge-expired-enquiries` job daily
   at 02:00 GMT. It deletes rows older than seven days. The configuration
-  is verified in `cron.job`; as of 25 November 2026 05:21 UTC,
+  is verified in `cron.job`; as of 25 November 2026 06:13 UTC,
   `cron.job_run_details` contains no runs. The first scheduled run is
   expected at 02:00 UTC on 26 November and must still be verified. A
   daily run may delete a row up to 24 hours after it crosses the
@@ -19,11 +19,17 @@ the first scheduled purge execution remain unverified.
   configured. Enquiry collection and email notifications remain
   disabled.
 - Server-only Supabase and Postgres environment variables were removed
-  from Vercel Production. Public `VITE_*` and `NEXT_PUBLIC_*` Supabase
-  variables and the API base URL remain, but their values could not be
-  independently verified. Vercel reports that a new deployment is
-  required for the environment-variable changes to take effect; no
-  redeployment was triggered.
+  from Vercel Production. The public `VITE_SUPABASE_URL` and
+  `VITE_SUPABASE_ANON_KEY` names remain configured, but their values
+  could not be independently verified. The production deployment for
+  commit `63ee4ea` completed at 06:36 UTC after the environment-variable
+  cleanup and publication of the demo notice. Do not assume the public
+  Supabase values are correct until they are verified.
+- The school-project privacy and demo-data notice is published at
+  `/privacy`. Public enquiries, orders, marketing sign-ups and enquiry
+  notifications remain disabled. The notice does not claim a legal
+  exemption; review applicable obligations before enabling any public
+  personal-data collection.
 - Vercel pull-request previews are frontend-only. There is no staging
   API, and the non-production Supabase project is designated for schema
   and RLS verification only.
@@ -45,6 +51,7 @@ The following checks were performed on 25 November 2026:
 | Check | Result |
 | --- | --- |
 | Public home page | Loaded and rendered the expected content. |
+| Public `/privacy` page | Loaded after production deployment `63ee4ea`; it states that public collection is disabled and the site is an educational prototype. |
 | Fictional-data demo | Started successfully and displayed step 1 of 6. |
 | Team sign-in page | Loaded with an enabled form; successful invited-user authentication remains unverified. |
 | Express API `/api/health` | Returned `{"success":true,"data":{"status":"ok"}}`. |
@@ -52,10 +59,11 @@ The following checks were performed on 25 November 2026:
 | Scheduled purge execution | Not yet observed; wait for and verify the first scheduled run. |
 | Backup restore | Not available to verify on the current Free Plan. |
 
-These are limited smoke checks, not launch acceptance. Do not mark the
-release ready until staging acceptance, privacy publication gates,
-backup retention, monitoring and the outstanding authentication test
-are complete.
+These are limited smoke checks, not launch acceptance. The demo notice is
+published, but public data collection must remain disabled until its
+privacy scope, retention and recovery controls are reviewed. Do not mark
+the release ready until staging acceptance, backup retention, monitoring
+and the outstanding authentication test are complete.
 
 ## Monitoring and escalation
 
@@ -150,5 +158,6 @@ preview deployment to production or use production personal data.
 Before closing launch blockers, record staging migration and rollback
 results, test-only persistence and notification outcomes, an invited
 team-member login, the first successful production purge run, alert
-delivery to the confirmed owner, backup/restore verification, and the
-remaining privacy publication details.
+delivery to the confirmed owner and backup/restore verification. Record
+any additional privacy review required before public collection is
+enabled.
