@@ -236,8 +236,10 @@ recovery, audit logging and session management before implementation.
 -   Keep stack traces and provider diagnostics server-side.
 -   Restrict access to production logs.
 -   Monitor API availability, failed persistence and notification
-    failures.
--   Define who receives operational alerts.
+    failures. See the [release operations runbook](OPERATIONS.md) for
+    the current status and verification steps.
+-   Confirm alert delivery and the designated owner before launch; these
+    are not yet configured or verified.
 
 ## 10. Security review checklist
 

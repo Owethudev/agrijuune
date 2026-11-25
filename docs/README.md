@@ -33,6 +33,8 @@ demonstration and enquiry-capture release.
 -   [`CODING_STANDARDS.md`](CODING_STANDARDS.md) --- code quality and
     SOLID principles
 -   [`SECURITY.md`](SECURITY.md) --- security and privacy requirements
+-   [`OPERATIONS.md`](OPERATIONS.md) --- release smoke checks, retention
+    verification, incident response and operational gaps
 -   [`DATABASE.md`](DATABASE.md) --- Supabase schema and access baseline
 -   [`API_CONTRACTS.md`](API_CONTRACTS.md) --- first-release API
     contract
