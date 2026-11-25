@@ -19,10 +19,18 @@
   configuration. Use sample/test data and do not reuse production
   credentials.
 - **Preview:** Vercel pull-request previews are available for frontend
-  review. The user-confirmed `juune-phase2-test` Supabase project is
-  designated for isolated schema and RLS checks only; there is no
-  separate staging API. Treat frontend previews as visual-only; do not
-  connect them to either database or submit real enquiries.
+  review. Their Supabase variables and `VITE_API_BASE_URL` are scoped to
+  Production only; treat previews as visual-only and do not connect them
+  to either database or submit real enquiries. Existing preview
+  deployments built before the scope change have not been redeployed or
+  verified; Vercel applies environment changes to new deployments.
+- **Staging:** A free Render service,
+  <https://agrijuune-staging-api.onrender.com>, is deployed from `main`
+  at commit `e5998b0`. It is health-only, with collection, notification,
+  privacy and retention switches disabled and no Supabase or email
+  credentials. The user-confirmed `juune-phase2-test` Supabase project
+  remains designated for isolated schema and RLS checks only. This is
+  not yet a full staging environment for enquiry or email acceptance.
 - **Production:** The public frontend, API and Supabase database are the
   production environment. Promote changes through a pull request into
   `main`; the Vercel and Render project settings control deployments.
@@ -42,15 +50,16 @@ and document a separate API environment.
   configuration. Never commit secret values.
 - Vercel frontend variables must contain public configuration only;
   anything bundled into the browser is public.
-- Use separate provider environment scopes and values for preview and
-  production. Previews must not receive production credentials or
-  connect to either database.
+- `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` and
+  `VITE_API_BASE_URL` are scoped to Vercel Production only. Previews must
+  not receive production credentials or connect to either database.
 - The repository owner manages GitHub branch-protection settings outside
   this repository. Those settings have been addressed by the owner; this
   document does not assert individual rule details.
 
 ## Boundaries
 
-Do not invent a custom domain, staging endpoint, Supabase project URL or
-provider credential. Update this plan when staging API services are
-provisioned.
+Do not invent a custom domain, Supabase project URL or provider
+credential. The health-only staging API has been provisioned; update this
+plan when non-production database and test-inbox configuration is
+approved and the complete staging acceptance flow is verified.
