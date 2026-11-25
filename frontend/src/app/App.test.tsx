@@ -91,6 +91,37 @@ describe('public application shell', () => {
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
   });
 
+  it.each(['invite', 'recovery'])(
+    'routes Supabase %s callbacks to password setup',
+    (type) => {
+      window.history.replaceState(
+        null,
+        '',
+        `/#access_token=test-token&type=${type}`,
+      );
+      render(<App />);
+
+      expect(
+        screen.getByRole('heading', {
+          level: 1,
+          name: 'Set your team password',
+        }),
+      ).toBeInTheDocument();
+    },
+  );
+
+  it('routes expired Supabase auth links to password recovery', () => {
+    window.history.replaceState(null, '', '/?error=access_denied');
+    render(<App />);
+
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Set your team password',
+      }),
+    ).toBeInTheDocument();
+  });
+
   it('explains the demo-only data rules and provides the privacy contact', () => {
     window.history.replaceState(null, '', '/privacy');
     render(<App />);

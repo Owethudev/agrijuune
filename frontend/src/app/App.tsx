@@ -9,6 +9,7 @@ import {
 import {
   teamPaths,
   getRoute,
+  isTeamAuthCallbackUrl,
   normalizePath,
   routes,
   type AppPath,
@@ -25,9 +26,16 @@ import { PrivacyPage } from './PrivacyPage';
 import { updatePageMetadata } from './seo';
 import { ServicesPage } from './ServicesPage';
 import { TeamPortalPage, TeamSignInPage } from '../auth/TeamPages';
+import { initialTeamAuthCallback } from '../auth/team-auth-callback';
 import { TeamAuthProvider } from '../auth/team-auth';
 import { useTeamAuth } from '../auth/team-auth-context';
 import './App.css';
+
+function getInitialPathname() {
+  return initialTeamAuthCallback || isTeamAuthCallbackUrl(window.location)
+    ? teamPaths.signIn
+    : normalizePath(window.location.pathname);
+}
 
 export function App() {
   return (
@@ -38,9 +46,7 @@ export function App() {
 }
 
 function SiteApp() {
-  const [pathname, setPathname] = useState(() =>
-    normalizePath(window.location.pathname),
-  );
+  const [pathname, setPathname] = useState(getInitialPathname);
   const [language, setLanguage] = useState<Language>('en');
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const { signOut, state: authState } = useTeamAuth();

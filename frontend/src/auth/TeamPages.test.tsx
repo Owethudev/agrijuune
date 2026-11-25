@@ -9,7 +9,7 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import { useRef } from 'react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { translations } from '../content/translations';
 import {
   TeamAuthProvider,
@@ -38,6 +38,13 @@ function createService(
     ok: true,
     value: [],
   }));
+  const requestPasswordReset = vi.fn<TeamAuthService['requestPasswordReset']>(
+    async () => ({ ok: true, value: null }),
+  );
+  const updatePassword = vi.fn<TeamAuthService['updatePassword']>(async () => ({
+    ok: true,
+    value: null,
+  }));
 
   const service: TeamAuthService = {
     getSession: async () => ({ ok: true, value: session }),
@@ -46,6 +53,8 @@ function createService(
       ok: true,
       value: { email: 'member@example.test' },
     }),
+    requestPasswordReset,
+    updatePassword,
     signOut,
     getRole: async () => ({ ok: true, value: role }),
     listMembers,
@@ -53,7 +62,13 @@ function createService(
     removeTeamMember: async () => ({ ok: true, value: null }),
   };
 
-  return { service, signOut, addTeamMember };
+  return {
+    service,
+    signOut,
+    addTeamMember,
+    requestPasswordReset,
+    updatePassword,
+  };
 }
 
 function SignInFixture({
@@ -90,7 +105,14 @@ function PortalFixture({ service }: { service: TeamAuthService }) {
   );
 }
 
-afterEach(cleanup);
+beforeEach(() => {
+  window.history.replaceState(null, '', '/');
+});
+
+afterEach(() => {
+  cleanup();
+  window.history.replaceState(null, '', '/');
+});
 
 describe('team access pages', () => {
   it('signs in a member with a team role and opens the portal', async () => {
@@ -161,6 +183,129 @@ describe('team access pages', () => {
       'You could not be signed out.',
     );
     expect(signOut).toHaveBeenCalledOnce();
+  });
+
+  it('sends a generic password reset request for the normalized email', async () => {
+    const { service, requestPasswordReset } = createService(null);
+
+    render(<SignInFixture service={service} onAuthenticated={vi.fn()} />);
+
+    fireEvent.click(
+      await screen.findByRole('button', {
+        name: 'Need to set or reset your password?',
+      }),
+    );
+    fireEvent.change(screen.getByLabelText('Email address'), {
+      target: { value: '  MEMBER@example.test ' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Send password link' }));
+
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'If an invited account matches that email, a password link has been sent.',
+    );
+    expect(requestPasswordReset).toHaveBeenCalledWith('member@example.test');
+  });
+
+  it('reports password reset request failures', async () => {
+    const { service, requestPasswordReset } = createService(null);
+    requestPasswordReset.mockResolvedValue({ ok: false });
+
+    render(<SignInFixture service={service} onAuthenticated={vi.fn()} />);
+
+    fireEvent.click(
+      await screen.findByRole('button', {
+        name: 'Need to set or reset your password?',
+      }),
+    );
+    fireEvent.change(screen.getByLabelText('Email address'), {
+      target: { value: 'member@example.test' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Send password link' }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'The password link could not be sent. Try again later.',
+    );
+  });
+
+  it('sets a password from a Supabase recovery session', async () => {
+    window.history.replaceState(
+      null,
+      '',
+      '/team/sign-in#access_token=test-token&type=recovery',
+    );
+    const { service, updatePassword } = createService('team', {
+      email: 'member@example.test',
+    });
+
+    render(<SignInFixture service={service} onAuthenticated={vi.fn()} />);
+
+    fireEvent.change(await screen.findByLabelText('Password'), {
+      target: { value: 'a-new-password-12' },
+    });
+    fireEvent.change(screen.getByLabelText('Confirm new password'), {
+      target: { value: 'a-new-password-12' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Save password' }));
+
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'Password saved. Open the team portal to continue.',
+    );
+    expect(updatePassword).toHaveBeenCalledWith('a-new-password-12');
+    expect(
+      screen.getByRole('button', { name: 'Open team portal' }),
+    ).toBeInTheDocument();
+  });
+
+  it('rejects mismatched passwords without updating the account', async () => {
+    window.history.replaceState(
+      null,
+      '',
+      '/team/sign-in#access_token=test-token&type=recovery',
+    );
+    const { service, updatePassword } = createService('team', {
+      email: 'member@example.test',
+    });
+
+    render(<SignInFixture service={service} onAuthenticated={vi.fn()} />);
+
+    fireEvent.change(await screen.findByLabelText('Password'), {
+      target: { value: 'a-new-password-12' },
+    });
+    fireEvent.change(screen.getByLabelText('Confirm new password'), {
+      target: { value: 'different-password-12' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Save password' }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Passwords do not match.',
+    );
+    expect(updatePassword).not.toHaveBeenCalled();
+  });
+
+  it('reports password update failures', async () => {
+    window.history.replaceState(
+      null,
+      '',
+      '/team/sign-in#access_token=test-token&type=recovery',
+    );
+    const { service, updatePassword } = createService('team', {
+      email: 'member@example.test',
+    });
+    updatePassword.mockResolvedValue({ ok: false });
+
+    render(<SignInFixture service={service} onAuthenticated={vi.fn()} />);
+
+    fireEvent.change(await screen.findByLabelText('Password'), {
+      target: { value: 'a-new-password-12' },
+    });
+    fireEvent.change(screen.getByLabelText('Confirm new password'), {
+      target: { value: 'a-new-password-12' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Save password' }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'The password could not be saved. Request a new link and try again.',
+    );
   });
 
   it('allows admins to add team members while team members cannot manage access', async () => {

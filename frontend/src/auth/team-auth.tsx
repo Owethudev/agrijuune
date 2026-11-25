@@ -4,6 +4,8 @@ import {
   type Session,
   type SupabaseClient,
 } from '@supabase/supabase-js';
+import { teamPaths } from '../routing/routes';
+import './team-auth-callback';
 import { TeamAuthContext } from './team-auth-context';
 
 export type TeamRole = 'admin' | 'team';
@@ -54,6 +56,8 @@ export type TeamAuthService = {
     email: string,
     password: string,
   ) => Promise<ServiceResult<TeamAuthSession>>;
+  requestPasswordReset: (email: string) => Promise<ServiceResult<null>>;
+  updatePassword: (password: string) => Promise<ServiceResult<null>>;
   signOut: () => Promise<ServiceResult<null>>;
   getRole: (email: string) => Promise<ServiceResult<TeamRole | null>>;
   listMembers: () => Promise<ServiceResult<TeamMember[]>>;
@@ -93,6 +97,21 @@ function createSupabaseTeamAuthService(
       const session = toTeamAuthSession(data.session);
 
       return error || !session ? { ok: false } : { ok: true, value: session };
+    },
+    async requestPasswordReset(email) {
+      const { error } = await client.auth.resetPasswordForEmail(email, {
+        redirectTo: new URL(
+          teamPaths.signIn,
+          window.location.origin,
+        ).toString(),
+      });
+
+      return error ? { ok: false } : { ok: true, value: null };
+    },
+    async updatePassword(password) {
+      const { error } = await client.auth.updateUser({ password });
+
+      return error ? { ok: false } : { ok: true, value: null };
     },
     async signOut() {
       const { error } = await client.auth.signOut();
