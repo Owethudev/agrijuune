@@ -9,8 +9,10 @@ allow-listed email and its `admin` or `team` role.
 
 The team-members migration has been applied to the production
 `agrijuune` and non-production `juune-phase2-test` Supabase projects.
-The seeded administrator was invited through production Supabase Auth;
-the recipient must accept the invitation and set a new password.
+The seeded administrator was invited through production Supabase Auth
+and accepted the invitation on 25 November. Supabase reports the account
+confirmed, but sign-in through the production app and access to the
+role-gated portal remain unverified.
 
 Email authentication and email confirmation are enabled in both hosted
 projects. Public signups are disabled and the minimum password length is
@@ -19,11 +21,11 @@ its site URL and allows that URL plus `/team/sign-in` as redirects. The
 Vercel Production has `VITE_SUPABASE_URL` and
 `VITE_SUPABASE_ANON_KEY`, using the production project URL and public
 publishable key. A production deployment is live, and the `/team/sign-in`
-route displays an enabled form. A successful invited-user login has not
-been verified because the administrator must accept the invitation and
-set a password. Staging acceptance tests also remain outstanding. Do
-not treat hosted team sign-in as fully accepted until invited-user
-authentication and staging checks pass.
+route displays an enabled form. On 25 November, the Supabase Auth Site
+URL was corrected to the canonical production origin after an invite
+redirected to a stale Vercel alias that returned 404. Staging acceptance
+tests also remain outstanding. Do not treat hosted team sign-in as fully
+accepted until app authentication and staging checks pass.
 
 ## Initial setup
 
@@ -32,20 +34,18 @@ authentication and staging checks pass.
    RLS policies and seeds the admin role for `jezvestptyltd@gmail.com`.
    It does not create an Auth user or set a password. For the current
    rollout, it has been applied to production and `juune-phase2-test`.
-2. The production `VITE_SUPABASE_URL` and
-   `VITE_SUPABASE_ANON_KEY` variables have been added in Vercel and the
-   served sign-in route was verified. Complete an invited-user login
-   test after the administrator accepts the invitation. The
-   anon/publishable key is public; never put the service-role/secret key
-   or a password in a `VITE_*` variable.
+2. The production `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
+   variables are configured in Vercel. The sign-in route loads, but
+   invited-user login remains unverified. Never put the service-role or
+   secret key, or a password, in a `VITE_*` variable.
 3. Keep hosted Auth invite-only, with email confirmations enabled and a
    minimum 12-character password. These settings are applied in both
    hosted projects. Production's site URL and team sign-in redirect are
    configured; add local development URLs only to local configuration.
    These settings are not applied by the database migration.
 4. Invite the seeded admin email from the Supabase Auth dashboard. The
-   production invitation has been sent; the recipient should use the
-   invitation flow to set a new strong password. Never reuse a password
+   production invitation was accepted on 25 November, but app sign-in
+   still needs verification at `/team/sign-in`. Never reuse a password
    shared in chat or store credentials in this repository.
 5. After signing in, an admin can add team-role email addresses in the
    workspace. Then invite each same address through Supabase Auth.
