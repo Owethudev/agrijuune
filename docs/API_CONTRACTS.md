@@ -173,11 +173,12 @@ documented lawful-basis grounds according to enquiry context; see the
 [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
 The notice still has publication placeholders for the registered
 business name, business address and Information Officer. The product
-owner set seven-day database retention from submission and confirms the
-Supabase backup-retention setting is configured for a maximum of seven
-days. A bounded purge command now deletes records older than seven days,
-but no schedule has been configured and the retention process has not
-been verified. Each party retains their email copies as communication
+owner set seven-day database retention from submission. The Supabase
+dashboard was checked on 2026-11-25 and shows that production and staging
+use the Free Plan, which does not include project backups; the
+seven-day backup-retention target is not met. A bounded purge command
+deletes records older than seven days, but no schedule has been
+configured and the retention process has not been verified. Each party retains their email copies as communication
 records; database deletion does not remove mailbox copies. Brevo
 message/log retention and exact provider location/transfer disclosures
 remain outstanding. Do not enable the form or endpoint until all
