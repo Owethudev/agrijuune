@@ -36,6 +36,12 @@ test('menu, demo and enquiry validation states remain accessible', async ({
 
   await page.getByRole('button', { name: 'Start demo' }).focus();
   await page.keyboard.press('Enter');
+  await expect(
+    page.getByRole('dialog', { name: 'Your Farm Operations Dashboard' }),
+  ).toBeVisible();
+  results = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+  expect(results.violations).toEqual([]);
+  await page.keyboard.press('Escape');
   await page
     .getByRole('heading', { name: 'Demo and data limits' })
     .scrollIntoViewIfNeeded();

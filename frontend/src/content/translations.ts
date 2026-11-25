@@ -178,6 +178,51 @@ export type HomePageCopy = {
     machineryNameLabel: string;
     manufacturerLabel: string;
     modelLabel: string;
+    dashboard: {
+      eyebrow: string;
+      title: string;
+      subtitle: string;
+      closeLabel: string;
+      tabsLabel: string;
+      tabs: {
+        overview: string;
+        fleet: string;
+        schedule: string;
+      };
+      kpis: {
+        fleetLabel: string;
+        fleetValue: string;
+        fleetNote: string;
+        maintenanceLabel: string;
+        maintenanceValue: string;
+        maintenanceNote: string;
+        toolsLabel: string;
+        toolsValue: string;
+        toolsNote: string;
+        detailingLabel: string;
+        detailingValue: string;
+        detailingNote: string;
+      };
+      fleetTitle: string;
+      fieldsTitle: string;
+      fields: Array<{ name: string; crop: string; status: string }>;
+      toolsTitle: string;
+      tools: Array<{ name: string; location: string; status: string }>;
+      scheduleTitle: string;
+      scheduleItems: Array<{
+        date: string;
+        task: string;
+        asset: string;
+        type: string;
+      }>;
+      statuses: {
+        active: string;
+        serviceDue: string;
+        detailingDone: string;
+      };
+      ctaText: string;
+      ctaButton: string;
+    };
   };
   interest: {
     eyebrow: string;
@@ -523,6 +568,103 @@ export const translations: Record<Language, LanguageContent> = {
         machineryNameLabel: 'Name',
         manufacturerLabel: 'Manufacturer',
         modelLabel: 'Model',
+        dashboard: {
+          eyebrow: 'Customer dashboard preview',
+          title: 'Your Farm Operations Dashboard',
+          subtitle:
+            'Sample layout showing how your fleet, tools, fields, and detailing records come together once set up for your farm.',
+          closeLabel: 'Close dashboard preview',
+          tabsLabel: 'Dashboard sections',
+          tabs: {
+            overview: 'Overview',
+            fleet: 'Fleet & tools',
+            schedule: 'Schedule',
+          },
+          kpis: {
+            fleetLabel: 'Fleet units',
+            fleetValue: '3',
+            fleetNote: '2 active, 1 service due',
+            maintenanceLabel: 'Maintenance due',
+            maintenanceValue: '2',
+            maintenanceNote: 'Next in 4 days',
+            toolsLabel: 'Tools in stock',
+            toolsValue: '18 / 20',
+            toolsNote: '2 checked out',
+            detailingLabel: 'Detailing jobs',
+            detailingValue: '4',
+            detailingNote: '2 completed this month',
+          },
+          fleetTitle: 'Machinery status',
+          fieldsTitle: 'Field & bay snapshot',
+          fields: [
+            {
+              name: 'North Block',
+              crop: 'Maize • 42 ha',
+              status: 'Irrigated',
+            },
+            {
+              name: 'East Block',
+              crop: 'Soybeans • 28 ha',
+              status: 'Planting prep',
+            },
+            {
+              name: 'Workshop Bay 1',
+              crop: 'Detailing & washdown',
+              status: 'Booked Thu',
+            },
+          ],
+          toolsTitle: 'Tools & equipment register',
+          tools: [
+            {
+              name: 'Hydraulic Jack 20T',
+              location: 'Workshop Bay 1',
+              status: 'Available',
+            },
+            {
+              name: 'Torque Wrench Set',
+              location: 'Field Service Kit',
+              status: 'Checked out',
+            },
+            {
+              name: 'High-Pressure Washer',
+              location: 'Washdown Bay',
+              status: 'Available',
+            },
+            {
+              name: 'Grease Gun Kit',
+              location: 'Tractor A-01 Cab',
+              status: 'Checked out',
+            },
+          ],
+          scheduleTitle: 'Upcoming maintenance & detailing',
+          scheduleItems: [
+            {
+              date: '29 Nov',
+              task: '500h oil & filter service',
+              asset: 'Tractor A-01',
+              type: 'Maintenance',
+            },
+            {
+              date: '02 Dec',
+              task: 'Full exterior & cab detailing',
+              asset: 'Harvester C-01',
+              type: 'Detailing',
+            },
+            {
+              date: '06 Dec',
+              task: 'Axle & brake inspection',
+              asset: 'Trailer B-01',
+              type: 'Inspection',
+            },
+          ],
+          statuses: {
+            active: 'Active',
+            serviceDue: 'Service due',
+            detailingDone: 'Detailing done',
+          },
+          ctaText: 'Tailored to your farm equipment and workflows.',
+          ctaButton: 'View service info',
+        },
       },
       interest: {
         eyebrow: 'Project information',
@@ -974,6 +1116,103 @@ export const translations: Record<Language, LanguageContent> = {
         machineryNameLabel: 'Naam',
         manufacturerLabel: 'Vervaardiger',
         modelLabel: 'Model',
+        dashboard: {
+          eyebrow: 'Kliënt-kontroleskermvoorskou',
+          title: 'Jou Plaasbedryf-kontroleskerm',
+          subtitle:
+            'Voorbeelduitleg wat wys hoe jou vloot, gereedskap, lande en detaileringsrekords saamkom sodra dit vir jou plaas opgestel is.',
+          closeLabel: 'Sluit kontroleskermvoorskou',
+          tabsLabel: 'Kontroleskermafdelings',
+          tabs: {
+            overview: 'Oorsig',
+            fleet: 'Vloot & gereedskap',
+            schedule: 'Skedule',
+          },
+          kpis: {
+            fleetLabel: 'Vlooteenhede',
+            fleetValue: '3',
+            fleetNote: '2 aktief, 1 diens nodig',
+            maintenanceLabel: 'Onderhoud nodig',
+            maintenanceValue: '2',
+            maintenanceNote: 'Volgende oor 4 dae',
+            toolsLabel: 'Gereedskap in voorraad',
+            toolsValue: '18 / 20',
+            toolsNote: '2 uitgeboek',
+            detailingLabel: 'Detaileringstake',
+            detailingValue: '4',
+            detailingNote: '2 hierdie maand voltooi',
+          },
+          fleetTitle: 'Masjinerie-status',
+          fieldsTitle: 'Land- en werkswinkel-oorsig',
+          fields: [
+            {
+              name: 'Noordblok',
+              crop: 'Mielies • 42 ha',
+              status: 'Besproei',
+            },
+            {
+              name: 'Oosblok',
+              crop: 'Sojabone • 28 ha',
+              status: 'Plantvoorbereiding',
+            },
+            {
+              name: 'Werkswinkel 1',
+              crop: 'Detailering & was',
+              status: 'Bespreek Do',
+            },
+          ],
+          toolsTitle: 'Gereedskap- en toerustingregister',
+          tools: [
+            {
+              name: 'Hidrouliese domkrag 20T',
+              location: 'Werkswinkel 1',
+              status: 'Beskikbaar',
+            },
+            {
+              name: 'Wringkragsleutelstel',
+              location: 'Velddiensstel',
+              status: 'Uitgeboek',
+            },
+            {
+              name: 'Hoëdrukwasser',
+              location: 'Wasarea',
+              status: 'Beskikbaar',
+            },
+            {
+              name: 'Ghriespistoolstel',
+              location: 'Trekker A-01 Kajuit',
+              status: 'Uitgeboek',
+            },
+          ],
+          scheduleTitle: 'Komende onderhoud & detailering',
+          scheduleItems: [
+            {
+              date: '29 Nov',
+              task: '500u olie- en filterdiens',
+              asset: 'Trekker A-01',
+              type: 'Onderhoud',
+            },
+            {
+              date: '02 Des',
+              task: 'Volledige buite- & kajuitdetailering',
+              asset: 'Oesmasjien C-01',
+              type: 'Detailering',
+            },
+            {
+              date: '06 Des',
+              task: 'As- en reminspeksie',
+              asset: 'Sleepwa B-01',
+              type: 'Inspeksie',
+            },
+          ],
+          statuses: {
+            active: 'Aktief',
+            serviceDue: 'Diens nodig',
+            detailingDone: 'Detailering voltooi',
+          },
+          ctaText: 'Aangepas vir jou plaas se toerusting en werkvloeie.',
+          ctaButton: 'Bekyk diensinligting',
+        },
       },
       interest: {
         eyebrow: 'Projekinligting',
