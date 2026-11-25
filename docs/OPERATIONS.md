@@ -10,12 +10,20 @@ the first scheduled purge execution remain unverified.
 - Production API health check: `https://agrijuune.onrender.com/api/health`.
 - Production Supabase runs an active `purge-expired-enquiries` job daily
   at 02:00 GMT. It deletes rows older than seven days. The configuration
-  is verified in `cron.job`; its first successful run is not yet
-  verified. A daily run may delete a row up to 24 hours after it crosses
-  the seven-day cutoff.
+  is verified in `cron.job`; as of 25 November 2026 05:21 UTC,
+  `cron.job_run_details` contains no runs. The first scheduled run is
+  expected at 02:00 UTC on 26 November and must still be verified. A
+  daily run may delete a row up to 24 hours after it crosses the
+  seven-day cutoff.
 - The production `enquiries` table contained zero rows when the job was
   configured. Enquiry collection and email notifications remain
   disabled.
+- Server-only Supabase and Postgres environment variables were removed
+  from Vercel Production. Public `VITE_*` and `NEXT_PUBLIC_*` Supabase
+  variables and the API base URL remain, but their values could not be
+  independently verified. Vercel reports that a new deployment is
+  required for the environment-variable changes to take effect; no
+  redeployment was triggered.
 - Vercel pull-request previews are frontend-only. There is no staging
   API, and the non-production Supabase project is designated for schema
   and RLS verification only.
