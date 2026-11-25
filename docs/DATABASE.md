@@ -5,8 +5,11 @@
 **Status:** The owner authorized and the prototype schema was applied to
 live Supabase on 2026-11-24. This is schema-only approval; collecting
 enquiry data remains blocked by the privacy and deletion prerequisites
-below. The team-membership migration has not been applied to a hosted
-project.
+below. The team-membership migration was applied to both production and
+the confirmed non-production `juune-phase2-test` project on 2026-11-24.
+Hosted Auth is configured for invite-only access, but production team
+sign-in is not ready until the Vercel Vite Supabase variables are set and
+staging acceptance tests pass.
 
 ## 1. Database scope
 

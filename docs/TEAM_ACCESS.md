@@ -48,14 +48,15 @@ until those variables are set and staging acceptance tests pass.
    queries, but does not revoke an existing Supabase Auth session. For
    immediate account termination, also disable the user in the Supabase
    Auth dashboard. This workspace currently contains no enquiry access or
-   other private application data.
+   other private application data. Public signups are disabled in both
+   hosted projects; invite-only access is configured at Supabase Auth.
 
 The Supabase Auth user and `team_members` row must use the same email.
 Email addresses are normalized to lowercase. The application allows
-only listed team members into the workspace, but hosted public signup
-is currently enabled and must be disabled before the rollout is
-considered invite-only. A valid password alone does not grant workspace
-access.
+only listed team members into the workspace, and hosted public signup
+is disabled in both projects. A valid password alone does not grant
+workspace access. Production sign-in remains unconfigured until the
+Vercel Vite Supabase variables are set.
 
 ## Authorization boundary
 
