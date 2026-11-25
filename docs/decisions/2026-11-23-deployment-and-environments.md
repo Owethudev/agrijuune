@@ -26,11 +26,13 @@
   verified; Vercel applies environment changes to new deployments.
 - **Staging:** A free Render service,
   <https://agrijuune-staging-api.onrender.com>, is deployed from `main`
-  at commit `e5998b0`. It is health-only, with collection, notification,
-  privacy and retention switches disabled and no Supabase or email
-  credentials. The user-confirmed `juune-phase2-test` Supabase project
-  remains designated for isolated schema and RLS checks only. This is
-  not yet a full staging environment for enquiry or email acceptance.
+  with automatic deployments. After PR #98 merged, the service
+  auto-deployed commit `b7fda60` and its health endpoint returned HTTP
+  200. It is health-only, with collection, notification, privacy and
+  retention switches disabled and no Supabase or email credentials. The
+  user-confirmed `juune-phase2-test` Supabase project remains designated
+  for isolated schema and RLS checks only. This is not yet a full staging
+  environment for enquiry or email acceptance.
 - **Production:** The public frontend, API and Supabase database are the
   production environment. Promote changes through a pull request into
   `main`; the Vercel and Render project settings control deployments.
