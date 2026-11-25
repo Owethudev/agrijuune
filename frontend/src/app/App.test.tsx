@@ -162,34 +162,55 @@ describe('public application shell', () => {
     },
   );
 
-  it('browses the homepage photo carousel and shows the South Africa map', () => {
+  it('browses the homepage photo carousel conveyor belt and shows the South Africa map', () => {
     render(<App />);
 
     const carousel = screen.getByRole('region', {
       name: 'A closer look at farm life.',
     });
-    const getCarouselImage = () => within(carousel).getByRole('img');
+    const images = within(carousel).getAllByRole('img');
+    expect(images).toHaveLength(3);
 
-    expect(getCarouselImage()).toHaveAttribute(
+    expect(images[0]).toHaveAttribute('src', '/images/field-machinery.webp');
+    expect(images[0]).toHaveAttribute(
       'alt',
       'Agricultural machinery working across rows of crops.',
     );
-    fireEvent.click(within(carousel).getByRole('button', { name: 'Next' }));
-    expect(getCarouselImage()).toHaveAttribute('src', '/images/tractor.webp');
-    expect(getCarouselImage()).toHaveAttribute(
+    expect(images[1]).toHaveAttribute('src', '/images/tractor.webp');
+    expect(images[1]).toHaveAttribute(
       'alt',
       'A green tractor in a grassy field.',
     );
+    expect(images[2]).toHaveAttribute('src', '/images/crop-work.webp');
+    expect(images[2]).toHaveAttribute(
+      'alt',
+      'Farm machinery working in a cultivated crop field.',
+    );
+
+    const pauseButton = within(carousel).getByRole('button', {
+      name: 'Pause conveyor belt',
+    });
+    fireEvent.click(pauseButton);
+    expect(
+      within(carousel).getByRole('button', { name: 'Start conveyor belt' }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(within(carousel).getByRole('button', { name: 'Next' }));
+    expect(
+      within(carousel).getByText(/Slide 2 of 3: Ready for the next job/i),
+    ).toBeInTheDocument();
 
     fireEvent.click(
       within(carousel).getByRole('button', { name: 'Show photo 3' }),
     );
-    expect(getCarouselImage()).toHaveAttribute('src', '/images/crop-work.webp');
+    expect(
+      within(carousel).getByText(/Slide 3 of 3: A season of work/i),
+    ).toBeInTheDocument();
+
     fireEvent.click(within(carousel).getByRole('button', { name: 'Next' }));
-    expect(getCarouselImage()).toHaveAttribute(
-      'src',
-      '/images/field-machinery.webp',
-    );
+    expect(
+      within(carousel).getByText(/Slide 1 of 3: Across the field/i),
+    ).toBeInTheDocument();
 
     expect(
       screen.getByRole('img', {
