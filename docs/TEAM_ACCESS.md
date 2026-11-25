@@ -24,10 +24,13 @@ publishable key. A production deployment is live, and the `/team/sign-in`
 route displays an enabled form. On 25 November, the Supabase Auth Site
 URL was corrected to the canonical production origin after an invite
 redirected to a stale Vercel alias that returned 404. Staging acceptance
-tests also remain outstanding. The team sign-in page now supports a
-password setup/reset flow for invited users using the existing
-`/team/sign-in` redirect. This does not enable public signup. Do not
-treat hosted team sign-in as fully accepted until app authentication
+tests also remain outstanding. PR #102 added an invite-only password
+setup/reset flow to `/team/sign-in`. A password reset request was submitted
+in production for the seeded admin email (`jezvestptyltd@gmail.com`), returning
+the expected account-neutral confirmation. Email receipt, password creation,
+authenticated sign-in and role-gated access to the portal remain unverified
+and require action by the account holder. This does not enable public signup.
+Do not treat hosted team sign-in as fully accepted until app authentication
 and staging checks pass.
 
 ## Initial setup

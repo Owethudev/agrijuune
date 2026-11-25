@@ -10,12 +10,12 @@ purge execution remain unverified.
 - Production frontend: `https://agrijuune.vercel.app/`.
 - Production API health check: `https://agrijuune.onrender.com/api/health`.
 - A free Render service, `https://agrijuune-staging-api.onrender.com`,
-  tracks `main` and auto-deploys. Both production and staging deployed
-  main commit `e9ed20f`; their `/api/health` endpoints returned HTTP 200
-  on 25 November. The staging service is health-only: enquiry,
-  notification, privacy and retention switches are explicitly disabled,
-  and no Supabase, Brevo or test-inbox credentials are configured. A
-  read-only query on the non-production `juune-phase2-test` project
+  tracks `main` and auto-deploys. Following PR #102, both production and
+  staging deployed main commit `e12b04a`; their `/api/health` endpoints
+  returned HTTP 200 on 25 November (verified at 13:17 UTC). The staging service
+  is health-only: enquiry, notification, privacy and retention switches are
+  explicitly disabled, and no Supabase, Brevo or test-inbox credentials are
+  configured. A read-only query on the non-production `juune-phase2-test` project
   confirmed zero enquiry rows. This does not verify staging persistence
   or email delivery.
 - Before adding Supabase credentials to staging, rotate the non-production
@@ -72,11 +72,11 @@ The following checks were performed on 25 November 2026:
 | Public home page | Loaded and rendered the expected content. |
 | Public `/privacy` page | Loaded after production deployment `63ee4ea`; it states that public collection is disabled and the site is an educational prototype. |
 | Fictional-data demo | Started successfully and displayed step 1 of 6. |
-| Team sign-in page | Loaded with an enabled form; successful invited-user authentication remains unverified. |
-| Production and staging Express API `/api/health` | Both returned `{"success":true,"data":{"status":"ok"}}` on 25 November after auto-deploying main commit `e9ed20f`. The staging service is health-only and has no database or email credentials. |
+| Team sign-in page | Loaded with an enabled form and invited-user password reset option after PR #102; a reset link was requested for the admin email, but email receipt, password setting and authenticated sign-in remain unverified. |
+| Production and staging Express API `/api/health` | Both returned `{"success":true,"data":{"status":"ok"}}` on 25 November after auto-deploying main commit `e12b04a` (verified at 13:17 UTC). The staging service is health-only and has no database or email credentials. |
 | Vercel Production configuration | Supabase URL and publishable key were verified against the production project. `VITE_API_BASE_URL` is scoped to Production only; pre-existing previews have not been redeployed. |
 | Enquiry persistence, notification and thank-you flow | Not tested in production. Collection is intentionally disabled; do not submit test personal information. |
-| Scheduled purge execution | Not yet observed; wait for and verify the first scheduled run. |
+| Scheduled purge execution | Job `purge-expired-enquiries` active on schedule `0 2 * * *`. As of 25 November 13:25 UTC, the first scheduled execution (due 26 Nov 02:00 UTC) has not yet run; no manual deletion was performed. |
 | Backup restore | Not available to verify on the current Free Plan. |
 
 These are limited smoke checks, not launch acceptance. The demo notice is
