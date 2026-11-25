@@ -19,9 +19,8 @@ demonstration and enquiry-capture release.
 -   [`decisions/`](decisions/) --- recorded project decisions.
 -   [`decisions/2026-11-23-deployment-and-environments.md`](decisions/2026-11-23-deployment-and-environments.md)
     --- production hosts, preview boundaries and secret handling.
--   [`PRIVACY_NOTICE.md`](PRIVACY_NOTICE.md) --- owner-approved notice
-    text with publication placeholders and an internal completion
-    checklist.
+-   [`PRIVACY_NOTICE.md`](PRIVACY_NOTICE.md) --- current educational
+    prototype notice and demo-data limits.
 
 ## Engineering references
 
@@ -42,27 +41,24 @@ demonstration and enquiry-capture release.
 
 ## Important status notes
 
-These documents are based on the current Agrijuune first-release scope:
-public website, standard sample demo and enquiry capture. They
-deliberately do not specify a full farm-management application.
+The product requirements include an earlier proposed commercial enquiry
+flow. The current public deployment is an educational prototype; the
+owner's 25 November 2026 scope clarification in the
+[enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md)
+supersedes public enquiry collection for this deployment. The public
+form and enquiry notifications remain disabled, and only fictional demo
+data should be used.
 
 Strict TypeScript is used in both applications, and the frontend keeps
 its existing CSS approach without a styling framework. The current npm
-workspace setup remains unchanged. The production hosts and preview
-boundaries are recorded in the deployment plan. The enquiry field contract, owner-approved notice text and both
-owner-selected lawful-basis grounds are recorded in the
-[enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-The notice has placeholders for the registered business name, business
-address and Information Officer. The owner set seven-day database
-retention. The Supabase dashboard checked on 2026-11-25 shows that
-production and staging use the Free Plan, which does not include project
-backups; the seven-day backup-retention target is not met. One active
-production purge job is configured daily at 02:00 GMT for rows older
-than seven days. Its first successful execution has not yet been
-verified, and daily runs may occur up to 24 hours after the cutoff.
-Exact provider locations/transfers and Brevo message/log retention
-remain pending. Sender/recipient routing is approved, and the Brevo
-adapter is implemented and unit-tested, but no enquiry email has been
-sent. Do not publish the notice or collect personal information until
-the outstanding gates are resolved.
+workspace setup remains unchanged. Production and preview hosts are
+recorded in the deployment plan. The `/privacy` page describes the
+prototype's current data handling, including invite-only team
+authentication. It does not claim legal compliance or exempt the
+project from applicable privacy laws. The seven-day production purge is
+configured but its first scheduled run is unverified; Supabase Free
+does not provide project backups, and provider log locations and
+retention have not been independently confirmed. Do not enable public
+data collection without a new owner-approved review of actual
+requirements and provider controls.
 Review all proposed schema and SQL before applying it to a database.

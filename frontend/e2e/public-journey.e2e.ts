@@ -11,7 +11,7 @@ const successResponse = {
 async function openEnquiryForm(page: Page) {
   await page.goto('/');
   await page
-    .getByRole('heading', { name: 'Express interest' })
+    .getByRole('heading', { name: 'Demo and data limits' })
     .scrollIntoViewIfNeeded();
 }
 
@@ -53,7 +53,7 @@ test('completes the Home, Services, demo and enquiry journey without a login', a
   await expect(page.getByText('Step 1 of 6')).toBeVisible();
 
   await page
-    .getByRole('heading', { name: 'Express interest' })
+    .getByRole('heading', { name: 'Demo and data limits' })
     .scrollIntoViewIfNeeded();
   await fillRequiredFields(page);
   await page.getByRole('button', { name: 'Send enquiry' }).click();

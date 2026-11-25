@@ -1,11 +1,11 @@
 > **Source note:** This remains a working draft derived from the
-> [PDF](Agrijuune_PRD_v0.1.pdf). The approved enquiry fields, service
-> identifiers, owner-approved Privacy Notice text and owner-selected
-> lawful-basis grounds are recorded in the
-> [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-> Publication placeholders, deletion/backup verification and exact
-> provider location/retention disclosures remain outstanding; use the
-> [master project brief](MASTER.md) and current decisions for status.
+> [PDF](Agrijuune_PRD_v0.1.pdf) and describes an earlier proposed
+> commercial enquiry experience. The owner clarified on 2026-11-25 that
+> the current deployment is an educational prototype; public enquiry
+> collection and notification are disabled. See the [master project
+> brief](MASTER.md) and [current scope
+> decision](decisions/2026-11-23-enquiry-privacy-and-routing.md) for
+> operating status.
 
 **AGRIJUUNE**
 

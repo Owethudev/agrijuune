@@ -21,6 +21,7 @@ import {
 import { AboutPage } from './AboutPage';
 import { FaqPage } from './FaqPage';
 import { HomePage } from './HomePage';
+import { PrivacyPage } from './PrivacyPage';
 import { updatePageMetadata } from './seo';
 import { ServicesPage } from './ServicesPage';
 import { TeamPortalPage, TeamSignInPage } from '../auth/TeamPages';
@@ -48,6 +49,7 @@ function SiteApp() {
   const isServicesPage = activeRoute?.path === '/services';
   const isAboutPage = activeRoute?.path === '/about';
   const isFaqPage = activeRoute?.path === '/faq';
+  const isPrivacyPage = activeRoute?.path === '/privacy';
   const isTeamSignIn = pathname === teamPaths.signIn;
   const isTeamPortal = pathname === teamPaths.portal;
   const isFullPage = isHomePage || isServicesPage;
@@ -181,22 +183,24 @@ function SiteApp() {
             className={`primary-navigation${isNavigationOpen ? ' primary-navigation--open' : ''}`}
             aria-label={languageContent.shared.primaryNavigationLabel}
           >
-            {routes.map((route) => {
-              const routeCopy = getRouteCopy(language, route.path);
+            {routes
+              .filter((route) => route.path !== '/privacy')
+              .map((route) => {
+                const routeCopy = getRouteCopy(language, route.path);
 
-              return (
-                <a
-                  key={route.path}
-                  href={route.path}
-                  aria-current={
-                    activeRoute?.path === route.path ? 'page' : undefined
-                  }
-                  onClick={(event) => navigate(event, route.path)}
-                >
-                  {routeCopy.label}
-                </a>
-              );
-            })}
+                return (
+                  <a
+                    key={route.path}
+                    href={route.path}
+                    aria-current={
+                      activeRoute?.path === route.path ? 'page' : undefined
+                    }
+                    onClick={(event) => navigate(event, route.path)}
+                  >
+                    {routeCopy.label}
+                  </a>
+                );
+              })}
             {authState.status === 'authenticated' ? (
               <>
                 <a
@@ -289,6 +293,8 @@ function SiteApp() {
             title={page.title}
             headingRef={headingRef}
           />
+        ) : isPrivacyPage ? (
+          <PrivacyPage copy={languageContent.privacy} headingRef={headingRef} />
         ) : (
           <div className="page-content card">
             <p className="page-eyebrow">Agrijuune</p>

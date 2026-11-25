@@ -5,6 +5,14 @@
 demonstration and enquiry-capture experience\
 **Business location:** Gauteng, South Africa
 
+> **Current deployment scope (2026-11-25):** The owner clarified that
+> the public deployment is a school-project prototype, not a live
+> customer enquiry service. The public enquiry form and enquiry email
+> notifications remain disabled. This current scope supersedes the
+> lead-generation and public-data-collection requirements below for the
+> current deployment; those requirements remain historical product
+> intent unless the owner approves a new release scope.
+
 ## 1. Project purpose
 
 Agrijuune is an agricultural services business with two equally
@@ -126,25 +134,17 @@ The approved enquiry field contract is:
     `machinery_detailing`.
 
 The cell number is the only phone field; do not add a separate `phone`
-field. The product owner confirms responsibility for enquiry data,
-provided acknowledgement wording, approved the notice text and selected
-both documented lawful-basis grounds according to the enquiry context;
-see the [enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md)
-and [Privacy Notice](PRIVACY_NOTICE.md). The notice still contains
-placeholders for the registered business name, business address and
-Information Officer. The owner set seven-day database retention. The
-Supabase dashboard was checked on 2026-11-25 and shows that production
-and staging use the Free Plan, which does not include project backups;
-the seven-day backup-retention target is not met. One active production
-purge job is configured daily at 02:00 GMT for rows older than seven
-days. Its first successful execution has not yet been verified, and
-daily runs may occur up to 24 hours after the cutoff. Exact provider
-locations/transfers and Brevo message/log retention are pending. Do not
-publish the notice or
-enable an enquiry form or endpoint that collects personal information
-until those gates are resolved.
+field. This field contract and the submission flow below describe a
+possible future feature, not the current deployment. The owner clarified
+that this public deployment is an educational prototype: the enquiry
+form, endpoint and email notifications are disabled. The current
+[Privacy and Demo-Data Notice](PRIVACY_NOTICE.md) describes the
+prototype's data boundary, including invite-only team authentication.
+Do not treat this project scope as a legal exemption. Re-evaluate the
+actual data flow and applicable requirements before enabling public
+personal-data collection.
 
-On submission:
+The following submission sequence is design-only and is not active:
 
 1.  Validate the request in the browser for usability.
 2.  Validate it again on the server.
@@ -202,20 +202,13 @@ than assumptions:
     disclosures remain outstanding. The server-side adapter is
     implemented and unit-tested, but no enquiry workflow invokes it and
     no email has been sent.
--   The owner-approved Privacy Notice and selected lawful-basis grounds
-    are recorded in the enquiry decision record. The responsible party
-    is named Agrijuune, and public privacy contacts are recorded there.
-    The notice's registered-name, address and Information Officer
-    placeholders remain. The owner specified deletion of database
-    records containing submitted form information after seven days and
-    a maximum seven-day backup-retention target. The Supabase dashboard
-    shows the current Free Plan does not include project backups. One
-    active production purge job is configured daily at 02:00 GMT; its
-    first successful execution has not yet been verified, and daily runs
-    may occur up to 24 hours after the seven-day cutoff. Each party will
-    retain email copies as communication
-    records; Brevo message/log retention and exact provider
-    location/transfer disclosures remain pending.
+-   The current school-project scope and demo notice are recorded in the
+    enquiry decision record. Public collection remains disabled. The
+    production purge is configured for seven-day enquiry retention, but
+    its first scheduled run is unverified; Supabase Free does not include
+    project backups, and provider log locations/retention have not been
+    independently confirmed. These controls must be re-evaluated before
+    any future public collection.
 -   Brand logo, photography, video and final design assets.
 
 No non-essential analytics is approved at launch. Any later analytics

@@ -167,26 +167,13 @@ and a non-empty `servicesOfInterest` containing only
 `farmLocation`, `operationType`, `machineCountEstimate` and
 `additionalMessage` are optional. There is no separate `phone` field.
 
-This contract is not permission to collect personal information. The
-product owner approved the Privacy Notice text and selected both
-documented lawful-basis grounds according to enquiry context; see the
-[enquiry decision record](decisions/2026-11-23-enquiry-privacy-and-routing.md).
-The notice still has publication placeholders for the registered
-business name, business address and Information Officer. The product
-owner set seven-day database retention from submission. The Supabase
-dashboard was checked on 2026-11-25 and shows that production and staging
-use the Free Plan, which does not include project backups; the
-seven-day backup-retention target is not met. Production has one active
-daily `pg_cron` purge job at 02:00 GMT for rows older than seven days.
-The schedule is catalog-verified, but its first successful execution
-has not yet been verified; daily execution may occur up to 24 hours
-after a record crosses the cutoff. The production table had zero rows
-when checked, and staging has no purge schedule. Each party retains
-their email copies as communication records; database deletion does not
-remove mailbox copies. Brevo message/log retention and exact provider
-location/transfer disclosures remain outstanding. Do not enable the
-form or endpoint until all publication, successful-deletion, backup
-and provider-disclosure gates are resolved and verified.
+This API contract is preserved for a possible future enquiry feature; it
+is not permission to collect personal information. The current public
+deployment is a school-project prototype, with the enquiry form,
+endpoint and email notifications disabled. If public collection is
+proposed in a future release, re-evaluate applicable privacy
+requirements, provider disclosures, deletion and recovery before
+enabling this contract.
 
 The route is implemented but is not mounted unless
 `ENQUIRY_COLLECTION_ENABLED=true`, `ENQUIRY_PRIVACY_GATES_VERIFIED=true`
