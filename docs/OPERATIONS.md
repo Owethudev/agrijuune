@@ -18,6 +18,9 @@ purge execution remain unverified.
   read-only query on the non-production `juune-phase2-test` project
   confirmed zero enquiry rows. This does not verify staging persistence
   or email delivery.
+- Before adding Supabase credentials to staging, rotate the non-production
+  project's legacy service-role credential and use only the replacement
+  server-side. Never place secret values in this runbook or client config.
 - The Render workspace notification email is configured to the
   owner-confirmed monitored contact, and the staging service inherits the
   workspace's failure-only notification policy. This verifies routing
