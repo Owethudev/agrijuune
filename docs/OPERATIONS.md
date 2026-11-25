@@ -1,22 +1,27 @@
 # Agrijuune Release Operations Runbook
 
 **Status:** Partial; staging API health is verified, but staging data/email
-acceptance, monitoring alerts, backup retention and the first scheduled
+acceptance, alert delivery, backup retention and the first scheduled
 purge execution remain unverified.
-**Last checked:** 25 November 2026 08:22 UTC
+**Last checked:** 25 November 2026
 
 ## Current release state
 
 - Production frontend: `https://agrijuune.vercel.app/`.
 - Production API health check: `https://agrijuune.onrender.com/api/health`.
 - A free Render service, `https://agrijuune-staging-api.onrender.com`,
-  tracks `main` and auto-deploys. After PR #98 merged, both the production
-  and staging services auto-deployed main commit `b7fda60`; at 08:22 UTC
-  their `/api/health` endpoints returned HTTP 200. The staging service is
-  health-only: enquiry, notification, privacy and retention switches
-  are explicitly disabled, and no Supabase, Brevo or test-inbox
-  credentials are configured. This does not verify staging persistence
+  tracks `main` and auto-deploys. Both production and staging deployed
+  main commit `e9ed20f`; their `/api/health` endpoints returned HTTP 200
+  on 25 November. The staging service is health-only: enquiry,
+  notification, privacy and retention switches are explicitly disabled,
+  and no Supabase, Brevo or test-inbox credentials are configured. A
+  read-only query on the non-production `juune-phase2-test` project
+  confirmed zero enquiry rows. This does not verify staging persistence
   or email delivery.
+- The Render workspace notification email is configured to the
+  owner-confirmed monitored contact, and the staging service inherits the
+  workspace's failure-only notification policy. This verifies routing
+  configuration only; alert delivery has not been tested.
 - Production Supabase runs an active `purge-expired-enquiries` job daily
   at 02:00 GMT. It deletes rows older than seven days. The configuration
   is verified in `cron.job`; as of 25 November 2026 06:13 UTC,
@@ -65,7 +70,7 @@ The following checks were performed on 25 November 2026:
 | Public `/privacy` page | Loaded after production deployment `63ee4ea`; it states that public collection is disabled and the site is an educational prototype. |
 | Fictional-data demo | Started successfully and displayed step 1 of 6. |
 | Team sign-in page | Loaded with an enabled form; successful invited-user authentication remains unverified. |
-| Production and staging Express API `/api/health` | Both returned `{"success":true,"data":{"status":"ok"}}` at 08:22 UTC on 25 November, after auto-deploying main commit `b7fda60`. The staging service is health-only and has no database or email credentials. |
+| Production and staging Express API `/api/health` | Both returned `{"success":true,"data":{"status":"ok"}}` on 25 November after auto-deploying main commit `e9ed20f`. The staging service is health-only and has no database or email credentials. |
 | Vercel Production configuration | Supabase URL and publishable key were verified against the production project. `VITE_API_BASE_URL` is scoped to Production only; pre-existing previews have not been redeployed. |
 | Enquiry persistence, notification and thank-you flow | Not tested in production. Collection is intentionally disabled; do not submit test personal information. |
 | Scheduled purge execution | Not yet observed; wait for and verify the first scheduled run. |
@@ -86,17 +91,19 @@ with an enquiry identifier and error name; never copy enquiry content
 into logs, tickets or chat.
 
 Automated alert delivery to a monitored owner is not verified. The
-staging Render service inherits the workspace default of failure-only
-notifications, but the receiving owner and successful delivery have not
-been confirmed. The service owner must configure and test alerts for:
+Render workspace notification email is configured to the
+owner-confirmed contact, and the staging service inherits failure-only
+notifications. The successful delivery and recipient mailbox access
+have not been confirmed. The service owner must configure and test alerts for:
 
 - Repeated API health-check failures, elevated 5xx responses and
   abnormal latency in the Render service.
 - Failed or missing scheduled purge runs in Supabase.
 - Persistence or notification failures after collection is approved.
 
-**Operational alert recipient:** [Designated owner and monitored contact
-to be confirmed]
+**Operational alert recipient:** Configured in the Render workspace
+using the owner-confirmed monitored contact; successful delivery still
+needs verification.
 
 Until alert delivery is verified, an operator must check service health,
 provider logs and the purge run history directly. Do not represent this
