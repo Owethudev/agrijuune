@@ -318,24 +318,6 @@
   }
 }
 
-.home-gallery__conveyor:hover .home-gallery__conveyor-track,
-.home-gallery__conveyor:focus-within .home-gallery__conveyor-track,
-.home-gallery__conveyor--paused .home-gallery__conveyor-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-gallery__conveyor {
-    mask-image: none;
-    -webkit-mask-image: none;
-    overflow-x: auto;
-  }
-
-  .home-gallery__conveyor-track {
-    animation: none;
-  }
-}
-
 .home-gallery__card,
 .home-gallery__frame {
   position: relative;
@@ -346,9 +328,7 @@
   border-radius: var(--radius-lg);
   background: var(--agrijuune-navy);
   box-shadow: var(--elevation-surface);
-  transition:
-    transform var(--transition-fast) ease,
-    box-shadow var(--transition-fast) ease;
+  transition: transform var(--transition-fast) ease;
 }
 
 @media (min-width: 768px) {
@@ -356,12 +336,6 @@
   .home-gallery__frame {
     flex: 0 0 380px;
   }
-}
-
-.home-gallery__card--active {
-  box-shadow:
-    0 0 0 3px var(--agrijuune-red),
-    var(--elevation-surface);
 }
 
 .home-gallery__card::after,
@@ -397,56 +371,6 @@
 .home-gallery__caption p {
   margin: var(--space-half) 0 0;
   color: var(--color-text-inverse-muted);
-}
-
-.home-gallery__controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-.home-gallery__controls .button {
-  flex: 0 0 auto;
-}
-
-.home-gallery__status {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  text-align: center;
-}
-
-.home-gallery__selectors {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-1);
-}
-
-.home-gallery__selectors button {
-  display: grid;
-  min-width: var(--control-min-height);
-  min-height: var(--control-min-height);
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-}
-
-.home-gallery__selectors button:focus-visible {
-  outline: var(--focus-ring-width) solid var(--agrijuune-red);
-  outline-offset: var(--focus-ring-offset);
-}
-
-.home-gallery__selectors button span {
-  width: 0.625rem;
-  height: 0.625rem;
-  border: 1px solid var(--agrijuune-navy);
-  border-radius: 50%;
 }
 
 .home-gallery__selectors button[aria-pressed='true'] span {

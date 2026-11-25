@@ -107,11 +107,6 @@ test('reduced-motion preference preserves keyboard-operated controls', async ({
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
 
-  const nextSlide = page.getByRole('button', { name: 'Next', exact: true });
-  await nextSlide.focus();
-  await page.keyboard.press('Enter');
-  await expect(page.getByText('Slide 2 of 3', { exact: false })).toBeVisible();
-
   const startDemo = page.getByRole('button', { name: 'Start demo' });
   await startDemo.focus();
   await page.keyboard.press('Enter');
