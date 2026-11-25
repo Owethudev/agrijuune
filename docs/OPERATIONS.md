@@ -19,6 +19,13 @@ the first scheduled purge execution remain unverified.
 - Vercel pull-request previews are frontend-only. There is no staging
   API, and the non-production Supabase project is designated for schema
   and RLS verification only.
+- On 25 November 2026, migration `20261124141740_add_enquiry_idempotency`
+  was applied to the non-production Supabase project after confirming the
+  enquiries table was empty; its version is recorded in migration history.
+  The idempotency columns, constraint and index are present; RLS remains
+  enabled with no policies, anonymous/authenticated table privileges remain
+  revoked, and `supabase/tests/enquiries_rls.sql` passed. No staging API,
+  test inbox or end-to-end enquiry flow has been verified.
 - The current Supabase Free Plan does not provide project backups. The
   seven-day backup-retention target is unmet; no restore capability has
   been verified.
