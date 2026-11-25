@@ -287,7 +287,7 @@ describe('public application shell', () => {
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
 
-  it('identifies the About page as a prototype with no business contact', () => {
+  it('identifies the About page with no business contact', () => {
     window.history.replaceState(null, '', '/about');
     render(<App />);
 
@@ -344,9 +344,7 @@ describe('public application shell', () => {
       screen.getByText('Wat ontwikkel Agrijuune?').closest('summary'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(
-        /Hierdie skoolprojekprototipe aanvaar nie openbare navrae/i,
-      ),
+      screen.getByText(/Agrijuune aanvaar tans nie openbare navrae/i),
     ).toBeInTheDocument();
   });
 
