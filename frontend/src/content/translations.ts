@@ -710,18 +710,15 @@ export const translations: Record<Language, LanguageContent> = {
       sections: [
         {
           title: 'Use fictional data only',
-          body:
-            'Do not enter real names, email addresses, phone numbers, farm details or other personal or confidential information. The public enquiry form and enquiry email notifications are disabled.',
+          body: 'Do not enter real names, email addresses, phone numbers, farm details or other personal or confidential information. The public enquiry form and enquiry email notifications are disabled.',
         },
         {
           title: 'Team sign-in and technical data',
-          body:
-            'Team sign-in is invite-only. If an invited team member signs in, Supabase Auth processes the account email and authentication data. Vercel, Render and Supabase may process technical connection data, such as IP addresses and security logs, to operate and protect their services. Provider-specific log retention and processing regions have not been independently verified.',
+          body: 'Team sign-in is invite-only. If an invited team member signs in, Supabase Auth processes the account email and authentication data. Vercel, Render and Supabase may process technical connection data, such as IP addresses and security logs, to operate and protect their services. Provider-specific log retention and processing regions have not been independently verified.',
         },
         {
           title: 'Storage and retention limits',
-          body:
-            'The seven-day database purge is configured for enquiry records, but its first scheduled run has not yet been verified. The current Supabase plan does not include project backups. This prototype is not a place to store real enquiries, and it does not promise deletion or recovery of provider-held logs or account data.',
+          body: 'The seven-day database purge is configured for enquiry records, but its first scheduled run has not yet been verified. The current Supabase plan does not include project backups. This prototype is not a place to store real enquiries, and it does not promise deletion or recovery of provider-held logs or account data.',
         },
       ],
       contactTitle: 'Privacy questions',
@@ -1077,18 +1074,15 @@ export const translations: Record<Language, LanguageContent> = {
       sections: [
         {
           title: 'Gebruik slegs fiktiewe data',
-          body:
-            'Moenie regte name, e-posadresse, telefoonnommers, plaasbesonderhede of ander persoonlike of vertroulike inligting invoer nie. Die openbare navraagvorm en e-poskennisgewings vir navrae is gedeaktiveer.',
+          body: 'Moenie regte name, e-posadresse, telefoonnommers, plaasbesonderhede of ander persoonlike of vertroulike inligting invoer nie. Die openbare navraagvorm en e-poskennisgewings vir navrae is gedeaktiveer.',
         },
         {
           title: 'Spanaanmelding en tegniese data',
-          body:
-            'Spanaanmelding is slegs op uitnodiging. Indien ’n genooide spanlid aanmeld, verwerk Supabase Auth die rekening se e-posadres en stawingsdata. Vercel, Render en Supabase kan tegniese verbindingsdata, soos IP-adresse en sekuriteitslogboeke, verwerk om hul dienste te bedryf en te beskerm. Verskafferspesifieke logboekbewaring en verwerkingsstreke is nie onafhanklik bevestig nie.',
+          body: 'Spanaanmelding is slegs op uitnodiging. Indien ’n genooide spanlid aanmeld, verwerk Supabase Auth die rekening se e-posadres en stawingsdata. Vercel, Render en Supabase kan tegniese verbindingsdata, soos IP-adresse en sekuriteitslogboeke, verwerk om hul dienste te bedryf en te beskerm. Verskafferspesifieke logboekbewaring en verwerkingsstreke is nie onafhanklik bevestig nie.',
         },
         {
           title: 'Berging en bewaringsbeperkings',
-          body:
-            'Die sewedag-databasisverwydering is vir navraagrekords opgestel, maar die eerste geskeduleerde uitvoering is nog nie bevestig nie. Die huidige Supabase-plan sluit nie projekrugsteune in nie. Hierdie prototipe is nie bedoel om regte navrae te stoor nie en waarborg nie die verwydering of herstel van verskafferlogboeke of rekeningdata nie.',
+          body: 'Die sewedag-databasisverwydering is vir navraagrekords opgestel, maar die eerste geskeduleerde uitvoering is nog nie bevestig nie. Die huidige Supabase-plan sluit nie projekrugsteune in nie. Hierdie prototipe is nie bedoel om regte navrae te stoor nie en waarborg nie die verwydering of herstel van verskafferlogboeke of rekeningdata nie.',
         },
       ],
       contactTitle: 'Privaatheidsvrae',

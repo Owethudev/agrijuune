@@ -294,10 +294,7 @@ function SiteApp() {
             headingRef={headingRef}
           />
         ) : isPrivacyPage ? (
-          <PrivacyPage
-            copy={languageContent.privacy}
-            headingRef={headingRef}
-          />
+          <PrivacyPage copy={languageContent.privacy} headingRef={headingRef} />
         ) : (
           <div className="page-content card">
             <p className="page-eyebrow">Agrijuune</p>

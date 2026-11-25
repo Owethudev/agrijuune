@@ -98,9 +98,7 @@ describe('public application shell', () => {
     expect(
       screen.getByText(/not currently accepting public enquiries/i),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/do not enter real names/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/do not enter real names/i)).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: 'jezvestptyltd@gmail.com' }),
     ).toHaveAttribute('href', 'mailto:jezvestptyltd@gmail.com');
@@ -210,7 +208,9 @@ describe('public application shell', () => {
     ).toBeInTheDocument();
     expect(document.querySelector('#interest')).toBeInTheDocument();
     expect(
-      screen.getByText(/Do not enter real personal, farm or business information/i),
+      screen.getByText(
+        /Do not enter real personal, farm or business information/i,
+      ),
     ).toBeInTheDocument();
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
   });
@@ -307,7 +307,9 @@ describe('public application shell', () => {
       screen.getByText('Wat ontwikkel Agrijuune?').closest('summary'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Hierdie skoolprojekprototipe aanvaar nie openbare navrae/i),
+      screen.getByText(
+        /Hierdie skoolprojekprototipe aanvaar nie openbare navrae/i,
+      ),
     ).toBeInTheDocument();
   });
 
