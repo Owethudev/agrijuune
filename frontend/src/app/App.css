@@ -183,9 +183,36 @@ main:focus-visible {
 }
 
 .primary-navigation a {
+  position: relative;
   padding: var(--space-1-5);
   color: var(--agrijuune-navy);
   font-weight: var(--font-weight-semibold);
+}
+
+.primary-navigation a::after {
+  position: absolute;
+  right: var(--space-1-5);
+  bottom: 0.35rem;
+  left: var(--space-1-5);
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: 999px;
+  background: var(--agrijuune-red);
+  content: '';
+  transition: transform 240ms ease;
+}
+
+.primary-navigation a:hover::after,
+.primary-navigation a:focus-visible::after,
+.primary-navigation a[aria-current='page']::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-navigation a::after {
+    transition: none;
+  }
 }
 
 .primary-navigation__sign-out {
