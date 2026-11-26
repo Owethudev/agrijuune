@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { HomePageCopy, Language } from '../content/translations';
 import { DEMO_MACHINERY_RECORDS } from './demoData';
 import './DashboardPreview.css';
@@ -63,7 +64,7 @@ export function DashboardPreview({
     },
   ];
 
-  return (
+  const modal = (
     <div
       className="dashboard-preview__backdrop"
       role="presentation"
@@ -262,4 +263,6 @@ export function DashboardPreview({
       </div>
     </div>
   );
+
+  return createPortal(modal, document.body);
 }
